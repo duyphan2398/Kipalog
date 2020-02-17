@@ -31,7 +31,7 @@
                 <ul class="list-inline">
                     @guest
                     <li class="list-inline-item">
-                        <button class="btn"><a href="">Login</a></button>
+                        <button class="btn"><a href="/login">Login</a></button>
                     </li>
                     <li class="list-inline-item">
                         <button class="btn"><a href="/register">Register</a></button>
