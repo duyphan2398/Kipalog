@@ -1,5 +1,6 @@
 <?php
-
+use Illuminate\Support\Facades\Hash;
+use App\Admin;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,3 +19,14 @@ Route::get('register','RegisterController@index');
 Route::post("register", 'RegisterController@create');
 Route::get('login','LoginController@index');
 Route::post('login','LoginController@create');
+Route::get('logout','LoginController@logout');
+
+Route::get('/admin',function (){
+   $admin = new \App\Admin();
+   $admin->name = 'Duy Admin';
+    $admin->username = 'admin';
+    $admin->email = 'duyphan225@gmail.com';
+    $admin->avatar = 'images/default.png';
+    $admin->password = Hash::make('123');
+    $admin->save();
+});
