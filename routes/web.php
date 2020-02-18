@@ -22,13 +22,13 @@ Route::group(['middleware' => ['checklogin']], function ()
 {
     Route::get('register','RegisterController@index');
     Route::post("register", 'RegisterController@create');
-    Route::get('login','LoginController@index');
+    Route::get('login','LoginController@index')->name('login');
     Route::post('login','LoginController@create');
-    Route::get('logout','LoginController@logout');
-
 });
 
-Route::group(['middleware' => ['auth:admin']], function () {
+Route::get('logout','LoginController@logout')->middleware('auth');
+
+Route::group(['middleware' => ['checkadmin']], function () {
         Route::get('dashboard','Admin\AdminController@index');
 });
 

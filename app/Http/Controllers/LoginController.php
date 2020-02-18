@@ -30,7 +30,7 @@ class LoginController extends Controller
     public function logout(){
         if (Auth::check())
         {
-            Auth::logout();
+            Auth::guard()->logout();
         }
         else
         {
