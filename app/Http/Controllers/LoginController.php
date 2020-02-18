@@ -19,17 +19,23 @@ class LoginController extends Controller
 
         $credentials = $request->only('username', 'password');
         if (Auth::attempt($credentials)) {
-            dd(Auth::user(), Auth::check());
             return redirect('/');
         }
         if (Auth::guard('admin')->attempt($credentials)){
-            dd(Auth::user(), Auth::check());
+            return redirect('dashboard');
         }
         return redirect()->back()->withErrors('KHÔNG THỂ ĐĂNG NHẬP');
     }
 
     public function logout(){
-        Auth::logout();
+        if (Auth::check())
+        {
+            Auth::logout();
+        }
+        else
+        {
+            Auth::guard('admin')->logout();
+        }
         return redirect('login');
     }
 }

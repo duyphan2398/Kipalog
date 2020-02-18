@@ -1,3 +1,6 @@
+<?php
+use Illuminate\Support\Facades\Auth;
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,11 +23,13 @@
                     <li class="list-inline-item">
                         <a href="" class="navbar-brand"><h3>Kipalog</h3></a>
                     </li>
+                    @if(\Illuminate\Support\Facades\Auth::check())
                     <li class="list-inline-item">
                         <form class="form-inline">
                             <input class="form-control " type="search" placeholder="Search" aria-label="Search">
                         </form>
                     </li>
+                    @endif
                 </ul>
             </div>
             <div class="float-right mt-1">
