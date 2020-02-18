@@ -16,7 +16,7 @@ class RegisterController extends Controller
             'name' => 'required|max:255',
             'username' => 'required|unique:users|unique:admins',
             'email' => 'required|unique:users|email|unique:admins',
-            'password' => 'required',
+            'password' => "required|min:6|regex:/^(?=.*[a-zA-Z])(?=.*\d).+$/",
             'passwordConfirm' => 'required|same:password'
         ],[
             'username.unique' => 'USERNAME ĐÃ TỒN TẠI',

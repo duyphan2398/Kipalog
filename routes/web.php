@@ -13,16 +13,23 @@ use  App\Http\Controllers\Admin\AdminController;
 |
 */
 
-Route::get('/', function () {
+Route::get('/', function ()
+{
     return view('welcome');
 });
-Route::get('register','RegisterController@index');
-Route::post("register", 'RegisterController@create');
-Route::get('login','LoginController@index')->name('login');
-Route::post('login','LoginController@create');
-Route::get('logout','LoginController@logout');
 
+Route::group(['middleware' => ['checklogin']], function ()
+{
+    Route::get('register','RegisterController@index');
+    Route::post("register", 'RegisterController@create');
+    Route::get('login','LoginController@index');
+    Route::post('login','LoginController@create');
+    Route::get('logout','LoginController@logout');
 
-Route::group(['middleware' => ['auth:admin'],['prefix' => 'admin']], function () {
-    Route::get('dashboard','Admin\AdminController@index');
 });
+
+Route::group(['middleware' => ['auth:admin']], function () {
+        Route::get('dashboard','Admin\AdminController@index');
+});
+
+
