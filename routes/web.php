@@ -11,6 +11,16 @@
 |
 */
 
-Route::get('/', function () {
+Route::get('/', function ()
+{
     return view('welcome');
 });
+Route::group(['middleware' => ['checklogin']], function ()
+{
+    Route::get('register','RegisterController@index');
+    Route::post("register", 'RegisterController@create');
+    Route::get('login','LoginController@index');
+    Route::post('login','LoginController@create');
+});
+
+
