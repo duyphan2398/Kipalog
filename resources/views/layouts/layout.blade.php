@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Auth;
             <div class=" float-left">
                 <ul class="list-inline">
                     <li class="list-inline-item">
-                        <a href="" class="navbar-brand"><h3>Kipalog</h3></a>
+                        <a href="/" class="navbar-brand"><h3>Kipalog</h3></a>
                     </li>
                     @if(\Illuminate\Support\Facades\Auth::check())
                     <li class="list-inline-item">
@@ -40,6 +40,9 @@ use Illuminate\Support\Facades\Auth;
                     </li>
                     <li class="list-inline-item">
                         <button class="btn"><a href="/register">Register</a></button>
+                    </li>
+                    <li>
+                        <button class="btn"><a href="/resetpassword">Forgot Password</a></button>
                     </li>
                     @else
 
