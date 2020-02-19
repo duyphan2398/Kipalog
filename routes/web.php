@@ -24,6 +24,8 @@ Route::group(['middleware' => ['checklogin']], function ()
     Route::post("register", 'RegisterController@create');
     Route::get('login','LoginController@index')->name('login');
     Route::post('login','LoginController@create');
+    Route::get('resetpassword','ResetPasswordController@sendEmail');
+    Route::post('resetpassword','ResetPasswordController@resetPassword');
 });
 
 Route::get('logout','LoginController@logout')->middleware('auth');
