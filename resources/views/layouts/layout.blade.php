@@ -1,3 +1,6 @@
+<?php
+use Illuminate\Support\Facades\Auth;
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,11 +23,13 @@
                     <li class="list-inline-item">
                         <a href="" class="navbar-brand"><h3>Kipalog</h3></a>
                     </li>
+                    @if(\Illuminate\Support\Facades\Auth::check())
                     <li class="list-inline-item">
                         <form class="form-inline">
                             <input class="form-control " type="search" placeholder="Search" aria-label="Search">
                         </form>
                     </li>
+                    @endif
                 </ul>
             </div>
             <div class="float-right mt-1">
@@ -45,16 +50,16 @@
                         <button class="btn"><a href="#">Kho log</a></button>
                     </li>
                     <li class="list-inline-item">
-                        <img src="./images/download.jpg" alt="Avartar" style="vertical-align: middle;width: 50px;height: 50px;border-radius: 50%;">
+                        <img src="{{\Illuminate\Support\Facades\Auth::user()->avatar}}" alt="Avartar" style="vertical-align: middle;width: 50px;height: 50px;border-radius: 50%;">
                     </li>
                     <li class="list-inline-item">
                         <div class="dropdown">
-                            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">My name
+                            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">{{\Illuminate\Support\Facades\Auth::user()->name}}
                                 <span class="caret"></span></button>
                             <ul class="dropdown-menu">
                                 <li><a href="#">Trang ca nhan</a></li>
                                 <li><a href="#">Cai dat</a></li>
-                                <li><a href="#">Dang xuat</a></li>
+                                <li><a href="/logout">Dang xuat</a></li>
                             </ul>
                         </div>
                     </li>

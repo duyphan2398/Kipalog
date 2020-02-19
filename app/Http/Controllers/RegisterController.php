@@ -14,9 +14,9 @@ class RegisterController extends Controller
     public function create(Request $request){
         $request->validate([
             'name' => 'required|max:255',
-            'username' => 'required|unique:users',
-            'email' => 'required|unique:users|email',
-                'password' => "required|min:6|regex:/^(?=.*[a-zA-Z])(?=.*\d).+$/",
+            'username' => 'required|unique:users|unique:admins',
+            'email' => 'required|unique:users|email|unique:admins',
+            'password' => "required|min:6|regex:/^(?=.*[a-zA-Z])(?=.*\d).+$/",
             'passwordConfirm' => 'required|same:password'
         ],[
             'username.unique' => 'USERNAME ĐÃ TỒN TẠI',
