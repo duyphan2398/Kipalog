@@ -12,7 +12,7 @@
                     @csrf
                     <div class="form-group">
                         <label for="username">UserName</label>
-                        <input name="username" type="text" class="form-control" id="username"  placeholder="Enter Your UserName" required>
+                        <input  value="{{old('username')}}" name="username" type="text" class="form-control" id="username"  placeholder="Enter Your UserName" required>
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>

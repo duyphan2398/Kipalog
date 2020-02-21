@@ -12,15 +12,15 @@
                     @csrf
                     <div class="form-group">
                         <label for="name">Name</label>
-                        <input name="name" type="text" class="form-control" id="name"  placeholder="Enter Your Name" required>
+                        <input  value="{{old('name')}}"  name="name" type="text" class="form-control" id="name"  placeholder="Enter Your Name" required>
                     </div>
                     <div class="form-group">
                         <label for="username">UserName</label>
-                        <input name="username" type="text" class="form-control" id="username"  placeholder="Enter Your UserName" required>
+                        <input value="{{old('username')}}" name="username" type="text" class="form-control" id="username"  placeholder="Enter Your UserName" required>
                     </div>
                     <div class="form-group">
                         <label for="email">Email address</label>
-                        <input name="email" type="email" class="form-control" id="email"  placeholder="Enter email" required>
+                        <input value="{{old('email')}}" name="email" type="email" class="form-control" id="email"  placeholder="Enter email" required>
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>

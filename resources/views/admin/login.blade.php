@@ -12,7 +12,7 @@
                     @csrf
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input name="email" type="text" class="form-control" id="email"  placeholder="Enter Your Email" required>
+                        <input value="{{old('email')}}" name="email" type="text" class="form-control" id="email"  placeholder="Enter Your Email" required>
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
