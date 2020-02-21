@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+/*Check Request cho form đăng ký của user*/
 class RegisterRequest extends FormRequest
 {
     /**

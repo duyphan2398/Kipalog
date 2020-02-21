@@ -16,9 +16,7 @@ use  Illuminate\Http\Request;
 Route::get('/', function ()
 {
     return view('welcome');
-})/*->middleware('check.isnot.admin')*/;
-
-
+})->middleware('check.isnot.admin');
 
 /*Nhóm route xác thực người dùng, nếu login rồi thì không vào được nữa, kể cả admin lẫn User*/
 Route::group(['middleware' => ['check.login']], function ()

@@ -13,6 +13,7 @@ class CheckIsNotAdmin
      * @param  \Closure  $next
      * @return mixed
      */
+    /*Nếu là admin thì KHÔNG cho qua*/
     public function handle($request, Closure $next)
     {
         if (Auth::guard('admin')->user())

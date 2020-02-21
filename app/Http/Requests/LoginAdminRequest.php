@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+/*Check Request cho form đăng nhập của admin*/
 class LoginAdminRequest extends FormRequest
 {
     /**

@@ -14,6 +14,7 @@ class CheckLogin
      * @param  \Closure  $next
      * @return mixed
      */
+    /*Nếu đăng nhập rồi thì KHÔNG cho qua*/
     public function handle($request, Closure $next)
     {
         if (Auth::user()|| Auth::guard('admin')->user()) {

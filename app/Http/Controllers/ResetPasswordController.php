@@ -14,11 +14,13 @@ use Illuminate\Support\Carbon;
 class ResetPasswordController extends Controller
 {
     use SendsPasswordResetEmails;
+    /*Show form nhập email*/
     public function showLinkRequestForm()
     {
         return view('email.sendEmailForm');
     }
 
+    /*Xác thực email và tạo token*/
     public function sendResetLinkEmail(Request $request)
     {
         $this->validateEmail($request);
@@ -52,6 +54,7 @@ class ResetPasswordController extends Controller
         return redirect()->back();
     }
 
+    /*Gửi mail*/
     private function sendResetEmail($email, $token){
         $user = User::whereEmail($email)->first();
         $link = 'kipalog.test/resetpassword/form/'.$token.'/'.$user->email;
@@ -62,6 +65,7 @@ class ResetPasswordController extends Controller
         Mail::to($user->email)->send(new MailNotify($details));
     }
 
+    /*Trả về form resset password*/
     public function resetPasswordForm($token, $email){
         $row = DB::table('password_resets')->where('email', $email)->first();
         /*Nếu email có trong bảng password_resets thì đúng với điều kiện này*/
@@ -79,6 +83,8 @@ class ResetPasswordController extends Controller
         }
         return abort(404);
     }
+
+    /*Xác thực email và password gửi lên và thực hiện đổi mật khẩu*/
     public function resetPassword($token,$email,ResetPasswordRequest $request){
         $row = DB::table('password_resets')->where('email', $request->email)->first();
         /*Nếu email có trong bảng password_resets thì đúng với điều kiện này*/

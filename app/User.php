@@ -35,10 +35,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    /*Hash password*/
     public function setPasswordAttribute($password){
         $this->attributes['password'] = Hash::make($password);
     }
 
+    /*Insert link hình vào avatar của user*/
     public function setAvatarAttribute($link) {
         $this->attributes['avatar'] = $link;
     }

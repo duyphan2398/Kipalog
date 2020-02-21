@@ -3,7 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-
+/*Check Request cho form reset password */
 class ResetPasswordRequest extends FormRequest
 {
     /**

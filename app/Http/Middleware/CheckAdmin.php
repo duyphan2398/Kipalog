@@ -14,6 +14,7 @@ class CheckAdmin
      * @param  \Closure  $next
      * @return mixed
      */
+    /*Nếu là admin thì cho qua*/
     public function handle($request, Closure $next)
     {
         if (Auth::guard('admin')->user())

@@ -16,7 +16,6 @@ use Illuminate\Http\Request;
 /*Nhóm xác thực admin, nếu đăng nhập rồi thì không vào được*/
 Route::group(['middleware' => ['check.login']], function () {
     Route::get('login', 'LoginController@index');
-
     Route::post('login', 'LoginController@login')->name('postLogin');
 });
 
