@@ -3,31 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\RegisterRequest;
 class RegisterController extends Controller
 {
     public function index(){
         return view('auth.register');
     }
 
-    public function create(Request $request){
-        $request->validate([
-            'name' => 'required|max:255',
-            'username' => 'required|unique:users|unique:admins',
-            'email' => 'required|unique:users|email|unique:admins',
-            'password' => "required|min:6|regex:/^(?=.*[a-zA-Z])(?=.*\d).+$/",
-            'passwordConfirm' => 'required|same:password'
-        ],[
-            'username.unique' => 'USERNAME ĐÃ TỒN TẠI',
-            'email.unique' => 'EMAIL ĐÃ TỒN TẠI',
-            'email.email' => 'KHÔNG PHẢI EMAIL',
-            'passwordConfirm.same' => 'PASSWORD CONFIRM KHÔNG GIỐNG PASSWORD'
-        ]);
-
-        $request['password'] = Hash::make($request->password);
-        $request['avatar'] = 'images/default.png';
-        if (User::create($request->all())){
+    public function create(RegisterRequest $request){
+        $user = new User();
+        $user->fill(request()->all());
+        $user->avatar = 'images/default.png';
+        $user->password = request()->password;
+        if ($user->save()){
             session()->flash('status','ĐĂNG KÝ THÀNH CÔNG');
             return redirect('/login');
         }

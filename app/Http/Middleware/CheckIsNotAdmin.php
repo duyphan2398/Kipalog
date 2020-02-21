@@ -4,8 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
-
-class CheckAdmin
+class CheckIsNotAdmin
 {
     /**
      * Handle an incoming request.
@@ -18,8 +17,8 @@ class CheckAdmin
     {
         if (Auth::guard('admin')->user())
         {
-            return $next($request);
+            return redirect()->back();
         }
-        return  redirect()->back();;
+        return $next($request);
     }
 }

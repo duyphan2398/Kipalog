@@ -6,6 +6,7 @@
 </head>
 <body>
     <h1>Hello {{$details['name']}}, I am Kipalog</h1>
-    <h3>Your new password is: {{$details['password']}} </h3>
+    <h3>To reset the password , click here : </h3> <br>
+    <a href="{{$details['link']}}">{{$details['link']}}</a>
 </body>
 </html>

@@ -36,7 +36,7 @@ use Illuminate\Support\Facades\Auth;
                 <ul class="list-inline">
                     @guest
                     <li class="list-inline-item">
-                        <button class="btn"><a href="/login">Login</a></button>
+                        <button class="btn"><a href="{{route('login')}}">Login</a></button>
                     </li>
                     <li class="list-inline-item">
                         <button class="btn"><a href="/register">Register</a></button>
@@ -73,13 +73,14 @@ use Illuminate\Support\Facades\Auth;
     </nav>
 
     @yield('content')
-    @if(count($errors) >0)
+
+    @if( $errors->count() > 0)
         <div class="container">
             <div class="row">
                 <div class="row w-100">
                     <div class="alert alert-danger alert-dismissible fade show mb-4 mt-3 w-50" role="alert">
-                        @foreach($errors->all() as $error)
-                            <strong>{{$error}}</strong><br>
+                        @foreach($errors->messages() as $error)
+                            <strong>{{$error[0]}}</strong><br>
                         @endforeach
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
