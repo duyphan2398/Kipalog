@@ -13,10 +13,7 @@
 */
 use  Illuminate\Http\Request;
 /*Trang chính, nếu là admin thì không cho vào trang này*/
-Route::get('/', function ()
-{
-    return view('welcome');
-})->middleware('check.isnot.admin');
+Route::get('/', 'HomeController@index')->middleware('check.isnot.admin');
 
 /*Nhóm route xác thực người dùng, nếu login rồi thì không vào được nữa, kể cả admin lẫn User*/
 Route::group(['middleware' => ['check.login']], function ()
@@ -35,6 +32,7 @@ Route::group(['middleware' => ['check.login']], function ()
 Route::group(['middleware' => ['check.isnot.admin','auth']], function ()
 {
     Route::get('logout','LoginController@logout');
+    Route::get('user/posts', 'HomeController@myPost');
 });
 
 

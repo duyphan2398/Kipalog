@@ -6,7 +6,7 @@ use App\Http\Requests\LoginRequest;
 class LoginController extends Controller
 {
     public function index(){
-        return view('auth.login');
+        return view('user.auth.login');
     }
     public  function create(LoginRequest $request)
     {
