@@ -16,46 +16,39 @@
                     </b>
                     — Brian W. Kernighan
                 </p>
-                <button class="btn btn-dark">
-                    Bài viết hay
-                </button>
-                <button class="btn btn-dark">
+                <button class="btn btn-dark" id="baivietmoi">
                     Bài viết mới
                 </button>
-                <hr class="">
-                <div class="listContent">
+                <button class="btn btn-dark" id="baiviethay">
+                    Bài viết hay
+                </button>
+                <hr>
+                <div id="tabContent" class="container-fluid">
 
-                    <div class="container-fluid">
+                   {{-------------------------------------------------}}
+                    <div id="listContent">
 
-                        {{-----------------------------Content-----------------------------}}
-                        @foreach( $posts as $post)
-                        <div class="row">
-                            <div class="col-1 ">
-                                <img src="{{$post->user->avatar}}"  style="height: 50px;  border-radius: 50%;width: 50px">
-                            </div>
-                            <div class="col-11">
-                                <h3 style="overflow: hidden">
-                                    {{$post->title}}
-                                </h3>
-                                <div class="tag mb-1">
-                                    @foreach($post->tags as $tag)
-                                    <button class="btn btn-success">
-                                        {{$tag->name}}
-                                    </button>
-                                    @endforeach
-                                </div>
-                                <div class="content" style="overflow: hidden; height: 150px">
-                                    {{$post->content}}
-                                </div>
-                                <div>
-                                    By <a href="">{{$post->user->name}}</a>  vào 16 giay trước
-                                </div>
-                            </div>
-                        </div>
-                        <hr>
-                        @endforeach
-                        {{-----------------------------------------------}}
                     </div>
+
+                    {{-----------------------------------------------}}
+
+                    <div class="text-center mb-2"  id="ajax-loader" style="display: none">
+                        <img src="/images/ajax-loader.gif" alt="loading...">
+                    </div>
+
+
+                    <div id="buttonAddBaiVietHay" class="text-center" style="display: none">
+                        <button id= "addBaiVietHay"class="btn btn-primary w-75">
+                            Xem thêm
+                        </button>
+                    </div>
+
+                    <div id="buttonAddBaiVietMoi" class="text-center" style="display: block">
+                        <button id= "addBaiVietMoi"class="btn btn-primary w-75">
+                            Xem thêm
+                        </button>
+                    </div>
+
                 </div>
             </div>
             <div class="col-3">

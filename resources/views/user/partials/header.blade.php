@@ -7,8 +7,9 @@
                 </li>
                 @if(\Illuminate\Support\Facades\Auth::check())
                     <li class="list-inline-item">
-                        <form class="form-inline">
-                            <input class="form-control " type="search" placeholder="Search" aria-label="Search">
+                        <form id="searchForm" class="form-inline " style="width: 350px">
+                            @csrf
+                            <input id="searchInput" class="form-control w-100 " type="search" placeholder="Enter Search" aria-label="Search">
                         </form>
                     </li>
                 @endif
@@ -29,7 +30,7 @@
                 @else
 
                     <li class="list-inline-item">
-                        <button class="btn"><a href="#">Viết bài</a></button>
+                        <button class="btn"><a href="/newpost">Viết bài</a></button>
                     </li>
                     <li class="list-inline-item">
                         <button class="btn"><a href="user/posts">Kho log</a></button>

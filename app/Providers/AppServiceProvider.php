@@ -1,9 +1,8 @@
 <?php
 
 namespace App\Providers;
-
 use Illuminate\Support\ServiceProvider;
-
+use Illuminate\Database\Eloquent\Builder;
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -23,6 +22,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Builder::macro('whereLike', function ($attributes, string $searchInput){
+            foreach ( $attributes as $attribute) {
+                 $this->orWhere($attribute, 'LIKE', "%{$searchInput}%");
+            }
+            return $this;
+
+        });
     }
 }

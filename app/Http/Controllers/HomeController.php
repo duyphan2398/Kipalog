@@ -1,18 +1,94 @@
 <?php
 namespace App\Http\Controllers;
-use App\Http\Controllers\Controller;
 use App\Post;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Providers\AppServiceProvider;
 class HomeController extends Controller {
 
     public function index(){
-        $posts = Post::orderBy('created_at','desc')->get();
-        return view('welcome')->with('posts', $posts);
+        return view('welcome');
     }
+
 
     /*Show kho bài viết cá nhân*/
     public function myPost(){
         $posts = Post::whereUser_id(Auth::user()->id)->orderBy('created_at','desc')->get();
         return view('user.user.userPost')->with('posts', $posts);
+    }
+
+    /*Trả về các bài viết mới khi click vào button bai viết mới (Defaul khi load trang)*/
+    public function baiVietMoi(){
+        $posts = Post::orderBy('created_at','desc')->paginate(1);
+        $user = [];
+        $tags = [];
+        foreach ($posts as $post){
+            $user[$post->id] = $post->user;
+            $tags[$post->id] = $post->tags;
+        }
+        if ($posts) {
+            return response()->json([
+                'post' => $posts,
+                'user' => $user,
+                'tags' => $tags,
+                'status' => 'success'
+            ],200);
+        }
+        else {
+            return response()->json([
+                'status' => 'fail'
+            ],404);
+        }
+    }
+
+
+    /*Show bài viết hay*/
+    public function baiVietHay(){
+        $posts = Post::orderBy('created_at')->paginate(1);
+        $user = [];
+        $tags = [];
+        foreach ($posts as $post){
+            $user[$post->id] = $post->user;
+            $tags[$post->id] = $post->tags;
+        }
+        if ($posts) {
+            return response()->json([
+                'post' => $posts,
+                'user' => $user,
+                'tags' => $tags,
+                'status' => 'success'
+            ],200);
+        }
+        else {
+            return response()->json([
+                'status' => 'fail'
+            ],404);
+        }
+    }
+
+
+    public function search(Request $request){
+        if ($request->searchInput) {
+            $searchPosts = Post::query()->whereLike(['title','content'], $request->searchInput)->get();
+            foreach ($searchPosts as $post){
+                $user[$post->id] = $post->user;
+                $tags[$post->id] = $post->tags;
+            }
+            if ($searchPosts){
+                return response()->json([
+                    'searchPosts'=>$searchPosts,
+                    'tags'=>$tags,
+                    'user' => $user,
+                    'status' => 'success'
+
+                ],200);
+            }
+            else {
+                return response()->json([
+                    'status' => 'fail'
+                ],404);
+            }
+
+        }
     }
 }
