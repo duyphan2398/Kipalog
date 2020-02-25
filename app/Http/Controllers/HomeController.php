@@ -19,7 +19,7 @@ class HomeController extends Controller {
 
     /*Trả về các bài viết mới khi click vào button bai viết mới (Defaul khi load trang)*/
     public function baiVietMoi(){
-        $posts = Post::orderBy('created_at','desc')->paginate(1);
+        $posts = Post::orderBy('created_at','desc')->paginate(3);
         $user = [];
         $tags = [];
         foreach ($posts as $post){
@@ -44,7 +44,7 @@ class HomeController extends Controller {
 
     /*Show bài viết hay*/
     public function baiVietHay(){
-        $posts = Post::orderBy('created_at')->paginate(1);
+        $posts = Post::orderBy('created_at')->paginate(3);
         $user = [];
         $tags = [];
         foreach ($posts as $post){

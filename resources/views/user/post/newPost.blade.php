@@ -17,6 +17,7 @@
 @section('content')
 
     <form class="m-5" id="newPostForm" >
+        @csrf
         <div class="form-group">
             <label for="title">Enter Title: </label>
             <input type="text" name="title" id="title" class="form-control" />

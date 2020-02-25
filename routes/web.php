@@ -22,6 +22,7 @@ Route::group(['prefix' =>'ajax'], function (){
     Route::post('search','HomeController@search');
 
     Route::get('tags','AjaxController@getTags');
+    Route::post('newpost', 'AjaxController@postTags');
 
 });
 /*Nhóm route xác thực người dùng, nếu login rồi thì không vào được nữa, kể cả admin lẫn User*/
