@@ -1,8 +1,11 @@
 @extends('user.layouts.layout')
 
 @section('script-link')
-    <script  type="text/javascript" src="{{asset("js/comment.js")}}">
+    <script>
+        var user_id = "{{$authUser->id}}";
     </script>
+    <script  type="text/javascript" src="{{asset("js/comment.js")}}"></script>
+
 @endsection
 
 @section('content')
@@ -63,51 +66,7 @@
                         </div>
                     </div>
                     <div class="row" id="listComments">
-                        {{--Cmt--------------------------------------}}
-                        <div>
-                            <ul class="list-inline">
-                                <li class="list-inline-item">
-                                    <img src="../{{$post->user->avatar}}" alt="avatar" style="height: 50px;  border-radius: 50%;width: 50px">
-                                </li>
-                                <li class=" list-inline-item" >
-                                    <div class="container-fluid">
-                                        <div class="row mb-1">
-                                            <small>Duyphan 2398 (23/11/1998)</small>
-                                        </div>
-                                        <div  style="background-color:#20202030; border-radius: 15px; border: 1px solid #11a0d5 " class="row">
-                                            <div style="width: 600px" class="p-2">
-                                                Bai viết hay quá
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="list-inline-item" style="height: 50px;  border-radius: 50%;width: 50px">
-                                </li>
-                            </ul>
-                        </div>
-                        <div>
-                            <ul class="list-inline">
-                                <li class="list-inline-item" style="height: 50px;  border-radius: 50%;width: 50px">
-                                </li>
-                                <li class=" list-inline-item" >
-                                    <div class="container-fluid">
-                                        <div class="row mb-1 ">
-                                            <div class="col text-right">
-                                                <small>Duyphan 2398 (23/11/1998)</small>
-                                            </div>
-                                        </div>
-                                        <div  style="background-color:#20202030; border-radius: 15px; border: 1px solid #11a0d5 " class="row clearfix">
-                                            <div style="width: 600px" class="p-2">
-                                                Bai viết hay quá
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="list-inline-item">
-                                    <img src="../{{$post->user->avatar}}" alt="avatar" style="height: 50px;  border-radius: 50%;width: 50px">
-                                </li>
-                            </ul>
-                        </div>
+                        {{--Cmt----------------------------------------------}}
                         {{--cmt----------------------------------------------}}
                     </div>
                 </div>

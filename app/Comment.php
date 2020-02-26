@@ -4,7 +4,6 @@ namespace App;
 
 use App\Traits\AddUser;
 use Illuminate\Database\Eloquent\Model;
-
 class Comment extends Model
 {
     use AddUser;
@@ -14,11 +13,7 @@ class Comment extends Model
         'post_id'
     ];
 
-    public function user(){
-        $this->belongsTo(User::class, 'user_id');
-    }
-
     public function post(){
-        $this->belongsTo(User::class, 'post_id');
+        $this->belongsTo(Post::class, 'post_id');
     }
 }

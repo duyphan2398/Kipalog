@@ -59,7 +59,9 @@ class AjaxController extends Controller
          $comment->setUserIdAttribute(Auth::id());
          if ($comment->save()){
              return response()->json([
-                 'status' => 'success'
+                 'status' => 'success',
+                 'comment' => $comment,
+                 'user' => $comment->user
              ],201);
          }
          else{
@@ -73,8 +75,13 @@ class AjaxController extends Controller
         $post = Post::find($request->post_id);
         $comments = $post->comments;
         $comments = $comments->sortByDesc('created_at');
+        $users = [];
+        foreach ($comments as $comment){
+            $users[$comment->id] = $comment->user;
+        }
         return response()->json([
-            'comments' => $comments
+            'comments' => $comments,
+            'users' => $users
         ],200);
     }
 
