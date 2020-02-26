@@ -16,12 +16,7 @@
                     </b>
                     — Brian W. Kernighan
                 </p>
-                <button class="btn btn-dark">
-                    Bài viết hay
-                </button>
-                <button class="btn btn-dark">
-                    Bài viết mới
-                </button>
+
                 <hr class="">
                 <div class="listContent">
 
@@ -71,10 +66,7 @@
                                     {{\Illuminate\Support\Facades\Auth::user()->name}}
                                 </h4>
                                 <div>
-                                    <a href="#">0</a> Bai viet
-                                </div>
-                                <div>
-                                    <a href="#">0</a> Người theo dõi
+                                    <a href="/myPosts">{{\Illuminate\Support\Facades\Auth::user()->posts->count()}}</a> Bai viet
                                 </div>
                             </div>
                             <hr>

@@ -1,3 +1,6 @@
+<?php
+use Illuminate\Http\Request;
+?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
     <div class="container">
         <div class=" float-left">
@@ -5,14 +8,7 @@
                 <li class="list-inline-item">
                     <a href="/" class="navbar-brand"><h3>Kipalog</h3></a>
                 </li>
-                @if(\Illuminate\Support\Facades\Auth::check())
-                    <li class="list-inline-item">
-                        <form id="searchForm" class="form-inline " style="width: 350px">
-                            @csrf
-                            <input id="searchInput" class="form-control w-100 " type="search" placeholder="Enter Search" aria-label="Search">
-                        </form>
-                    </li>
-                @endif
+                @yield('searchForm')
             </ul>
         </div>
         <div class="float-right mt-1">
@@ -33,10 +29,10 @@
                         <button class="btn"><a href="/newpost">Viết bài</a></button>
                     </li>
                     <li class="list-inline-item">
-                        <button class="btn"><a href="user/posts">Kho log</a></button>
+                        <button class="btn"><a href="myPosts">Kho log</a></button>
                     </li>
                     <li class="list-inline-item">
-                        <img src="{{\Illuminate\Support\Facades\Auth::user()->avatar}}" alt="Avartar" style="vertical-align: middle;width: 50px;height: 50px;border-radius: 50%;">
+                        <img src="{{asset(\Illuminate\Support\Facades\Auth::user()->avatar)}}" alt="Avartar" style="vertical-align: middle;width: 50px;height: 50px;border-radius: 50%;">
                     </li>
                     <li class="list-inline-item">
                         <div class="dropdown">

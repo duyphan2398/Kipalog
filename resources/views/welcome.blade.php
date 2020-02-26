@@ -1,12 +1,20 @@
 @extends('user.layouts.layout')
 
+@section('searchForm')
+    <li class="list-inline-item">
+        <form id="searchForm" class="form-inline " style="width: 350px">
+            @csrf
+            <input id="searchInput" class="form-control w-100 " type="search" placeholder="Enter Search" aria-label="Search">
+        </form>
+    </li>
+@endsection
+
 @section('content')
     <div class="container w-100">
         <div class="row w-100">
             <h4 class="text-center">Welcome to my Kipalog</h4>
         </div>
     </div>
-
     <div class="container">
         <div class="row">
             <div class="col-9">
@@ -64,10 +72,7 @@
                                 {{\Illuminate\Support\Facades\Auth::user()->name}}
                             </h4>
                             <div>
-                                <a href="#">0</a> Bai viet
-                            </div>
-                            <div>
-                                <a href="#">0</a> Người theo dõi
+                                <a href="/myPosts">{{\Illuminate\Support\Facades\Auth::user()->posts->count()}}</a> Bai viet
                             </div>
                         </div>
                         <hr>

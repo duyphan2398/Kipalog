@@ -12,7 +12,7 @@ class LoginController extends Controller
     {
         $credentials = $request->only('username', 'password');
         if (Auth::attempt($credentials)) {
-            return redirect('/');
+            return view('welcome');
         }
         return redirect()->back()->withErrors('KHÔNG THỂ ĐĂNG NHẬP');
     }

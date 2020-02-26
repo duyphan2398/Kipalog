@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Comment;
+use App\Http\Requests\NewCommentRequest;
 use App\Http\Requests\NewPostRequest;
 use App\Post;
 use App\Tag;
+use GuzzleHttp\Psr7\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -49,4 +52,30 @@ class AjaxController extends Controller
             'status' => 'fails'
         ],404);
     }
+
+    public function newComment(NewCommentRequest $request){
+         $comment = new  Comment();
+         $comment->fill($request->all());
+         $comment->setUserIdAttribute(Auth::id());
+         if ($comment->save()){
+             return response()->json([
+                 'status' => 'success'
+             ],201);
+         }
+         else{
+             return response()->json([
+                 'status' => 'fail'
+             ],400);
+         }
+    }
+
+    public function getComments(){
+        $comment = Comment::all();
+        return response()->json([
+            'comments' => $comment
+        ],200);
+    }
+
+
+
 }

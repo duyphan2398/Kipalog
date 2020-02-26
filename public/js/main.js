@@ -25,9 +25,9 @@ $(document).ready(function () {
                                 <img src="`+ result.user[post.id].avatar +`"  style="height: 50px;  border-radius: 50%;width: 50px">
                             </div>
                             <div class="col-11">
-                                <h3 style="overflow: hidden">`
-                            + post.title +
-                            `</h3>
+                                <h3 style="overflow: hidden">
+                                <a href="viewpost/`+post.id+`">` + post.title +`</a>
+                                </h3>
                                 <div class="tag mb-1">`;
                         result.tags[post.id].forEach(function (tag) {
                             outputBaiVietMoi += `<button class="btn btn-success mr-2">
@@ -35,11 +35,11 @@ $(document).ready(function () {
                                     </button>`;
                         });
                         outputBaiVietMoi +=   `</div>
-                                <div class="content" style="overflow: hidden; height: 150px">
+                                <div class="content" style="overflow: hidden; height: 100px">
                                     `+ post.content +`
                                 </div>
                                 <div>
-                                    By <a href="">`+ result.user[post.id].name +`</a>  vào 16 giay trước
+                                    By <a href="">`+ result.user[post.id].name +`</a>  vào lúc `+ post.created_at +`
                                 </div>
                             </div>
                         </div>
@@ -80,9 +80,9 @@ $(document).ready(function () {
                                 <img src="`+ result.user[post.id].avatar +`"  style="height: 50px;  border-radius: 50%;width: 50px">
                             </div>
                             <div class="col-11">
-                                <h3 style="overflow: hidden">`
-                            + post.title +
-                            `</h3>
+                                <h3 style="overflow: hidden">
+                                <a href="viewpost/`+post.id+`">`+ post.title +`</a>
+                                </h3>
                                 <div class="tag mb-1">`;
                         result.tags[post.id].forEach(function (tag) {
                             outputBaiVietHay += `<button class="btn btn-success mr-2">
@@ -90,11 +90,11 @@ $(document).ready(function () {
                                     </button>`;
                         });
                         outputBaiVietHay +=   `</div>
-                                <div class="content" style="overflow: hidden; height: 150px">
+                                <div class="content" style="overflow: hidden; height: 100px">
                                     `+ post.content +`
                                 </div>
                                 <div>
-                                    By <a href="">`+ result.user[post.id].name +`</a>  vào 16 giay trước
+                                    By <a href="">`+ result.user[post.id].name +`</a>  vào lúc `+ post.created_at +`
                                 </div>
                             </div>
                         </div>
@@ -167,9 +167,9 @@ $(document).ready(function () {
                                 <img src="`+ result.user[post.id].avatar +`"  style="height: 50px;  border-radius: 50%;width: 50px">
                             </div>
                             <div class="col-11">
-                                <h3 style="overflow: hidden">`
-                            + post.title +
-                            `</h3>
+                                <h3 style="overflow: hidden">
+                                <a href="viewpost/`+post.id+`">`+post.title+`</a>
+                                </h3>
                                 <div class="tag mb-1">`;
                         result.tags[post.id].forEach(function (tag) {
                             outputSearch += `<button class="btn btn-success mr-2">
@@ -177,11 +177,11 @@ $(document).ready(function () {
                                     </button>`;
                         });
                         outputSearch +=   `</div>
-                                <div class="content" style="overflow: hidden; height: 150px">
+                                <div class="content" style="overflow: hidden; height: 100px">
                                     `+ post.content +`
                                 </div>
                                 <div>
-                                    By <a href="">`+ result.user[post.id].name +`</a>  vào 16 giay trước
+                                    By <a href="">`+ result.user[post.id].name +`</a>  vào lúc `+ post.created_at +`
                                 </div>
                             </div>
                         </div>

@@ -1,10 +1,10 @@
 $(document).ready(function() {
     let tags = [];
-
     axios.get('ajax/tags').then(result =>{
         result.data.forEach(function (tag) {
             tags.push(tag.name);
         });
+
         $('#tags').tokenfield({
             autocomplete: {
                 source:  tags,
@@ -12,9 +12,18 @@ $(document).ready(function() {
             },
             showAutocompleteOnFocus: true
         });
+
+        $('#tags')
+            .on('tokenfield:createtoken', function (e) {
+                console.log(e);
+                let existTokens = $(this).tokenfield('getTokens');
+                $.each(existTokens, function (index, token) {
+                    if (token.value === e.attrs.value) {
+                        e.preventDefault();
+                    }
+                })
+            })
     });
-
-
     var validator = $('#newPostForm').validate({
         rules: {
             title: "required",
@@ -33,10 +42,13 @@ $(document).ready(function() {
             e.preventDefault();
             let title = $('#title').val();
             let thisTags = $('#tags').val();
-            let arrayTags = thisTags.split(",");
+
+            let arrayTagsFillter = thisTags.split(",");
+            let arrayTags = arrayTagsFillter.filter((element, indexOfElement) => {
+                return indexOfElement === arrayTagsFillter.indexOf(element);
+            });
             let content = $('#content').val();
             let token = document.head.querySelector('meta[name="csrf-token"]');
-            console.log(token);
             if (token) {
                 window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
                 axios.post('/ajax/newpost', {
@@ -45,6 +57,7 @@ $(document).ready(function() {
                     content
                 })
                     .then(function (response) {
+                        $("#newPostForm").trigger("reset");
                         alert('Tạo thành công');
                     })
                     .catch(function (error) {

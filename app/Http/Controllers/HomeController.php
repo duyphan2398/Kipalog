@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 use App\Post;
+use App\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Providers\AppServiceProvider;
@@ -13,8 +14,8 @@ class HomeController extends Controller {
 
     /*Show kho bài viết cá nhân*/
     public function myPost(){
-        $posts = Post::whereUser_id(Auth::user()->id)->orderBy('created_at','desc')->get();
-        return view('user.user.userPost')->with('posts', $posts);
+        $posts = Post::whereUser_id(Auth::id())->orderBy('created_at','desc')->get();
+        return view('user.wall_user.userPost')->with('posts', $posts);
     }
 
     /*Trả về các bài viết mới khi click vào button bai viết mới (Defaul khi load trang)*/

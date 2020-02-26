@@ -13,7 +13,14 @@
 */
 use  Illuminate\Http\Request;
 /*Trang chính, nếu là admin thì không cho vào trang này*/
-Route::get('/', 'HomeController@index')->middleware('check.isnot.admin');
+
+Route::group(['middleware' => ['check.isnot.admin']], function (){
+    Route::get('/', 'HomeController@index')->middleware('check.isnot.admin');
+    Route::get('viewpost/{post}','PostController@viewPost');
+
+});
+
+
 
 /*Nhóm routes thao tác trên trang chính và để gọi ajax*/
 Route::group(['prefix' =>'ajax'], function (){
@@ -23,6 +30,8 @@ Route::group(['prefix' =>'ajax'], function (){
 
     Route::get('tags','AjaxController@getTags');
     Route::post('newpost', 'AjaxController@postTags');
+    Route::post('newcomment', 'AjaxController@newComment');
+    Route::get('getcomments', 'AjaxController@getComments');
 
 });
 /*Nhóm route xác thực người dùng, nếu login rồi thì không vào được nữa, kể cả admin lẫn User*/
@@ -43,13 +52,8 @@ Route::group(['middleware' => ['check.login']], function ()
 Route::group(['middleware' => ['check.isnot.admin','auth']], function ()
 {
     Route::get('logout','LoginController@logout');
-    Route::get('user/posts', 'HomeController@myPost');
+    Route::get('myPosts', 'HomeController@myPost');
     Route::get('newpost','PostController@index');
-    Route::post('newpost',function (Request $request) {
-        dd($request->skill);
-    });
-
-
 
 });
 
