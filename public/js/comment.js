@@ -1,9 +1,35 @@
 $(document).ready(function() {
+    let url = window.location.href;
+    let  urlSplit = url.split('/');
+    let post_id = urlSplit[urlSplit.length - 1];
 
     axios.get('/ajax/getcomments',{
+        params: {
+            post_id: post_id
+        }
     }). then(function (response) {
-        console.log(response);
+        console.log(typeof (response.data.comments));
+        $('#listComments').empty();
+        var arrayResult = $.map(response.data.comments, function(value, index) {
+            return [value];
+        });
+        arrayResult.forEach(function (comment) {
+            if (comment.user_id ){
+                console.log("dsaddsds");
+
+            }
+            else
+            {
+                console.log("0000");
+            }
+        });
+
     });
+
+
+
+
+
 
 
 

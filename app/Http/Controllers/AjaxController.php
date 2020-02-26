@@ -7,7 +7,7 @@ use App\Http\Requests\NewCommentRequest;
 use App\Http\Requests\NewPostRequest;
 use App\Post;
 use App\Tag;
-use GuzzleHttp\Psr7\Request;
+use  Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
@@ -69,10 +69,12 @@ class AjaxController extends Controller
          }
     }
 
-    public function getComments(){
-        $comment = Comment::all();
+    public function getComments(Request $request){
+        $post = Post::find($request->post_id);
+        $comments = $post->comments;
+        $comments = $comments->sortByDesc('created_at');
         return response()->json([
-            'comments' => $comment
+            'comments' => $comments
         ],200);
     }
 
