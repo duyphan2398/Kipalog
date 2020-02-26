@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 use App\Post;
 
@@ -11,6 +12,7 @@ class PostController extends Controller
     }
 
     public function viewPost(Post $post){
+        $user = new User();
         if (Auth::check()){
             $user = Auth::user();
         }

@@ -4,8 +4,8 @@
     <script>
         var user_id = "{{$authUser->id}}";
     </script>
+    <script src="https://js.pusher.com/5.1/pusher.min.js"></script>
     <script  type="text/javascript" src="{{asset("js/comment.js")}}"></script>
-
 @endsection
 
 @section('content')
@@ -49,6 +49,7 @@
                             <div style="background-color: #0AA5DF;" class="row mb-4">
                                 <h4 class="m-2">Bình Luận</h4>
                             </div>
+                            @if(\Illuminate\Support\Facades\Auth::check())
                             <div class="row">
                                 <ul class="list-inline">
                                     <li class="list-inline-item">
@@ -63,6 +64,7 @@
                                     </li>
                                 </ul>
                             </div>
+                            @endif
                         </div>
                     </div>
                     <div class="row" id="listComments">
@@ -70,7 +72,6 @@
                         {{--cmt----------------------------------------------}}
                     </div>
                 </div>
-
             </div>
             <div class="col-3">
                 {{----------------------------------------------}}
@@ -84,7 +85,7 @@
                                 {{$post->user->name}}
                             </h4>
                             <div>
-                                <a href="/myPosts">{{\Illuminate\Support\Facades\Auth::user()->posts->count()}}</a> Bai viet
+                                <a href="/myPosts">{{$post->user->posts->count()}}</a> Bai viet
                             </div>
                         </div>
                         <hr>

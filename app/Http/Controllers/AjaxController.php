@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
+use App\Events\CommentRealtime;
 use App\Http\Requests\NewCommentRequest;
 use App\Http\Requests\NewPostRequest;
 use App\Post;
@@ -58,6 +59,7 @@ class AjaxController extends Controller
          $comment->fill($request->all());
          $comment->setUserIdAttribute(Auth::id());
          if ($comment->save()){
+             event(new CommentRealtime($comment, $comment->user));
              return response()->json([
                  'status' => 'success',
                  'comment' => $comment,

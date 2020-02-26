@@ -3,6 +3,68 @@ $(document).ready(function() {
     let  urlSplit = url.split('/');
     let post_id = urlSplit[urlSplit.length - 1];
     let output = ``;
+    Pusher.logToConsole = true;
+    var pusher = new Pusher('5e1689f8ea39fd6cd5e6', {
+        cluster: 'ap1',
+        forceTLS: true
+    });
+    var channel = pusher.subscribe('cmt');
+    channel.bind('cmt-event', function(data) {
+        let comment = data.comment;
+        if (comment.user_id != user_id){
+            output = `<div>
+                <ul class="list-inline">
+                    <li class="list-inline-item" style="height: 50px;  border-radius: 50%;width: 50px">
+                    </li>
+                    <li class=" list-inline-item" >
+                    <div class="container-fluid">
+                    <div class="row mb-1 ">
+                    <div class="col text-right">
+                    `+comment.user.name+ ` `+ comment.created_at +`</small>
+                </div>
+                </div>
+                <div  style="background-color:#20202030; border-radius: 15px; border: 1px solid #11a0d5 " class="row clearfix">
+                    <div style="width: 600px" class="p-2">
+                    `+ comment.content +`
+                </div>
+                </div>
+                </div>
+                </li>
+                <li class="list-inline-item">
+                    <img src="../`+ comment.user.avatar +`" alt="avatar" style="height: 50px;  border-radius: 50%;width: 50px">
+                    </li>
+                    </ul>
+                    </div>`;
+
+            $('#listComments').prepend(output);
+        }
+        else
+        {
+             output = `<div>
+                          <ul class="list-inline">
+                              <li class="list-inline-item">
+                                  <img src="../`+ comment.user.avatar +`" alt="avatar" style="height: 50px;  border-radius: 50%;width: 50px">
+                              </li>
+                              <li class=" list-inline-item" >
+                                  <div class="container-fluid">
+                                      <div class="row mb-1">
+                                          <small> <strong>Me</strong>  `+ comment.created_at +`</small>
+                                      </div>
+                                      <div  style="background-color:#20202030; border-radius: 15px; border: 1px solid #11a0d5 " class="row">
+                                          <div style="width: 600px" class="p-2">
+                                               `+ comment.content +`
+                                          </div>
+                                      </div>
+                                  </div>
+                              </li>
+                              <li class="list-inline-item" style="height: 50px;  border-radius: 50%;width: 50px">
+                              </li>
+                          </ul>
+                      </div>`;
+            $('#listComments').prepend(output);
+        }
+    });
+
     axios.get('/ajax/getcomments',{
         params: {
             post_id: post_id
@@ -73,9 +135,7 @@ $(document).ready(function() {
 
     $('#formComment').submit(function (e) {
         e.preventDefault();
-
         let content = $('#comment').val();
-        console.log(content);
         if (content.length != 0 ){
             $('#formComment').trigger("reset");
             let url = window.location.href;
@@ -89,29 +149,7 @@ $(document).ready(function() {
                     post_id
                 })
                     .then(function (response) {
-                        let comment = response.data.comment;
-                        let  outputAdd = `<div>
-                            <ul class="list-inline">
-                                <li class="list-inline-item">
-                                    <img src="../`+ comment.user.avatar +`" alt="avatar" style="height: 50px;  border-radius: 50%;width: 50px">
-                                </li>
-                                <li class=" list-inline-item" >
-                                    <div class="container-fluid">
-                                        <div class="row mb-1">
-                                            <small> <strong>Me</strong>  `+ comment.created_at +`</small>
-                                        </div>
-                                        <div  style="background-color:#20202030; border-radius: 15px; border: 1px solid #11a0d5 " class="row">
-                                            <div style="width: 600px" class="p-2">
-                                                 `+ comment.content +`
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                <li class="list-inline-item" style="height: 50px;  border-radius: 50%;width: 50px">
-                                </li>
-                            </ul>
-                        </div>`;
-                        $('#listComments').prepend(outputAdd);
+                        return;
                     })
                     .catch(function (error) {
                         alert('Tạo KHÔNG thành công');
@@ -127,3 +165,5 @@ $(document).ready(function() {
     });
 
 });
+
+
