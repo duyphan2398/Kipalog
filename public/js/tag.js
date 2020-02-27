@@ -7,7 +7,7 @@ let lastPageTag = 0;
 
 $(document).ready(function() {
     $("#addMore").click(function () {
-        axios.get('/ajax/getPostTag/'+ tag_id, {
+        axios.get(location.origin +'/ajax/getPostTag/'+ tag_id, {
                 params: {
                     page: currentPageTag
                 }
@@ -23,16 +23,16 @@ $(document).ready(function() {
             response.data.posts.data.forEach(function (post) {
                 output = `<div class="row">
                             <div class="col-1 ">
-                                <img src="../`+post.user.avatar +`"  style="height: 50px;  border-radius: 50%;width: 50px">
+                                <img src="`+location.origin+`/`+post.user.avatar +`"  style="height: 50px;  border-radius: 50%;width: 50px">
                             </div>
                             <div class="col-11 " style="word-wrap: break-word;">
                                 <h3 class="p-2">
-                                <a href="viewpost/`+post.id+`">` + post.title +`</a>
+                                <a href="`+location.origin +`/viewpost/`+post.id+`">` + post.title +`</a>
                                 </h3>
                                 <div class="tag mb-1">`;
                 post.tags.forEach(function (tag) {
                     output += `<button class="btn btn-success mr-2">
-                                   <a href="/tag/`+tag.id+`">
+                                   <a href="`+location.origin+`/tag/`+tag.id+`">
                                           `+ tag.name +`
                                    </a>
                                </button>`;

@@ -61,30 +61,8 @@
             </div>
             <div class="col-3">
                 {{----------------------------------------------}}
-                @if(\Illuminate\Support\Facades\Auth::user())
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-3">
-                            <img src="{{\Illuminate\Support\Facades\Auth::user()->avatar}}" alt="" style="height: 50px;  border-radius: 50%;width: 50px">
-                        </div>
-                        <div class="col-8">
-                            <h4>
-                                {{\Illuminate\Support\Facades\Auth::user()->name}}
-                            </h4>
-                            <div>
-                                <a href="/myPosts">{{\Illuminate\Support\Facades\Auth::user()->posts->count()}}</a> Bai viet
-                            </div>
-                        </div>
-                        <hr>
-                    </div>
-
-                    <div class="row mt-1">
-                        <h4><i>Chủ đề nổi bật</i></h4>
-                        <div id="chuDeNoiBat">
-
-                        </div>
-                    </div>
-                </div>
+                @if(\Illuminate\Support\Facades\Auth::check())
+                    @include("user.partials.chuDeNoiBat")
                 @endif
                 {{-------------------------------------}}
             </div>

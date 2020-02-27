@@ -1,6 +1,6 @@
 $(document).ready(function() {
     let tags = [];
-    axios.get('ajax/tags').then(result =>{
+    axios.get(location.origin +'/ajax/tags').then(result =>{
         result.data.forEach(function (tag) {
             tags.push(tag.name);
         });
@@ -15,7 +15,6 @@ $(document).ready(function() {
 
         $('#tags')
             .on('tokenfield:createtoken', function (e) {
-                console.log(e);
                 let existTokens = $(this).tokenfield('getTokens');
                 $.each(existTokens, function (index, token) {
                     if (token.value === e.attrs.value) {
@@ -35,14 +34,13 @@ $(document).ready(function() {
             tags: "CHỌN ÍT NHẤT 1 TAG",
             content: "VUI LÒNG NHẬP NỘI DUNG"
         }
-    })
+    });
 
     $('#newPostForm').submit(function (e) {
         if (validator.form()) {
             e.preventDefault();
             let title = $('#title').val();
             let thisTags = $('#tags').val();
-
             let arrayTagsFillter = thisTags.split(",");
             let arrayTags = arrayTagsFillter.filter((element, indexOfElement) => {
                 return indexOfElement === arrayTagsFillter.indexOf(element);
@@ -51,7 +49,7 @@ $(document).ready(function() {
             let token = document.head.querySelector('meta[name="csrf-token"]');
             if (token) {
                 window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
-                axios.post('/ajax/newpost', {
+                axios.post(location.origin +'/ajax/newpost', {
                     title,
                     arrayTags,
                     content
@@ -66,10 +64,8 @@ $(document).ready(function() {
             } else {
                 console.error('CSRF token not found ! ');
             }
-
         }
     });
-
 });
 
 

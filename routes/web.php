@@ -21,13 +21,11 @@ Route::group(['middleware' => ['check.isnot.admin']], function (){
 
 });
 
-
-
 /*Nhóm routes thao tác trên trang chính và để gọi ajax*/
 Route::group(['prefix' =>'ajax'], function (){
     Route::get('baivietmoi','HomeController@baiVietMoi');
     Route::get('baiviethay','HomeController@baiVietHay');
-    Route::post('search','HomeController@search');
+    Route::get('search','HomeController@search');
 
     Route::get('tags','AjaxController@getTags');
     Route::post('newpost', 'AjaxController@postTags');

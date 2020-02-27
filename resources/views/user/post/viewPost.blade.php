@@ -53,7 +53,7 @@
                             <div class="row">
                                 <ul class="list-inline">
                                     <li class="list-inline-item">
-                                        <img src="../{{$post->user->avatar}}" alt="avatar" style="height: 50px;  border-radius: 50%;width: 50px">
+                                        <img src="{{asset($post->user->avatar)}}" alt="avatar" style="height: 50px;  border-radius: 50%;width: 50px">
                                     </li>
                                     <li class=" list-inline-item" >
                                         <form  id="formComment" class="form-inline">
@@ -82,29 +82,7 @@
             </div>
             <div class="col-3">
                 {{----------------------------------------------}}
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-3">
-                            <img src="../{{$post->user->avatar}}" alt="" style="height: 50px;  border-radius: 50%;width: 50px">
-                        </div>
-                        <div class="col-8">
-                            <h4>
-                                {{$post->user->name}}
-                            </h4>
-                            <div>
-                                <a href="/myPosts">{{$post->user->posts->count()}}</a> Bai viet
-                            </div>
-                        </div>
-                        <hr>
-                    </div>
-
-                    <div class="row mt-1">
-                        <h4><i>Chủ đề nổi bật</i></h4>
-                        <div id="chuDeNoiBat" >
-
-                        </div>
-                    </div>
-                </div>
+                @include("user.partials.chuDeNoiBat",['post'=>$post])
                 {{-------------------------------------}}
             </div>
         </div>

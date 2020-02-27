@@ -13,7 +13,7 @@ $(document).ready(function () {
             $('#buttonAddBaiVietMoi').removeAttr("style").hide(),
             $('#ajax-loader').show(),
             $.ajax({
-                url: 'ajax/baivietmoi?page='+pageBaiVietMoi,
+                url: location.origin +'/ajax/baivietmoi?page='+pageBaiVietMoi,
                 type: 'GET',
                 success: function (result) {
                     result.post.data.forEach(function (post){
@@ -70,7 +70,7 @@ $(document).ready(function () {
             $('#ajax-loader').show(),
             $('#buttonAddBaiVietHay').removeAttr("style").hide(),
             $.ajax({
-                url: 'ajax/baiviethay?page='+pageBaiVietHay,
+                url: location.origin +'/ajax/baiviethay?page='+pageBaiVietHay,
                 type: 'GET',
                 success: function (result) {
                     result.post.data.forEach(function (post){
@@ -143,11 +143,6 @@ $(document).ready(function () {
 
     $('#searchForm').submit(function (e) {
         e.preventDefault();
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
         var searchInput = $("#searchInput").val();
         $("#searchForm").trigger("reset");
         $.when(
@@ -156,17 +151,16 @@ $(document).ready(function () {
             $('#buttonAddBaiVietMoi').removeAttr("style").hide(),
             $('#ajax-loader').show(),
             $.ajax({
-                url: 'ajax/search',
-                type: 'POST',
+                url: location.origin+'/ajax/search',
+                type: 'GET',
                 data: {searchInput: searchInput},
                 dataType: 'JSON',
                 success: function(result){
-                    console.log(result.searchPosts);
                     outputSearch =  ``;
                     result.searchPosts.forEach(function (post) {
                         outputSearch += `<div class="row">
                             <div class="col-1 ">
-                                <img src="`+ result.user[post.id].avatar +`"  style="height: 50px;  border-radius: 50%;width: 50px">
+                                <img src="`+location.origin+`/`+ result.user[post.id].avatar +`"  style="height: 50px;  border-radius: 50%;width: 50px">
                             </div>
                              <div class="col-11 " style="word-wrap: break-word;">
                                 <h3 class="p-2">
@@ -205,13 +199,14 @@ $(document).ready(function () {
 
     });
 
-    axios.get('ajax/tagsNoiBat').then(result => {
+    axios.get(location.origin+'/ajax/tagsNoiBat').then(result => {
+
         $("#chuDeNoiBat").empty();
         result.data.tags.forEach(function (tag) {
             $("#chuDeNoiBat").append(`
                     <button class="btn-danger btn mb-1">
                                <a href="/tag/`+tag.id+`">`+tag.name+`</a>
-                     </button> `);
+                    </button> `);
         });
     });
 });

@@ -29,7 +29,7 @@ use Illuminate\Http\Request;
                         <button class="btn"><a href="/newpost">Viết bài</a></button>
                     </li>
                     <li class="list-inline-item">
-                        <button class="btn"><a href="myPosts">Kho log</a></button>
+                        <button class="btn"><a href="/myPosts">Kho log</a></button>
                     </li>
                     <li class="list-inline-item">
                         <img src="{{asset(\Illuminate\Support\Facades\Auth::user()->avatar)}}" alt="Avartar" style="vertical-align: middle;width: 50px;height: 50px;border-radius: 50%;">

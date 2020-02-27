@@ -34,7 +34,7 @@ $(document).ready(function() {
                 </div>
                 </li>
                 <li class="list-inline-item">
-                    <img src="../`+ comment.user.avatar +`" alt="avatar" style="height: 50px;  border-radius: 50%;width: 50px">
+                    <img src="`+location.origin +'/'+ comment.user.avatar +`" alt="avatar" style="height: 50px;  border-radius: 50%;width: 50px">
                     </li>
                     </ul>
                     </div>`;
@@ -46,7 +46,7 @@ $(document).ready(function() {
              output = `<div>
                           <ul class="list-inline">
                               <li class="list-inline-item">
-                                  <img src="../`+ comment.user.avatar +`" alt="avatar" style="height: 50px;  border-radius: 50%;width: 50px">
+                                  <img src="`+location.origin +'/'+ comment.user.avatar +`" alt="avatar" style="height: 50px;  border-radius: 50%;width: 50px">
                               </li>
                               <li class=" list-inline-item" >
                                   <div class="container-fluid">
@@ -70,7 +70,7 @@ $(document).ready(function() {
 
 
     $("#loadButton").click(function () {
-        axios.get('/ajax/getcomments/'+ post_id, {
+        axios.get(location.origin +'/ajax/getcomments/'+ post_id, {
                 params: {
                     page: currentPageComment
                 }
@@ -105,7 +105,7 @@ $(document).ready(function() {
                 </div>
                 </li>
                 <li class="list-inline-item">
-                    <img src="../`+ comment.user.avatar +`" alt="avatar" style="height: 50px;  border-radius: 50%;width: 50px">
+                    <img src="`+location.origin+'/'+comment.user.avatar +`" alt="avatar" style="height: 50px;  border-radius: 50%;width: 50px">
                     </li>
                     </ul>
                     </div>`;
@@ -116,7 +116,7 @@ $(document).ready(function() {
                     output = `<div>
                             <ul class="list-inline">
                                 <li class="list-inline-item">
-                                    <img src="../`+ comment.user.avatar +`" alt="avatar" style="height: 50px;  border-radius: 50%;width: 50px">
+                                    <img src="`+location.origin+'/'+comment.user.avatar +`" alt="avatar" style="height: 50px;  border-radius: 50%;width: 50px">
                                 </li>
                                 <li class=" list-inline-item" >
                                     <div class="container-fluid">
@@ -161,7 +161,7 @@ $(document).ready(function() {
             let token = document.head.querySelector('meta[name="csrf-token"]');
             if (token) {
                 window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
-                axios.post('/ajax/newcomment', {
+                axios.post(location.origin +'/ajax/newcomment', {
                     content,
                     post_id
                 })

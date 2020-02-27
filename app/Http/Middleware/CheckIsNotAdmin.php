@@ -18,7 +18,7 @@ class CheckIsNotAdmin
     {
         if (Auth::guard('admin')->user())
         {
-            return redirect()->back();
+            return redirect('/');
         }
         return $next($request);
     }
