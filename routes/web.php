@@ -33,6 +33,8 @@ Route::group(['prefix' =>'ajax'], function (){
     Route::post('newpost', 'AjaxController@postTags');
     Route::post('newcomment', 'AjaxController@newComment');
     Route::get('getcomments/{post}', 'AjaxController@getComments');
+    Route::get('getPostTag/{tag}','AjaxController@getPostTag');
+    Route::get('tagsNoiBat', 'AjaxController@getTagsNoiBat');
 
 });
 /*Nhóm route xác thực người dùng, nếu login rồi thì không vào được nữa, kể cả admin lẫn User*/

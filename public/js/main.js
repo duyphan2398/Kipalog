@@ -6,6 +6,7 @@ $(document).ready(function () {
     var maxPageBaiVietMoi = 1;
     var maxPageBaiVietHay = 1;
     var outputSearch =  '';
+
     $('#addBaiVietMoi').click(function () {
         pageBaiVietMoi++;
         $.when(
@@ -27,8 +28,10 @@ $(document).ready(function () {
                                 <div class="tag mb-1">`;
                         result.tags[post.id].forEach(function (tag) {
                             outputBaiVietMoi += `<button class="btn btn-success mr-2">
-                                        `+ tag.name +`
-                                    </button>`;
+                                                        <a href="/tag/`+tag.id+`">
+                                                         `+ tag.name +`
+                                                        </a>
+                                                </button>`;
                         });
                         outputBaiVietMoi +=   `</div>
                                 <div class="content" style="overflow: hidden; height: 100px">
@@ -81,9 +84,11 @@ $(document).ready(function () {
                                 </h3>
                                 <div class="tag mb-1">`;
                         result.tags[post.id].forEach(function (tag) {
-                            outputBaiVietHay += `<button class="btn btn-success mr-2">
-                                        `+ tag.name +`
-                                    </button>`;
+                            outputBaiVietHay +=`<button class="btn btn-success mr-2">
+                                                        <a href="/tag/`+tag.id+`">
+                                                         `+ tag.name +`
+                                                        </a>
+                                                </button>`;
                         });
                         outputBaiVietHay +=   `</div>
                                 <div class="content" style="overflow: hidden; height: 100px">
@@ -169,9 +174,11 @@ $(document).ready(function () {
                                 </h3>
                                 <div class="tag mb-1">`;
                         result.tags[post.id].forEach(function (tag) {
-                            outputSearch += `<button class="btn btn-success mr-2">
-                                        `+ tag.name +`
-                                    </button>`;
+                            outputSearch +=`<button class="btn btn-success mr-2">
+                                                        <a href="/tag/`+tag.id+`">
+                                                         `+ tag.name +`
+                                                        </a>
+                                                </button>`;
                         });
                         outputSearch +=   `</div>
                                 <div class="content" style="overflow: hidden; height: 100px">
@@ -196,7 +203,17 @@ $(document).ready(function () {
             $('#ajax-loader').removeAttr("style").hide();
         })
 
-    })
+    });
+
+    axios.get('ajax/tagsNoiBat').then(result => {
+        $("#chuDeNoiBat").empty();
+        result.data.tags.forEach(function (tag) {
+            $("#chuDeNoiBat").append(`
+                    <button class="btn-danger btn mb-1">
+                               <a href="/tag/`+tag.id+`">`+tag.name+`</a>
+                     </button> `);
+        });
+    });
 });
 
 $( window ).bind('load',function() {

@@ -100,19 +100,8 @@
 
                     <div class="row mt-1">
                         <h4><i>Chủ đề nổi bật</i></h4>
-                        <div>
-                            <button class="btn-danger btn mb-1">
-                                PHP
-                            </button>
-                            <button class="btn-danger btn mb-1">
-                                Javascript
-                            </button>
-                            <button class="btn-danger btn mb-1">
-                                Ubuntu
-                            </button>
-                            <button class="btn-danger btn mb-1">
-                                Microsoft Office
-                            </button>
+                        <div id="chuDeNoiBat" >
+
                         </div>
                     </div>
                 </div>

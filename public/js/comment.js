@@ -70,8 +70,6 @@ $(document).ready(function() {
 
 
     $("#loadButton").click(function () {
-        console.log("r------------------");
-        console.log(currentPageComment);
         axios.get('/ajax/getcomments/'+ post_id, {
                 params: {
                     page: currentPageComment
@@ -80,12 +78,7 @@ $(document).ready(function() {
             $('#loadButton').removeAttr("style").hide(),
             $('#loadImage').show()
         ). then(function (response) {
-            console.log("d-------------------");
-            console.log(currentPageComment);
-
             currentPageComment++;
-            console.log(currentPageComment);
-            console.log("e-------------------");
             lastPageComment = response.data.comments.last_page;
             if (response.data.comments.data.length ==0){
                 $('#loadImage').removeAttr("style").hide();
@@ -116,7 +109,6 @@ $(document).ready(function() {
                     </li>
                     </ul>
                     </div>`;
-
                     $('#listComments').append(output);
                 }
                 else
@@ -146,8 +138,6 @@ $(document).ready(function() {
                 }
             });
 
-            console.log(currentPageComment);
-            console.log(lastPageComment);
             if (currentPageComment == lastPageComment){
                 $('#loadButton').removeAttr("style").hide();
                 $('#loadImage').removeAttr("style").hide();
@@ -184,7 +174,6 @@ $(document).ready(function() {
             } else {
                 console.error('CSRF token not found ! ');
             }
-
         }
         else{
             alert("Vui lòng nhập Cmt");

@@ -1,5 +1,9 @@
 @extends('user.layouts.layout')
 
+@section('script-link')
+    <script  type="text/javascript" src="{{asset("js/tag.js")}}"></script>
+@endsection
+
 @section('searchForm')
     <li class="list-inline-item">
         <form id="searchForm" class="form-inline " style="width: 350px">
@@ -23,26 +27,16 @@
                     <div id="listContent">
 
                     </div>
-
                     {{-----------------------------------------------}}
 
-                    <div class="text-center mb-2"  id="ajax-loader" style="display: none">
+                    <div class="text-center mb-2"  id="loading" style="display: none">
                         <img src="/images/ajax-loader.gif" alt="loading...">
                     </div>
-
-
-                    <div id="buttonAddBaiVietHay" class="text-center" style="display: none">
-                        <button id= "addBaiVietHay"class="btn btn-primary w-75">
+                    <div id= "addMore" class="text-center" style="display: none">
+                        <button class="btn btn-primary w-75">
                             Xem thêm
                         </button>
                     </div>
-
-                    <div id="buttonAddBaiVietMoi" class="text-center" style="display: block">
-                        <button id= "addBaiVietMoi"class="btn btn-primary w-75">
-                            Xem thêm
-                        </button>
-                    </div>
-
                 </div>
             </div>
             <div class="col-3">
@@ -51,7 +45,7 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-3">
-                                <img src="{{\Illuminate\Support\Facades\Auth::user()->avatar}}" alt="" style="height: 50px;  border-radius: 50%;width: 50px">
+                                <img src="../{{\Illuminate\Support\Facades\Auth::user()->avatar}}" alt="" style="height: 50px;  border-radius: 50%;width: 50px">
                             </div>
                             <div class="col-8">
                                 <h4>

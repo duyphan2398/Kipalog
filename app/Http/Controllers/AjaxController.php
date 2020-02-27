@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Comment;
 use App\Events\CommentRealtime;
 use App\Http\Requests\NewCommentRequest;
@@ -85,6 +84,29 @@ class AjaxController extends Controller
         ],200);
     }
 
+    public function getPostTag(Tag $tag){
+        $posts = $tag->posts()->orderByDesc('created_at')->paginate(3);
+        $users = [];
+        $tags = [];
+        foreach ($posts as $post) {
+            $users[$post->id] = $post->user;
+            $tags[$post->id] = $post->tags;
+        }
+        return response()->json([
+            'posts' => $posts,
+            'users' => $users,
+            'tags' => $tags
+        ],200);
+    }
 
-
+    public function getTagsNoiBat(){
+        $tags = Tag::all();
+        $tagsResult= $tags->sortByDesc(function ($tag) {
+            return ($tag->posts()->count());
+        })->take(4)->toArray();
+        $result = array_values( $tagsResult);
+        return  response()->json([
+            'tags' => $result
+        ],200);
+    }
 }
