@@ -68,8 +68,16 @@
                         </div>
                     </div>
                     <div class="row" id="listComments">
+                       fdsfdsfdsfdsfds
                         {{--Cmt----------------------------------------------}}
                         {{--cmt----------------------------------------------}}
+                    </div>
+
+                    <div id="loadComment" class="text-center">
+                        <img id="loadImage" style="display: none" src="{{asset('images/ajax-loader.gif')}}" alt="Loanding...">
+                        <button id="loadButton" style="display: none"class="btn btn-dark w-100">
+                            Xem thêm
+                        </button>
                     </div>
                 </div>
             </div>

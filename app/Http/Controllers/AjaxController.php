@@ -73,10 +73,8 @@ class AjaxController extends Controller
          }
     }
 
-    public function getComments(Request $request){
-        $post = Post::find($request->post_id);
-        $comments = $post->comments;
-        $comments = $comments->sortByDesc('created_at');
+    public function getComments(Post $post,Request $request){
+        $comments = $post->comments()->orderByDesc('created_at')->paginate(5);
         $users = [];
         foreach ($comments as $comment){
             $users[$comment->id] = $comment->user;

@@ -11,7 +11,6 @@ class HomeController extends Controller {
         return view('welcome');
     }
 
-
     /*Show kho bài viết cá nhân*/
     public function myPost(){
         $posts = Post::whereUser_id(Auth::id())->orderBy('created_at','desc')->get();

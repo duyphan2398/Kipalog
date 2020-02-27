@@ -3,7 +3,8 @@ $(document).ready(function() {
     let  urlSplit = url.split('/');
     let post_id = urlSplit[urlSplit.length - 1];
     let output = ``;
-    Pusher.logToConsole = true;
+    let currentPageComment = 1;
+    let lastPageComment = 0;
     var pusher = new Pusher('5e1689f8ea39fd6cd5e6', {
         cluster: 'ap1',
         forceTLS: true
@@ -65,21 +66,28 @@ $(document).ready(function() {
         }
     });
 
-    axios.get('/ajax/getcomments',{
-        params: {
-            post_id: post_id
-        }
-    }). then(function (response) {
-        $('#listComments').empty();
-        var arrayComments = $.map(response.data.comments, function(value, index) {
-            return [value];
-        });
-        var arrayUsers = $.map(response.data.users, function(value, index) {
-            return [value];
-        });
-        arrayComments.forEach(function (comment) {
-            if (comment.user_id != user_id){
-               output = `<div>
+    $(function () {
+        $('#loadButton').trigger( "click" );
+    })
+    $("#loadButton").click(function () {
+        console.log("fsdfdsfdss");
+        axios.get('/ajax/getcomments/'+ post_id, {
+                params: {
+                    page: currentPageComment
+                }
+            },
+            $('#loadButton').removeAttr("style").hide(),
+            $('#loadImage').show()
+        ). then(function (response) {
+            currentPageComment++;
+            lastPageComment = response.data.comments.last_page;
+            if (response.data.comments.data.length ==0){
+                $('#loadImage').removeAttr("style").hide();
+                return;
+            }
+            response.data.comments.data.forEach(function (comment) {
+                if (comment.user_id != user_id){
+                    output = `<div>
                 <ul class="list-inline">
                     <li class="list-inline-item" style="height: 50px;  border-radius: 50%;width: 50px">
                     </li>
@@ -103,11 +111,11 @@ $(document).ready(function() {
                     </ul>
                     </div>`;
 
-                $('#listComments').prepend(output);
-            }
-            else
-            {
-                output = `<div>
+                    $('#listComments').append(output);
+                }
+                else
+                {
+                    output = `<div>
                             <ul class="list-inline">
                                 <li class="list-inline-item">
                                     <img src="../`+ comment.user.avatar +`" alt="avatar" style="height: 50px;  border-radius: 50%;width: 50px">
@@ -128,8 +136,12 @@ $(document).ready(function() {
                                 </li>
                             </ul>
                         </div>`;
-                $('#listComments').prepend(output);
-            }
+                    $('#listComments').append(output);
+                }
+            });
+            $('#loadImage').removeAttr("style").hide();
+            $('#loadButton').show();
+
         });
     });
 
@@ -165,5 +177,10 @@ $(document).ready(function() {
     });
 
 });
+/*Cái này không load khi bật browser ẩn danh */
+/*
+$(window).bind("load", function() {
 
+});
+*/
 

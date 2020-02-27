@@ -6,9 +6,7 @@ $(document).ready(function () {
     var maxPageBaiVietMoi = 1;
     var maxPageBaiVietHay = 1;
     var outputSearch =  '';
-    $(function(){
-        $('#addBaiVietMoi').trigger( "click" );
-    });
+
 
     $('#addBaiVietMoi').click(function () {
         pageBaiVietMoi++;
@@ -120,6 +118,9 @@ $(document).ready(function () {
             });
     });
 
+    $(function () {
+        $('#addBaiVietMoi').trigger( "click" );
+    })
     $('#baivietmoi').click(function () {
         $('#listContent').empty().append(outputBaiVietMoi);
         $('#buttonAddBaiVietHay').removeAttr("style").hide();
@@ -200,8 +201,5 @@ $(document).ready(function () {
         })
 
     })
-
-
-
 });
 
