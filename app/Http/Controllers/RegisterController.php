@@ -7,7 +7,7 @@ use App\Http\Requests\RegisterRequest;
 class RegisterController extends Controller
 {
     public function index(){
-        return view('auth.register');
+        return view('user.auth.register');
     }
 
     public function create(RegisterRequest $request){

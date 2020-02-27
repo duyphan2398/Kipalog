@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('user.layouts.layout')
 
 @section('title')
     Reset Password
