@@ -6,13 +6,11 @@ $(document).ready(function () {
     var maxPageBaiVietMoi = 1;
     var maxPageBaiVietHay = 1;
     var outputSearch =  '';
-
-
     $('#addBaiVietMoi').click(function () {
         pageBaiVietMoi++;
         $.when(
-            $('#ajax-loader').show(),
             $('#buttonAddBaiVietMoi').removeAttr("style").hide(),
+            $('#ajax-loader').show(),
             $.ajax({
                 url: 'ajax/baivietmoi?page='+pageBaiVietMoi,
                 type: 'GET',
@@ -22,8 +20,8 @@ $(document).ready(function () {
                             <div class="col-1 ">
                                 <img src="`+ result.user[post.id].avatar +`"  style="height: 50px;  border-radius: 50%;width: 50px">
                             </div>
-                            <div class="col-11">
-                                <h3 style="overflow: hidden">
+                            <div class="col-11 " style="word-wrap: break-word;">
+                                <h3 class="p-2">
                                 <a href="viewpost/`+post.id+`">` + post.title +`</a>
                                 </h3>
                                 <div class="tag mb-1">`;
@@ -44,7 +42,7 @@ $(document).ready(function () {
                         <hr>`;
                     });
                     $('#listContent').empty().append(outputBaiVietMoi);
-                    maxPageBaiVietMoi = result.post.total;
+                    maxPageBaiVietMoi = result.post.last_page;
                 },
                 error: function (result) {
                     console.log(result);
@@ -77,9 +75,9 @@ $(document).ready(function () {
                             <div class="col-1 ">
                                 <img src="`+ result.user[post.id].avatar +`"  style="height: 50px;  border-radius: 50%;width: 50px">
                             </div>
-                            <div class="col-11">
-                                <h3 style="overflow: hidden">
-                                <a href="viewpost/`+post.id+`">`+ post.title +`</a>
+                            <div class="col-11 " style="word-wrap: break-word;">
+                                <h3 class="p-2">
+                                <a  href="viewpost/`+post.id+`">`+ post.title +`</a>
                                 </h3>
                                 <div class="tag mb-1">`;
                         result.tags[post.id].forEach(function (tag) {
@@ -100,7 +98,7 @@ $(document).ready(function () {
                     });
 
                     $('#listContent').empty().append(outputBaiVietHay);
-                    maxPageBaiVietHay = result.post.total;
+                    maxPageBaiVietHay = result.post.last_page;
                 },
                 error: function (result) {
                     console.log(result);
@@ -118,9 +116,7 @@ $(document).ready(function () {
             });
     });
 
-    $(function () {
-        $('#addBaiVietMoi').trigger( "click" );
-    })
+
     $('#baivietmoi').click(function () {
         $('#listContent').empty().append(outputBaiVietMoi);
         $('#buttonAddBaiVietHay').removeAttr("style").hide();
@@ -167,8 +163,8 @@ $(document).ready(function () {
                             <div class="col-1 ">
                                 <img src="`+ result.user[post.id].avatar +`"  style="height: 50px;  border-radius: 50%;width: 50px">
                             </div>
-                            <div class="col-11">
-                                <h3 style="overflow: hidden">
+                             <div class="col-11 " style="word-wrap: break-word;">
+                                <h3 class="p-2">
                                 <a href="viewpost/`+post.id+`">`+post.title+`</a>
                                 </h3>
                                 <div class="tag mb-1">`;
@@ -203,3 +199,6 @@ $(document).ready(function () {
     })
 });
 
+$( window ).bind('load',function() {
+    $('#addBaiVietMoi').click();
+});

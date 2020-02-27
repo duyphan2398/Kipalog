@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Tag;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use App\Post;
@@ -21,4 +22,14 @@ class PostController extends Controller
             'authUser' => $user
         ]);
     }
+
+    public function viewTag(Tag $tag){
+        $posts = $tag->posts->sortByDesc("created_at");
+        return view('tag')->with([
+            'posts' => $posts,
+            'tag'  =>$tag
+        ]);
+    }
+
+
 }

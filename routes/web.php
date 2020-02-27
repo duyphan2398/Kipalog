@@ -17,6 +17,7 @@ use  Illuminate\Http\Request;
 Route::group(['middleware' => ['check.isnot.admin']], function (){
     Route::get('/', 'HomeController@index')->middleware('check.isnot.admin');
     Route::get('viewpost/{post}','PostController@viewPost');
+    Route::get('tag/{tag}', 'PostController@viewTag');
 
 });
 

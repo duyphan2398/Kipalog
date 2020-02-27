@@ -4,7 +4,6 @@ use App\Post;
 use App\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Providers\AppServiceProvider;
 class HomeController extends Controller {
 
     public function index(){
@@ -19,7 +18,7 @@ class HomeController extends Controller {
 
     /*Trả về các bài viết mới khi click vào button bai viết mới (Defaul khi load trang)*/
     public function baiVietMoi(){
-        $posts = Post::orderBy('created_at','desc')->paginate(3);
+        $posts = Post::orderBy('created_at','desc')->paginate(5);
         $user = [];
         $tags = [];
         foreach ($posts as $post){

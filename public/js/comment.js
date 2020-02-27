@@ -1,15 +1,17 @@
+let url = window.location.href;
+let  urlSplit = url.split('/');
+let post_id = urlSplit[urlSplit.length - 1];
+let output = ``;
+let currentPageComment = 0;
+let lastPageComment = 0;
+var pusher = new Pusher('5e1689f8ea39fd6cd5e6', {
+    cluster: 'ap1',
+    forceTLS: true
+});
+var channel = pusher.subscribe('cmt');
+
 $(document).ready(function() {
-    let url = window.location.href;
-    let  urlSplit = url.split('/');
-    let post_id = urlSplit[urlSplit.length - 1];
-    let output = ``;
-    let currentPageComment = 1;
-    let lastPageComment = 0;
-    var pusher = new Pusher('5e1689f8ea39fd6cd5e6', {
-        cluster: 'ap1',
-        forceTLS: true
-    });
-    var channel = pusher.subscribe('cmt');
+
     channel.bind('cmt-event', function(data) {
         let comment = data.comment;
         if (comment.user_id != user_id){
@@ -66,11 +68,10 @@ $(document).ready(function() {
         }
     });
 
-    $(function () {
-        $('#loadButton').trigger( "click" );
-    })
+
     $("#loadButton").click(function () {
-        console.log("fsdfdsfdss");
+        console.log("r------------------");
+        console.log(currentPageComment);
         axios.get('/ajax/getcomments/'+ post_id, {
                 params: {
                     page: currentPageComment
@@ -79,7 +80,12 @@ $(document).ready(function() {
             $('#loadButton').removeAttr("style").hide(),
             $('#loadImage').show()
         ). then(function (response) {
+            console.log("d-------------------");
+            console.log(currentPageComment);
+
             currentPageComment++;
+            console.log(currentPageComment);
+            console.log("e-------------------");
             lastPageComment = response.data.comments.last_page;
             if (response.data.comments.data.length ==0){
                 $('#loadImage').removeAttr("style").hide();
@@ -139,8 +145,17 @@ $(document).ready(function() {
                     $('#listComments').append(output);
                 }
             });
-            $('#loadImage').removeAttr("style").hide();
-            $('#loadButton').show();
+
+            console.log(currentPageComment);
+            console.log(lastPageComment);
+            if (currentPageComment == lastPageComment){
+                $('#loadButton').removeAttr("style").hide();
+                $('#loadImage').removeAttr("style").hide();
+            }
+            else{
+                $('#loadImage').removeAttr("style").hide();
+                $('#loadButton').show();
+            }
 
         });
     });
@@ -175,12 +190,10 @@ $(document).ready(function() {
             alert("Vui lòng nhập Cmt");
         }
     });
-
 });
-/*Cái này không load khi bật browser ẩn danh */
-/*
-$(window).bind("load", function() {
 
+$( window ).bind('load',function() {
+    $('#loadButton').click();
 });
-*/
+
 
