@@ -11,24 +11,49 @@
                 <form  method="POST" action="/register" class="w-75">
                     @csrf
                     <div class="form-group">
-                        <label for="name">Name</label>
-                        <input  value="{{old('name')}}"  name="name" type="text" class="form-control" id="name"  placeholder="Enter Your Name" required>
+                        <label for="name">Full Name </label>
+                        <input  value="{{old('name')}}"  name="name" type="text" class="form-control" id="name"  placeholder="" required>
+                        <div class="text-danger mt-1">
+                            @error('name')
+                            *{{$message}}
+                            @enderror
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="username">UserName</label>
-                        <input value="{{old('username')}}" name="username" type="text" class="form-control" id="username"  placeholder="Enter Your UserName" required>
+                        <label for="username">Username</label>
+                        <input value="{{old('username')}}" name="username" type="text" class="form-control" id="username"  placeholder="" required>
+                        <div class="text-danger mt-1">
+                            @error('username')
+                            *{{$message}}
+                            @enderror
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="email">Email address</label>
-                        <input value="{{old('email')}}" name="email" type="email" class="form-control" id="email"  placeholder="Enter email" required>
+                        <input value="{{old('email')}}" name="email" type="email" class="form-control" id="email"  placeholder="" required>
+                        <div class="text-danger mt-1">
+                            @error('email')
+                            *{{$message}}
+                            @enderror
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="password">Password</label>
-                        <input name="password" type="password" class="form-control" id="password" placeholder="Password" required>
+                        <label for="password">Password <small>(at least 6 characters include letter and number)</small></label>
+                        <input name="password" type="password" class="form-control" id="password" placeholder="" required>
+                        <div class="text-danger mt-1">
+                            @error('password')
+                            *{{$message}}
+                            @enderror
+                        </div>
                     </div>
                     <div class="form-group">
-                        <label for="passwordConfirm">Confirm Password</label>
-                        <input name="passwordConfirm" type="password" class="form-control" id="passwordConfirm" placeholder="Confirm Password" required>
+                        <label for="passwordConfirm">Confirm Password <small>(must same password)</small></label>
+                        <input name="passwordConfirm" type="password" class="form-control" id="passwordConfirm" placeholder="" required>
+                        <div class="text-danger mt-1">
+                            @error('passwordConfirm')
+                            *{{$message}}
+                            @enderror
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Register</button>
                 </form>

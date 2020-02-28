@@ -3,11 +3,13 @@
 namespace App;
 
 use App\Traits\AddUser;
+use App\Traits\StripTags;
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
     use AddUser;
+    use StripTags;
     protected $fillable = [
         'title', 'content', 'user_id'
     ];
@@ -21,4 +23,6 @@ class Post extends Model
     public function comments(){
         return $this->hasMany(Comment::class);
     }
+
+
 }

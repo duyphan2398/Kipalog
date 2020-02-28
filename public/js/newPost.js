@@ -30,15 +30,15 @@ $(document).ready(function() {
             content: "required"
         },
         messages: {
-            title: "VUI LÒNG NHẬP TIÊU ĐỀ",
-            tags: "CHỌN ÍT NHẤT 1 TAG",
-            content: "VUI LÒNG NHẬP NỘI DUNG"
+            title: "Title Is Required",
+            tags: "Please Choose At Least 1 Tag",
+            content: "Content Is Required"
         }
     });
 
     $('#newPostForm').submit(function (e) {
+        e.preventDefault();
         if (validator.form()) {
-            e.preventDefault();
             let title = $('#title').val();
             let thisTags = $('#tags').val();
             let arrayTagsFillter = thisTags.split(",");
@@ -64,6 +64,9 @@ $(document).ready(function() {
             } else {
                 console.error('CSRF token not found ! ');
             }
+        }
+        else {
+            console.log(validator.errors);
         }
     });
 });

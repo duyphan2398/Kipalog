@@ -12,16 +12,20 @@ class LoginController extends Controller
     {
         $credentials = $request->only('username', 'password');
         if (Auth::attempt($credentials)) {
-            return view('welcome');
+            session()->flash("success", "Login Successfully");
+            return redirect('/');
         }
-        return redirect()->back()->withErrors('KHÔNG THỂ ĐĂNG NHẬP');
+        session()->flash("error", "Wrong Username Or Password");
+        return redirect()->back();
     }
 
     public function logout(){
         if (Auth::check())
         {
             Auth::guard()->logout();
+            session()->flash("success", "Logout Successfully");
         }
+
         return redirect('/');
     }
 }

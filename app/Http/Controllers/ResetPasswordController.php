@@ -28,14 +28,16 @@ class ResetPasswordController extends Controller
         $user = User::whereEmail($email)->first();
         if ($user == null) {
             /*Nếu email không có trong bảng User thì back*/
-            return redirect()->back()->withErrors('EMAIL CHƯA ĐĂNG KÝ');
+            session()->flash("error", 'Email Has Not Been Register');
+            return redirect()->back();
         }
         $row = DB::table('password_resets')->where('email', $email['email'])->first();
         /*Nếu email có trong bảng password_resets thì đúng với điều kiện này*/
         if ($row) {
             /*Mỗi token chỉ sống 60 phút, nếu  trong 60 phút thì back, còn ngoài 60 phút thì xóa tạo lại token và gửi email lại */
             if (Carbon::now()->subMinutes(60)->lte($row->created_at)){
-                return redirect()->back()->withErrors('YÊU CẦU QUÁ NHIỀU LẦN, VUI LÒNG KIỂM TRA EMAIL');
+                session()->flash("error", 'To Much Request Please Check Your EMail or Wait 60 Minutes and Try Again');
+                return redirect()->back();
             }
             else {
                 DB::table('password_resets')->where('email', $email['email'])->delete();
@@ -50,7 +52,7 @@ class ResetPasswordController extends Controller
         );
         $tokenData = DB::table('password_resets')->whereEmail($email)->first();
         $this->sendResetEmail($email, $tokenData->token);
-        session()->flash('status', 'ĐÃ GỬI THÔNG TIN TÀI KHOẢN ĐẾN EMAIL CỦA BẠN');
+        session()->flash('success', 'Success ! Please Check Your Email');
         return redirect()->back();
     }
 
@@ -95,17 +97,20 @@ class ResetPasswordController extends Controller
                 $user= User::whereEmail($email)->first();
                 $user->password = request()->password;
                 if ($user->save()){
-                    session()->flash('status','ĐỔI MẬT KHẨU THÀNH CÔNG');
+                    session()->flash('success', 'Password Was Changed');
                     return redirect('login');
                 }
                 else {
-                    return redirect()->back()->withErrors('LƯU MẬT KHẨU GẶP LỖI');
+                    session()->flash('error', 'Can Not Change Your Password Please Try Again ');
+                    return redirect()->back();
                 }
             } else {
-                return redirect()-back()->withErrors('HẾT PHIÊN LÀM VIỆC VUI LÒNG THỬ LẠI');
+                session()->flash('error', 'Link Is Not Avaiable');
+                return redirect()-back();
             }
         }
         /* Nhập sai email hoặc email không khớp với token*/
-        return redirect()-back()->withErrors('KHÔNG HỢP LỆ');
+        session()->flash('error', 'Email Is Not Suitable For This Link');
+        return redirect()-back();
     }
 }

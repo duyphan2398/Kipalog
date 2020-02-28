@@ -16,9 +16,10 @@ class RegisterController extends Controller
         $user->avatar = 'images/default.png';
         $user->password = request()->password;
         if ($user->save()){
-            session()->flash('status','ĐĂNG KÝ THÀNH CÔNG');
+            session()->flash("success", 'Register Successfully');
             return redirect('/login');
         }
-        return redirect()->back()->withErrors('KHÔNG THỂ ĐĂNG KÝ');
+        session()->flash('error', "Register Fail");
+        return redirect()->back();
     }
 }

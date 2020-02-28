@@ -22,6 +22,7 @@ class AjaxController extends Controller
         $post = new Post();
         $post->fill($request->all());
         $post->setUserIdAttribute(Auth::id());
+        $post->stripTags(["title","content"]);
         if ($post->save()){
             foreach ($request->arrayTags as $tag){
                 $tagInTable = Tag::whereName($tag)->first();
@@ -34,6 +35,7 @@ class AjaxController extends Controller
                 else{
                     $newTag = new Tag();
                     $newTag->fill(['name' => $tag]);
+                    $newTag->stripTags(['name']);
                     if ($newTag->save()){
                         DB::table('posts_tags')->insert([
                             'post_id'=>$post->id,
