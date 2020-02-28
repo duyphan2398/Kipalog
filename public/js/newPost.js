@@ -22,22 +22,28 @@ $(document).ready(function() {
                     }
                 })
             })
+            .on('tokenfield:edittoken', function (e) {
+                console.log("dsadsadsadsa");
+                console.log($("label[for=tags]").val());
+
+            })
     });
-    var validator = $('#newPostForm').validate({
-        rules: {
-            title: "required",
-            tags: "required",
-            content: "required"
-        },
-        messages: {
-            title: "Title Is Required",
-            tags: "Please Choose At Least 1 Tag",
-            content: "Content Is Required"
-        }
-    });
+
 
     $('#newPostForm').submit(function (e) {
         e.preventDefault();
+        var validator = $('#newPostForm').validate({
+            rules: {
+                title: "required",
+                tags: "required",
+                content: "required"
+            },
+            messages: {
+                title: "Title Is Required",
+                tags: "Please Choose At Least 1 Tag",
+                content: "Content Is Required"
+            }
+        });
         if (validator.form()) {
             let title = $('#title').val();
             let thisTags = $('#tags').val();
@@ -65,8 +71,13 @@ $(document).ready(function() {
                 console.error('CSRF token not found ! ');
             }
         }
-        else {
-            console.log(validator.errors);
+        else{
+            if ($("label[for='tags']").text()){
+                var text = $("label[for='tags']").text();
+                $("label[for='tags-tokenfield']").innerText(text);
+                $("label[for='tags']").removeAttr("style").hide();
+
+            };
         }
     });
 });
