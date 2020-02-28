@@ -57,7 +57,7 @@ class ResetPasswordController extends Controller
     /*Gửi mail*/
     private function sendResetEmail($email, $token){
         $user = User::whereEmail($email)->first();
-        $link = 'kipalog.test/resetpassword/form/'.$token.'/'.$user->email;
+        $link = \request()->getHost().'/resetpassword/form/'.$token.'/'.$user->email;
         $details = [
             "link" => $link,
             "name" => $user->username
