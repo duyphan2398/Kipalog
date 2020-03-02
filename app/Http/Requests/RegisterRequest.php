@@ -24,18 +24,20 @@ class RegisterRequest extends FormRequest
     public function messages()
     {
         return [
-            'username.unique' => 'USERNAME ĐÃ TỒN TẠI',
-            'email.unique' => 'EMAIL ĐÃ TỒN TẠI',
-            'email.email' => 'KHÔNG PHẢI EMAIL',
-            'passwordConfirm.same' => 'PASSWORD CONFIRM KHÔNG GIỐNG PASSWORD'
+            'name.alpha' => 'NAME MUST BE ENTIRELY ALPHABETIC CHARACTERS',
+            'username.alpha_num' => 'USERNAME MUST BE ENTIRELY ALPHA-NUMERIC CHARACTERS',
+            'username.unique' => 'USERNAME ALREADY EXISTS',
+            'email.unique' => 'EMAIL ALREADY EXISTS',
+            'email.email' => 'EMAIL IS NOT TRUE',
+            'passwordConfirm.same' => 'PASSWORD CONFIRM IS NOT SAME THE PASSWORD'
         ];
     }
 
     public function rules()
     {
         return [
-            'name' => 'required|max:255',
-            'username' => 'required|unique:users',
+            'name' => 'required|max:15|alpha|',
+            'username' => 'required|unique:users|alpha_num|max:15',
             'email' => 'required|unique:users|email',
             'password' => "required|min:6|regex:/^(?=.*[a-zA-Z])(?=.*\d).+$/",
             'passwordConfirm' => 'required|same:password'

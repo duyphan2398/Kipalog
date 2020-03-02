@@ -12,7 +12,20 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+/*Ajax routes*/
+Route::group(['middleware' => ['check.isnot.admin']], function () {
+    Route::get('getNewPosts', 'HomeController@getNewPosts');
+    Route::get('getGoodPosts', 'HomeController@getGoodPosts');
+    Route::get('search', 'HomeController@search');
+    Route::get('getCommentsByPost/{post}', 'AjaxController@getCommentsByPost');
+    Route::get('getPostsByTag/{tag}', 'AjaxController@getPostsByTag');
+    Route::get('getPopularTags', 'AjaxController@getPopularTags');
+    Route::get('getAllTags', 'AjaxController@getAllTags');
+    Route::get('getAllTags', 'AjaxController@getAllTags');
+});
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['middleware' => ['check.isnot.admin','auth']], function ()
+{
+    Route::post('post/create', 'PostController@create');
+    Route::post('comment/create', 'AjaxController@createComment');
 });
