@@ -43,7 +43,7 @@ class HomeController extends Controller {
 
     /*Return the good posts when click the button "BÀI VIẾT HAY" */
     public function getGoodPosts(){
-        $posts = Post::orderBy('created_at')->paginate(3);
+        $posts = Post::orderBy('created_at')->paginate(5);
         $user = [];
         $tags = [];
         $comments = [];
