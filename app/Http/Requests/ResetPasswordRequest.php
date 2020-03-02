@@ -24,9 +24,9 @@ class ResetPasswordRequest extends FormRequest
     public function messages()
     {
         return [
-            'email.email' => 'KHÔNG PHẢI EMAIL',
-            'email.exists' =>'EMAIL KHÔNG TỒN TẠI',
-            'passwordConfirm.same' => 'PASSWORD CONFIRM KHÔNG GIỐNG PASSWORD'
+            'email.email' => 'EMAIL IS NOT TRUE',
+            'email.exists' =>'EMAIL DOES NOT EXIST',
+            'passwordConfirm.same' => 'PASSWORD CONFIRM IS NOT SAME THE PASSWORD'
         ];
     }
 

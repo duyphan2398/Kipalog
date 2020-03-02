@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
+use App\Models\User;
 use App\Http\Requests\RegisterRequest;
 class RegisterController extends Controller
 {
     public function index(){
-        return view('auth.register');
+        return view('user.auth.register');
     }
 
     public function create(RegisterRequest $request){
@@ -16,9 +16,10 @@ class RegisterController extends Controller
         $user->avatar = 'images/default.png';
         $user->password = request()->password;
         if ($user->save()){
-            session()->flash('status','ĐĂNG KÝ THÀNH CÔNG');
+            session()->flash("success", 'Register Successfully');
             return redirect('/login');
         }
-        return redirect()->back()->withErrors('KHÔNG THỂ ĐĂNG KÝ');
+        session()->flash('error', "Register Fail");
+        return redirect()->back();
     }
 }

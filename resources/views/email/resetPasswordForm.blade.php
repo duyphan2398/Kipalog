@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('user.layouts.layout')
 
 @section('title')
     Reset Password
@@ -8,7 +8,7 @@
     <div class="container mb-4">
         <div class="row">
             <div class="col">
-                <form  method="POST" action="/resetpassword/form/{{$token}}/{{$email}}" class="w-75">
+                <form id = "resetPasswordForm" method="POST" action="/resetpassword/form/{{$token}}/{{$email}}" class="w-75">
                     @csrf
                     <div class="form-group">
                         <label for="email">Email</label>

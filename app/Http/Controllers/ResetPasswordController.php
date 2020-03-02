@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Http\Requests\ResetPasswordRequest;
-use App\User;
+use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -14,28 +14,31 @@ use Illuminate\Support\Carbon;
 class ResetPasswordController extends Controller
 {
     use SendsPasswordResetEmails;
-    /*Show form nhập email*/
+    /*Return the form to enter email*/
     public function showLinkRequestForm()
     {
         return view('email.sendEmailForm');
     }
 
-    /*Xác thực email và tạo token*/
+    /*Verify the email and create the token*/
     public function sendResetLinkEmail(Request $request)
     {
         $this->validateEmail($request);
         $email = $this->credentials($request);
         $user = User::whereEmail($email)->first();
         if ($user == null) {
-            /*Nếu email không có trong bảng User thì back*/
-            return redirect()->back()->withErrors('EMAIL CHƯA ĐĂNG KÝ');
+            /*If the email do not exist in users table -> will back */
+            session()->flash("error", 'Email Has Not Been Register');
+            return redirect()->back();
         }
         $row = DB::table('password_resets')->where('email', $email['email'])->first();
-        /*Nếu email có trong bảng password_resets thì đúng với điều kiện này*/
+        /* True if the email exist in password_resets table*/
         if ($row) {
-            /*Mỗi token chỉ sống 60 phút, nếu  trong 60 phút thì back, còn ngoài 60 phút thì xóa tạo lại token và gửi email lại */
             if (Carbon::now()->subMinutes(60)->lte($row->created_at)){
-                return redirect()->back()->withErrors('YÊU CẦU QUÁ NHIỀU LẦN, VUI LÒNG KIỂM TRA EMAIL');
+                /*Each token is only alive in 60 minutes, If the token is alive -> will back with message "Too much request",
+                Unless  -> will delete this token and create new one then send an email to user */
+                session()->flash("error", 'Too Much Request Please Check Your EMail or Wait 60 Minutes and Try Again');
+                return redirect()->back();
             }
             else {
                 DB::table('password_resets')->where('email', $email['email'])->delete();
@@ -50,14 +53,15 @@ class ResetPasswordController extends Controller
         );
         $tokenData = DB::table('password_resets')->whereEmail($email)->first();
         $this->sendResetEmail($email, $tokenData->token);
-        session()->flash('status', 'ĐÃ GỬI THÔNG TIN TÀI KHOẢN ĐẾN EMAIL CỦA BẠN');
+        session()->flash('success', 'Success ! Please Check Your Email');
         return redirect()->back();
     }
 
-    /*Gửi mail*/
+    /*Action for sending email*/
     private function sendResetEmail($email, $token){
         $user = User::whereEmail($email)->first();
-        $link = 'kipalog.test/resetpassword/form/'.$token.'/'.$user->email;
+        /* \request()->getHost()  -> get the current host */
+        $link = \request()->getHost().'/resetpassword/form/'.$token.'/'.$user->email;
         $details = [
             "link" => $link,
             "name" => $user->username
@@ -65,12 +69,13 @@ class ResetPasswordController extends Controller
         Mail::to($user->email)->send(new MailNotify($details));
     }
 
-    /*Trả về form resset password*/
+    /*Return the form to resset password*/
     public function resetPasswordForm($token, $email){
-        $row = DB::table('password_resets')->where('email', $email)->first();
-        /*Nếu email có trong bảng password_resets thì đúng với điều kiện này*/
+        /*Query the row which equal email AND token*/
+        $row = DB::table('password_resets')->where('email', $email)->where('token', $token)->first();
+        /*If the row exist, the after condition will true*/
         if ($row) {
-            /* Kiểm tra token còn sống hay không*/
+            /* Checking the token is alive (a token is alive in 60 minutes) */
             if (Carbon::now()->subMinutes(60)->lte($row->created_at)){
                 return view('email.resetPasswordForm')->with([
                     'token' => $token,
@@ -84,28 +89,31 @@ class ResetPasswordController extends Controller
         return abort(404);
     }
 
-    /*Xác thực email và password gửi lên và thực hiện đổi mật khẩu*/
+    /*Verify the email and password in request to reset password*/
     public function resetPassword($token,$email,ResetPasswordRequest $request){
         $row = DB::table('password_resets')->where('email', $request->email)->first();
-        /*Nếu email có trong bảng password_resets thì đúng với điều kiện này*/
+        /*If */
+        /* True if the email exist in password_resets table*/
         if ($row && $row->email == $email) {
-            /* Kiểm tra token còn sống hay không*/
+            /* Check the token being alive*/
             if (Carbon::now()->subMinutes(60)->lte($row->created_at)) {
-
                 $user= User::whereEmail($email)->first();
                 $user->password = request()->password;
                 if ($user->save()){
-                    session()->flash('status','ĐỔI MẬT KHẨU THÀNH CÔNG');
+                    session()->flash('success', 'Password Was Changed');
                     return redirect('login');
                 }
                 else {
-                    return redirect()->back()->withErrors('LƯU MẬT KHẨU GẶP LỖI');
+                    session()->flash('error', 'Can Not Change Your Password Please Try Again ');
+                    return redirect()->back();
                 }
             } else {
-                return redirect()-back()->withErrors('HẾT PHIÊN LÀM VIỆC VUI LÒNG THỬ LẠI');
+                session()->flash('error', 'Link Is Not Avaiable');
+                return redirect()-back();
             }
         }
-        /* Nhập sai email hoặc email không khớp với token*/
-        return redirect()-back()->withErrors('KHÔNG HỢP LỆ');
+        /* Enter wrong email or email don not math with the token */
+        session()->flash('error', 'Email Is Not Suitable For This Link');
+        return redirect()-back();
     }
 }

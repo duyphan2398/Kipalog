@@ -1,4 +1,4 @@
-@extends('layouts.layout')
+@extends('user.layouts.layout')
 
 @section('title')
     Login
@@ -13,10 +13,20 @@
                     <div class="form-group">
                         <label for="username">UserName</label>
                         <input  value="{{old('username')}}" name="username" type="text" class="form-control" id="username"  placeholder="Enter Your UserName" required>
+                        <div class="text-danger mt-1">
+                            @error('username')
+                            *{{$message}}
+                            @enderror
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
                         <input name="password" type="password" class="form-control" id="password" placeholder="Password" required>
+                        <div class="text-danger mt-1">
+                            @error('username')
+                            *{{$message}}
+                            @enderror
+                        </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Login</button>
                 </form>
