@@ -106,7 +106,7 @@ $(document).ready(function () {
                                     By <a href="">`+ removeTag(result.user[post.id].name) +`</a>  vào lúc `+ post.created_at +`
                                 </div>
                                 <div style="display: inline-block; float: right">
-                                    <a href="viewpost/`+post.id+`">\`+post.comments.length+\`</a> Bình Luận
+                                    <a href="viewpost/`+post.id+`">`+post.comments.length+`</a> Bình Luận
                                     <||>
                                     <a href="viewpost/`+post.id+`">0</a> Lượt thích
                                 </div>
@@ -195,7 +195,7 @@ $(document).ready(function () {
                                     By <a href="">`+ removeTag(result.user[post.id].name) +`</a>  vào lúc `+ post.created_at +`
                                 </div>
                                 <div style="display: inline-block; float: right">
-                                    <a href="viewpost/`+post.id+`">\`+post.comments.length+\`</a> Bình Luận
+                                    <a href="viewpost/`+post.id+`">`+post.comments.length+`</a> Bình Luận
                                     <||>
                                     <a href="viewpost/`+post.id+`">0</a> Lượt thích
                                 </div>
