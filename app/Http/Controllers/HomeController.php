@@ -50,7 +50,7 @@ class HomeController extends Controller {
         foreach ($posts as $post){
             $user[$post->id] = $post->user;
             $tags[$post->id] = $post->tags;
-            $comments[$posts->id] = $post->comments;
+            $comments[$post->id] = $post->comments;
 
         }
         if ($posts) {
