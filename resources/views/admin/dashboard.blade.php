@@ -1,13 +1,12 @@
-@extends('layouts.layout')
+@extends('admin.layout.admin_layout')
 @section('title')
-    Welcome
-
+    Dashboard
 @endsection
 
 @section('content')
     <div class="container w-100">
         <div class="row w-100">
-            <h4 class="text-center">Welcome to my Kipalog</h4>
+            <h4 class="text-center">Welcome to my Kipalog Admin Page</h4>
         </div>
     </div>
 @endsection

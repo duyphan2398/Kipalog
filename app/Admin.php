@@ -1,13 +1,14 @@
 <?php
 
 namespace App;
+
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use  Illuminate\Support\Facades\Hash;
-class User extends Authenticatable
+class Admin extends Authenticatable
 {
     use Notifiable;
-
+    protected $guard = 'admin';
     /**
      * The attributes that are mass assignable.
      *
@@ -34,17 +35,4 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    /*Hash password*/
-    public function setPasswordAttribute($password){
-        $this->attributes['password'] = Hash::make($password);
-    }
-
-    /*Insert link hình vào avatar của user*/
-    public function setAvatarAttribute($link) {
-        $this->attributes['avatar'] = $link;
-    }
-
-
-
 }
