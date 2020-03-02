@@ -1,10 +1,9 @@
 <?php
 
-namespace App;
+namespace App\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use  Illuminate\Support\Facades\Hash;
-use App\Post;
 class User extends Authenticatable
 {
     use Notifiable;

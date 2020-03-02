@@ -7,7 +7,7 @@ let lastPageTag = 0;
 
 $(document).ready(function() {
     $("#addMore").click(function () {
-        axios.get(location.origin +'/ajax/getPostTag/'+ tag_id, {
+        axios.get(location.origin +'/ajax/getPostsByTag/'+ tag_id, {
                 params: {
                     page: currentPageTag
                 }
@@ -33,16 +33,16 @@ $(document).ready(function() {
                 post.tags.forEach(function (tag) {
                     output += `<button class="btn btn-success mr-2">
                                    <a href="`+location.origin+`/tag/`+tag.id+`">
-                                          `+ tag.name +`
+                                          `+ removeTag(tag.name) +`
                                    </a>
                                </button>`;
                 });
                 output +=   `</div>
                                 <div class="content" style="overflow: hidden; height: 100px">
-                                    `+ post.content +`
+                                    `+ removeTag(post.content) +`
                                 </div>
                                 <div>
-                                    By <a href="">`+ post.user.name +`</a>  vào lúc `+ post.created_at +`
+                                    By <a href="">`+ removeTag(post.user.name) +`</a>  vào lúc `+ post.created_at +`
                                 </div>
                             </div>
                         </div>

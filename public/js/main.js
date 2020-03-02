@@ -1,51 +1,59 @@
+function removeTag(str){
+    return str.replace(/(<([^>]+)>)/ig,"");
+}
 $(document).ready(function () {
-    var pageBaiVietMoi = 0;
-    var pageBaiVietHay = 0;
-    var outputBaiVietMoi = '';
-    var outputBaiVietHay = '';
-    var maxPageBaiVietMoi = 1;
-    var maxPageBaiVietHay = 1;
-    var outputSearch =  '';
+    let currentPageNewPosts = 0;
+    let currentPageGoodPosts = 0;
+    let outputNewPosts = '';
+    let outputGoodPosts = '';
+    let maxPageNewPosts = 1;
+    let maxPageGoodPosts = 1;
+    let outputSearch =  '';
 
-    $('#addBaiVietMoi').click(function () {
-        pageBaiVietMoi++;
+    $('#moreNewPosts').click(function () {
+        currentPageNewPosts++;
         $.when(
-            $('#buttonAddBaiVietMoi').removeAttr("style").hide(),
+            $('#buttonMoreNewPosts').removeAttr("style").hide(),
             $('#ajax-loader').show(),
             $.ajax({
-                url: location.origin +'/ajax/baivietmoi?page='+pageBaiVietMoi,
+                url: location.origin +'/ajax/getNewPosts?page='+currentPageNewPosts,
                 type: 'GET',
                 success: function (result) {
                     result.post.data.forEach(function (post){
-                        outputBaiVietMoi += `<div class="row">
+                        outputNewPosts += `<div class="row">
                             <div class="col-1 ">
                                 <img src="`+ result.user[post.id].avatar +`"  style="height: 50px;  border-radius: 50%;width: 50px">
                             </div>
                             <div class="col-11 " style="word-wrap: break-word;">
-                                <h3 class="p-2">
-                                <a href="viewpost/`+post.id+`">` + post.title +`</a>
+                                <h3 class="p-2" style="display: block">
+                                <a href="viewpost/`+post.id+`">` + removeTag(post.title) +`</a>
                                 </h3>
                                 <div class="tag mb-1">`;
                         result.tags[post.id].forEach(function (tag) {
-                            outputBaiVietMoi += `<button class="btn btn-success mr-2">
+                            outputNewPosts += `<button class="btn btn-success mr-2">
                                                         <a href="/tag/`+tag.id+`">
-                                                         `+ tag.name +`
+                                                         `+ removeTag(tag.name) +`
                                                         </a>
                                                 </button>`;
                         });
-                        outputBaiVietMoi +=   `</div>
+                        outputNewPosts +=   `</div>
                                 <div class="content" style="overflow: hidden; height: 100px">
-                                    `+ post.content +`
+                                    `+  removeTag(post.content) +`
                                 </div>
-                                <div>
-                                    By <a href="">`+ result.user[post.id].name +`</a>  vào lúc `+ post.created_at +`
+                                <div style="display: inline-block; float: left">
+                                    By <a href="">`+ removeTag(result .user[post.id].name) +`</a>  vào lúc `+ post.created_at +`
+                                </div>
+                                <div style="display: inline-block; float: right">
+                                    <a href="viewpost/`+post.id+`">`+post.comments.length+`</a> Bình Luận
+                                    <||>
+                                    <a href="viewpost/`+post.id+`">0</a> Lượt thích
                                 </div>
                             </div>
                         </div>
                         <hr>`;
                     });
-                    $('#listContent').empty().append(outputBaiVietMoi);
-                    maxPageBaiVietMoi = result.post.last_page;
+                    $('#listContent').empty().append(outputNewPosts);
+                    maxPageNewPosts = result.post.last_page;
                 },
                 error: function (result) {
                     console.log(result);
@@ -54,56 +62,61 @@ $(document).ready(function () {
         )
             .then(function() {
                 $('#ajax-loader').removeAttr("style").hide();
-                if (maxPageBaiVietMoi <= pageBaiVietMoi){
-                    $('#buttonAddBaiVietMoi').removeAttr("style").hide();
+                if (maxPageNewPosts <= currentPageNewPosts){
+                    $('#buttonMoreNewPosts').removeAttr("style").hide();
                 }
                 else {
-                    $('#buttonAddBaiVietMoi').show();
+                    $('#buttonMoreNewPosts').show();
                 }
             });
     });
 
 
-    $('#addBaiVietHay').click(function () {
-        pageBaiVietHay++;
+    $('#moreGoodPosts').click(function () {
+        currentPageGoodPosts++;
         $.when(
             $('#ajax-loader').show(),
-            $('#buttonAddBaiVietHay').removeAttr("style").hide(),
+            $('#buttonMoreGoodPosts').removeAttr("style").hide(),
             $.ajax({
-                url: location.origin +'/ajax/baiviethay?page='+pageBaiVietHay,
+                url: location.origin +'/ajax/getGoodPosts?page='+currentPageGoodPosts,
                 type: 'GET',
                 success: function (result) {
                     result.post.data.forEach(function (post){
-                        outputBaiVietHay += `<div class="row">
+                        outputGoodPosts += `<div class="row">
                             <div class="col-1 ">
                                 <img src="`+ result.user[post.id].avatar +`"  style="height: 50px;  border-radius: 50%;width: 50px">
                             </div>
                             <div class="col-11 " style="word-wrap: break-word;">
                                 <h3 class="p-2">
-                                <a  href="viewpost/`+post.id+`">`+ post.title +`</a>
+                                    <a  href="viewpost/`+post.id+`">`+ removeTag(post.title) +`</a>
                                 </h3>
                                 <div class="tag mb-1">`;
                         result.tags[post.id].forEach(function (tag) {
-                            outputBaiVietHay +=`<button class="btn btn-success mr-2">
+                            outputGoodPosts +=`<button class="btn btn-success mr-2">
                                                         <a href="/tag/`+tag.id+`">
-                                                         `+ tag.name +`
+                                                            `+ removeTag(tag.name) +`
                                                         </a>
                                                 </button>`;
                         });
-                        outputBaiVietHay +=   `</div>
+                        outputGoodPosts +=   `</div>
                                 <div class="content" style="overflow: hidden; height: 100px">
-                                    `+ post.content +`
+                                    `+ removeTag(post.content) +`
                                 </div>
-                                <div>
-                                    By <a href="">`+ result.user[post.id].name +`</a>  vào lúc `+ post.created_at +`
+                                <div style="display: inline-block; float: left">
+                                    By <a href="">`+ removeTag(result.user[post.id].name) +`</a>  vào lúc `+ post.created_at +`
+                                </div>
+                                <div style="display: inline-block; float: right">
+                                    <a href="viewpost/`+post.id+`">\`+post.comments.length+\`</a> Bình Luận
+                                    <||>
+                                    <a href="viewpost/`+post.id+`">0</a> Lượt thích
                                 </div>
                             </div>
                         </div>
                         <hr>`;
                     });
 
-                    $('#listContent').empty().append(outputBaiVietHay);
-                    maxPageBaiVietHay = result.post.last_page;
+                    $('#listContent').empty().append(outputGoodPosts);
+                    maxPageGoodPosts = result.post.last_page;
                 },
                 error: function (result) {
                     console.log(result);
@@ -112,32 +125,32 @@ $(document).ready(function () {
         )
             .then(function () {
                 $('#ajax-loader').removeAttr("style").hide();
-                if (maxPageBaiVietHay <= pageBaiVietHay){
-                    $('#buttonAddBaiVietHay').removeAttr("style").hide();
+                if (maxPageGoodPosts <= currentPageGoodPosts){
+                    $('#buttonMoreGoodPosts').removeAttr("style").hide();
                 }
                 else {
-                    $('#buttonAddBaiVietHay').show();
+                    $('#buttonMoreGoodPosts').show();
                 }
             });
     });
 
 
-    $('#baivietmoi').click(function () {
-        $('#listContent').empty().append(outputBaiVietMoi);
-        $('#buttonAddBaiVietHay').removeAttr("style").hide();
-        if (pageBaiVietMoi < maxPageBaiVietMoi){
-            $("#buttonAddBaiVietMoi").show();
+    $('#newPosts').click(function () {
+        $('#listContent').empty().append(outputNewPosts);
+        $('#buttonMoreGoodPosts').removeAttr("style").hide();
+        if (currentPageNewPosts < maxPageNewPosts){
+            $("#buttonMoreNewPosts").show();
         }
     });
 
-    $('#baiviethay').click(function () {
-        $('#listContent').empty().append(outputBaiVietHay);
-        $('#buttonAddBaiVietMoi').removeAttr("style").hide();
-        if (pageBaiVietHay == 0 ) {
-            $('#addBaiVietHay').trigger( "click" );
+    $('#goodPosts').click(function () {
+        $('#listContent').empty().append(outputGoodPosts);
+        $('#buttonMoreNewPosts').removeAttr("style").hide();
+        if (currentPageGoodPosts == 0 ) {
+            $('#moreGoodPosts').trigger( "click" );
         }
-        if ((pageBaiVietHay < maxPageBaiVietHay) && (pageBaiVietHay != 0)) {
-            $("#buttonAddBaiVietHay").show();
+        if ((currentPageGoodPosts< maxPageGoodPosts) && (currentPageGoodPosts != 0)) {
+            $("#buttonMoreGoodPosts").show();
         }
     });
 
@@ -147,8 +160,8 @@ $(document).ready(function () {
         $("#searchForm").trigger("reset");
         $.when(
             $('#listContent').empty(),
-            $('#buttonAddBaiVietHay').removeAttr("style").hide(),
-            $('#buttonAddBaiVietMoi').removeAttr("style").hide(),
+            $('#buttonMoreGoodPosts').removeAttr("style").hide(),
+            $('#buttonMoreNewPosts').removeAttr("style").hide(),
             $('#ajax-loader').show(),
             $.ajax({
                 url: location.origin+'/ajax/search',
@@ -164,22 +177,27 @@ $(document).ready(function () {
                             </div>
                              <div class="col-11 " style="word-wrap: break-word;">
                                 <h3 class="p-2">
-                                <a href="viewpost/`+post.id+`">`+post.title+`</a>
+                                <a href="viewpost/`+post.id+`">`+removeTag(post.title)+`</a>
                                 </h3>
                                 <div class="tag mb-1">`;
                         result.tags[post.id].forEach(function (tag) {
                             outputSearch +=`<button class="btn btn-success mr-2">
                                                         <a href="/tag/`+tag.id+`">
-                                                         `+ tag.name +`
+                                                         `+ removeTag(tag.name) +`
                                                         </a>
                                                 </button>`;
                         });
                         outputSearch +=   `</div>
                                 <div class="content" style="overflow: hidden; height: 100px">
-                                    `+ post.content +`
+                                    `+ removeTag(post.content) +`
                                 </div>
-                                <div>
-                                    By <a href="">`+ result.user[post.id].name +`</a>  vào lúc `+ post.created_at +`
+                                <div style="display: inline-block; float: left">
+                                    By <a href="">`+ removeTag(result.user[post.id].name) +`</a>  vào lúc `+ post.created_at +`
+                                </div>
+                                <div style="display: inline-block; float: right">
+                                    <a href="viewpost/`+post.id+`">\`+post.comments.length+\`</a> Bình Luận
+                                    <||>
+                                    <a href="viewpost/`+post.id+`">0</a> Lượt thích
                                 </div>
                             </div>
                         </div>
@@ -199,18 +217,18 @@ $(document).ready(function () {
 
     });
 
-    axios.get(location.origin+'/ajax/tagsNoiBat').then(result => {
+    axios.get(location.origin+'/ajax/getPopularTags').then(result => {
 
         $("#chuDeNoiBat").empty();
         result.data.tags.forEach(function (tag) {
             $("#chuDeNoiBat").append(`
                     <button class="btn-danger btn mb-1">
-                               <a href="/tag/`+tag.id+`">`+tag.name+`</a>
+                               <a href="/tag/`+tag.id+`">`+removeTag(tag.name)+`</a>
                     </button> `);
         });
     });
 });
 
 $( window ).bind('load',function() {
-    $('#addBaiVietMoi').click();
+    $('#moreNewPosts').click();
 });

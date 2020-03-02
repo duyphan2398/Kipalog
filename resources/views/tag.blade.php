@@ -29,7 +29,7 @@
             </div>
             <div class="col-3">
                 @if(\Illuminate\Support\Facades\Auth::check())
-                    @include("user.partials.chuDeNoiBat")
+                    @include("user.partials.popularTags")
                 @endif
             </div>
         </div>

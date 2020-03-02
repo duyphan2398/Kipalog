@@ -23,12 +23,12 @@ $(document).ready(function() {
                     <div class="container-fluid">
                     <div class="row mb-1 ">
                     <div class="col text-right">
-                    `+comment.user.name+ ` `+ comment.created_at +`</small>
+                    `+removeTag(comment.user.name)+ ` `+ comment.created_at +`</small>
                 </div>
                 </div>
                 <div  style="background-color:#20202030; border-radius: 15px; border: 1px solid #11a0d5 " class="row clearfix">
                     <div style="width: 600px" class="p-2">
-                    `+ comment.content +`
+                    `+ removeTag(comment.content) +`
                 </div>
                 </div>
                 </div>
@@ -55,7 +55,7 @@ $(document).ready(function() {
                                       </div>
                                       <div  style="background-color:#20202030; border-radius: 15px; border: 1px solid #11a0d5 " class="row">
                                           <div style="width: 600px" class="p-2">
-                                               `+ comment.content +`
+                                               `+ removeTag(comment.content) +`
                                           </div>
                                       </div>
                                   </div>
@@ -70,7 +70,7 @@ $(document).ready(function() {
 
 
     $("#loadButton").click(function () {
-        axios.get(location.origin +'/ajax/getcomments/'+ post_id, {
+        axios.get(location.origin +'/ajax/getCommentsByPost/'+ post_id, {
                 params: {
                     page: currentPageComment
                 }
@@ -94,12 +94,12 @@ $(document).ready(function() {
                     <div class="container-fluid">
                     <div class="row mb-1 ">
                     <div class="col text-right">
-                    `+comment.user.name+ ` `+ comment.created_at +`</small>
+                    `+removeTag(comment.user.name)+ ` `+ comment.created_at +`</small>
                 </div>
                 </div>
                 <div  style="background-color:#20202030; border-radius: 15px; border: 1px solid #11a0d5 " class="row clearfix">
                     <div style="width: 600px" class="p-2">
-                    `+ comment.content +`
+                    `+ removeTag(comment.content) +`
                 </div>
                 </div>
                 </div>
@@ -125,7 +125,7 @@ $(document).ready(function() {
                                         </div>
                                         <div  style="background-color:#20202030; border-radius: 15px; border: 1px solid #11a0d5 " class="row">
                                             <div style="width: 600px" class="p-2">
-                                                 `+ comment.content +`
+                                                 `+ removeTag(comment.content) +`
                                             </div>
                                         </div>
                                     </div>
@@ -150,10 +150,21 @@ $(document).ready(function() {
         });
     });
 
+
+
     $('#formComment').submit(function (e) {
         e.preventDefault();
-        let content = $('#comment').val();
-        if (content.length != 0 ){
+        var validator = $('#formComment').validate({
+            rules: {
+                comment: "required"
+            },
+            messages: {
+                comment: "Please Enter Your Comment"
+            }
+        });
+        if (validator.form()) {
+            let content = $('#comment').val();
+
             $('#formComment').trigger("reset");
             let url = window.location.href;
             urlSplit = url.split('/');
@@ -161,22 +172,20 @@ $(document).ready(function() {
             let token = document.head.querySelector('meta[name="csrf-token"]');
             if (token) {
                 window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
-                axios.post(location.origin +'/ajax/newcomment', {
+                axios.post(location.origin +'/ajax/comment/create', {
                     content,
                     post_id
                 })
                     .then(function (response) {
+                        console.log(response);
                         return;
                     })
                     .catch(function (error) {
-                        alert('Tạo KHÔNG thành công');
+                        alert('Can not comment - Please try again');
                     })
             } else {
                 console.error('CSRF token not found ! ');
             }
-        }
-        else{
-            alert("Vui lòng nhập Cmt");
         }
     });
 });

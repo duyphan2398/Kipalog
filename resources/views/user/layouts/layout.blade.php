@@ -43,14 +43,16 @@
             "showMethod": "fadeIn",
             "hideMethod": "fadeOut"
         }
-        var flashSuccess = "{{session()->has('success')}}";
-        var flashError = "{{session()->has('error')}}";
-        if (flashSuccess){
-            toastr.success("{{session('success')}}");
-        }
-        if (flashError){
-            toastr.error("{{session('error')}}");
-        }
+        $(document).ready(function () {
+            let flashSuccess = "{{session()->has('success')}}";
+            let flashError = "{{session()->has('error')}}";
+            if (flashSuccess) {
+                toastr.success("{{session('success')}}");
+            }
+            if (flashError) {
+                toastr.error("{{session('error')}}");
+            }
+        });
     </script>
     @include('user.partials.footer')
 </body>

@@ -5,7 +5,17 @@
         var user_id = "{{$authUser->id}}";
     </script>
     <script src="https://js.pusher.com/5.1/pusher.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.12.0/jquery.validate.js"></script>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.12.0/additional-methods.js"></script>
     <script  type="text/javascript" src="{{asset("js/comment.js")}}"></script>
+    <style>
+        .error{
+            color: red;
+            margin-top: 2px;
+            justify-content: left !important;
+        }
+    </style>
 @endsection
 
 @section('content')
@@ -27,13 +37,13 @@
                     <div class="row">
                         @foreach($post->tags as $tag)
                             <button class="btn btn-dark mr-2">
-                                {{$tag->name}}
+                                <a href="/tag/{{$tag->id}}">{{$tag->name}}</a>
                             </button>
                         @endforeach
 
                     </div>
                     <div class="row mt-2">
-                        <p>*By <a href=""> {{ $post->user->name}}</a> ( {{$post->updated_at}} )</p>
+                        <p>*By <a href=""> {{ $post->user->name}}</a> ( {{$post->created_at}} )</p>
                     </div>
                     <div class="row mt-2">
                         <div class="col" style="word-wrap: break-word;">
@@ -58,7 +68,10 @@
                                     <li class=" list-inline-item" >
                                         <form  id="formComment" class="form-inline">
                                             @csrf
-                                            <textarea  cols="30" rows="5" style="width: 600px" placeholder="Enter your cmt " class="form-control mr-3"  type="text" name="comment" id="comment"> </textarea>
+                                            <div>
+                                                 <textarea  cols="30" rows="5" style="width: 600px" placeholder="Enter your cmt " class="form-control mr-3"  type="text" name="comment" id="comment">   </textarea>
+                                                  <label for="comment" class="error"></label>
+                                            </div>
                                             <button id="submitFormComment" class="form-control btn btn-success" type="submit"> Gửi </button>
                                         </form>
                                     </li>
@@ -82,7 +95,7 @@
             </div>
             <div class="col-3">
                 {{----------------------------------------------}}
-                @include("user.partials.chuDeNoiBat",['post'=>$post])
+                @include("user.partials.popularTags",['post'=>$post])
                 {{-------------------------------------}}
             </div>
         </div>

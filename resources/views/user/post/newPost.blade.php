@@ -6,8 +6,6 @@
             color: red;
             margin-top: 2px;
         }
-
-
     </style>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tokenfield/0.12.0/css/bootstrap-tokenfield.min.css">
@@ -30,18 +28,18 @@
         @csrf
         <div class="form-group">
             <label for="title">Enter Title: </label>
-            <input type="text" name="title" id="title" class="form-control" />
+            <input value="{{old('title')}}" type="text" name="title" id="title" class="form-control" />
             <label for="title" class="error"></label>
         </div>
         <div class="form-group">
             <label for="tags">Enter your tags</label>
-            <input type="text" name="tags" id="tags" class="form-control" />
+            <input value="{{old('tags')}}" type="text" name="tags" id="tags" class="form-control" />
 
             </div>
         </div>
         <div class="form-group">
             <label for="content">Enter your tags</label>
-            <textarea class="form-control" name="content" id="content" cols="30" rows="10"></textarea>
+            <textarea value=" {{old('content')}}"class="form-control" name="content" id="content" cols="30" rows="10"></textarea>
             <label for="content" class="error"></label>
         </div>
 

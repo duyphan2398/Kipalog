@@ -1,6 +1,6 @@
 $(document).ready(function() {
     let tags = [];
-    axios.get(location.origin +'/ajax/tags').then(result =>{
+    axios.get(location.origin +'/ajax/getAllTags').then(result =>{
         result.data.forEach(function (tag) {
             tags.push(tag.name);
         });
@@ -21,12 +21,7 @@ $(document).ready(function() {
                         e.preventDefault();
                     }
                 })
-            })
-            .on('tokenfield:edittoken', function (e) {
-                console.log("dsadsadsadsa");
-                console.log($("label[for=tags]").val());
-
-            })
+            });
     });
 
 
@@ -55,29 +50,25 @@ $(document).ready(function() {
             let token = document.head.querySelector('meta[name="csrf-token"]');
             if (token) {
                 window.axios.defaults.headers.common['X-CSRF-TOKEN'] = token.content;
-                axios.post(location.origin +'/ajax/newpost', {
+                axios.post(location.origin +'/ajax/post/create', {
                     title,
                     arrayTags,
                     content
                 })
                     .then(function (response) {
-                        $("#newPostForm").trigger("reset");
-                        alert('Tạo thành công');
+                        if (confirm('Created Successfully! Do you want continue ? ')){
+                            $('#newPostForm').trigger("reset");
+                        }
+                        else{
+                            window.location.replace(location.origin);
+                        }
                     })
                     .catch(function (error) {
-                        alert('Tạo KHÔNG thành công');
+                        alert('Can not create - Please try again');
                     })
             } else {
                 console.error('CSRF token not found ! ');
             }
-        }
-        else{
-            if ($("label[for='tags']").text()){
-                var text = $("label[for='tags']").text();
-                $("label[for='tags-tokenfield']").innerText(text);
-                $("label[for='tags']").removeAttr("style").hide();
-
-            };
         }
     });
 });

@@ -1,6 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\LoginRequest;
 class LoginController extends Controller
@@ -10,7 +12,9 @@ class LoginController extends Controller
     }
     public  function create(LoginRequest $request)
     {
+
         $credentials = $request->only('username', 'password');
+
         if (Auth::attempt($credentials)) {
             session()->flash("success", "Login Successfully");
             return redirect('/');

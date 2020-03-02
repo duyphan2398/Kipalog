@@ -1,61 +1,22 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Comment;
+use App\Models\Comment;
 use App\Events\CommentRealtime;
 use App\Http\Requests\NewCommentRequest;
-use App\Http\Requests\NewPostRequest;
-use App\Post;
-use App\Tag;
+use App\Models\Post;
+use App\Models\Tag;
 use  Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
-use Carbon\Carbon;
+
 class AjaxController extends Controller
 {
-    public function getTags(){
+    public function getAllTags(){
         $tags = Tag::all();
         return response()->json($tags);
     }
 
-    public function postTags(NewPostRequest $request){
-        $post = new Post();
-        $post->fill($request->all());
-        $post->setUserIdAttribute(Auth::id());
-        $post->stripTags(["title","content"]);
-        if ($post->save()){
-            foreach ($request->arrayTags as $tag){
-                $tagInTable = Tag::whereName($tag)->first();
-                if ($tagInTable ){
-                    DB::table('posts_tags')->insert([
-                        'post_id'=>$post->id,
-                        'tag_id' =>$tagInTable->id
-                    ]);
-                }
-                else{
-                    $newTag = new Tag();
-                    $newTag->fill(['name' => $tag]);
-                    $newTag->stripTags(['name']);
-                    if ($newTag->save()){
-                        DB::table('posts_tags')->insert([
-                            'post_id'=>$post->id,
-                            'tag_id' =>$newTag->id,
-                            'created_at'=> Carbon::now(),
-                            'updated_at' => Carbon::now()
-                        ]);
-                    }
-                }
-            }
-            return response()->json([
-                'status' => 'success'
-            ],201);
-        }
-        return response()->json([
-            'status' => 'fails'
-        ],404);
-    }
-
-    public function newComment(NewCommentRequest $request){
+    public function createComment(NewCommentRequest $request){
          $comment = new  Comment();
          $comment->fill($request->all());
          $comment->setUserIdAttribute(Auth::id());
@@ -64,7 +25,7 @@ class AjaxController extends Controller
              return response()->json([
                  'status' => 'success',
                  'comment' => $comment,
-                 'user' => $comment->user
+                 'user' => Auth::user()
              ],201);
          }
          else{
@@ -74,7 +35,7 @@ class AjaxController extends Controller
          }
     }
 
-    public function getComments(Post $post,Request $request){
+    public function getCommentsByPost(Post $post,Request $request){
         $comments = $post->comments()->orderByDesc('created_at')->paginate(5);
         $users = [];
         foreach ($comments as $comment){
@@ -86,7 +47,7 @@ class AjaxController extends Controller
         ],200);
     }
 
-    public function getPostTag(Tag $tag){
+    public function getPostsByTag(Tag $tag){
         $posts = $tag->posts()->orderByDesc('created_at')->paginate(3);
         $users = [];
         $tags = [];
@@ -101,7 +62,7 @@ class AjaxController extends Controller
         ],200);
     }
 
-    public function getTagsNoiBat(){
+    public function getPopularTags(){
         $tags = Tag::all();
         $tagsResult= $tags->sortByDesc(function ($tag) {
             return ($tag->posts()->count());
