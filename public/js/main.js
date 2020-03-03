@@ -22,16 +22,16 @@ $(document).ready(function () {
                     result.post.data.forEach(function (post){
                         outputNewPosts += `<div class="row">
                             <div class="col-1 ">
-                                <img src="`+ result.user[post.id].avatar +`"  style="height: 50px;  border-radius: 50%;width: 50px">
+                                <img src="`+location.origin+`/`+ result.user[post.id].avatar +`"  style="height: 50px;  border-radius: 50%;width: 50px">
                             </div>
                             <div class="col-11 " style="word-wrap: break-word;">
                                 <h3 class="p-2" style="display: block">
-                                <a href="viewpost/`+post.id+`">` + removeTag(post.title) +`</a>
+                                <a href="`+location.origin+`/viewpost/`+post.id+`">` + removeTag(post.title) +`</a>
                                 </h3>
                                 <div class="tag mb-1">`;
                         result.tags[post.id].forEach(function (tag) {
                             outputNewPosts += `<button class="btn btn-success mr-2">
-                                                        <a href="/tag/`+tag.id+`">
+                                                        <a href="`+location.origin+`/tag/`+tag.id+`">
                                                          `+ removeTag(tag.name) +`
                                                         </a>
                                                 </button>`;
@@ -41,12 +41,12 @@ $(document).ready(function () {
                                     `+  removeTag(post.content) +`
                                 </div>
                                 <div style="display: inline-block; float: left">
-                                    By <a href="">`+ removeTag(result .user[post.id].name) +`</a>  vào lúc `+ post.created_at +`
+                                    By <a href="`+location.origin+`/myPage/`+result .user[post.id].id+`">`+ removeTag(result .user[post.id].name) +`</a>  vào lúc `+ post.created_at +`
                                 </div>
                                 <div style="display: inline-block; float: right">
-                                    <a href="viewpost/`+post.id+`">`+post.comments.length+`</a> Bình Luận
+                                    <a href="`+location.origin+`/viewpost/`+post.id+`">`+post.comments.length+`</a> Bình Luận
                                     <||>
-                                    <a href="viewpost/`+post.id+`">0</a> Lượt thích
+                                    <a href="`+location.origin+`/viewpost/`+post.id+`">`+post.likes.length+`</a> Lượt thích
                                 </div>
                             </div>
                         </div>
@@ -84,16 +84,16 @@ $(document).ready(function () {
                     result.post.data.forEach(function (post){
                         outputGoodPosts += `<div class="row">
                             <div class="col-1 ">
-                                <img src="`+ result.user[post.id].avatar +`"  style="height: 50px;  border-radius: 50%;width: 50px">
+                                <img src="`+location.origin+`/`+ result.user[post.id].avatar +`"  style="height: 50px;  border-radius: 50%;width: 50px">
                             </div>
                             <div class="col-11 " style="word-wrap: break-word;">
                                 <h3 class="p-2">
-                                    <a  href="viewpost/`+post.id+`">`+ removeTag(post.title) +`</a>
+                                    <a  href="`+location.origin+`/viewpost/`+post.id+`">`+ removeTag(post.title) +`</a>
                                 </h3>
                                 <div class="tag mb-1">`;
                         result.tags[post.id].forEach(function (tag) {
                             outputGoodPosts +=`<button class="btn btn-success mr-2">
-                                                        <a href="/tag/`+tag.id+`">
+                                                        <a href="`+location.origin+`/tag/`+tag.id+`">
                                                             `+ removeTag(tag.name) +`
                                                         </a>
                                                 </button>`;
@@ -103,12 +103,12 @@ $(document).ready(function () {
                                     `+ removeTag(post.content) +`
                                 </div>
                                 <div style="display: inline-block; float: left">
-                                    By <a href="">`+ removeTag(result.user[post.id].name) +`</a>  vào lúc `+ post.created_at +`
+                                    By <a href="`+location.origin+`/myPage/`+result.user[post.id].id+`">`+ removeTag(result.user[post.id].name) +`</a>  vào lúc `+ post.created_at +`
                                 </div>
                                 <div style="display: inline-block; float: right">
-                                    <a href="viewpost/`+post.id+`">`+post.comments.length+`</a> Bình Luận
+                                    <a href="`+location.origin+`/viewpost/`+post.id+`">`+post.comments.length+`</a> Bình Luận
                                     <||>
-                                    <a href="viewpost/`+post.id+`">0</a> Lượt thích
+                                    <a href="`+location.origin+`/viewpost/`+post.id+`">0</a> Lượt thích
                                 </div>
                             </div>
                         </div>
@@ -177,12 +177,12 @@ $(document).ready(function () {
                             </div>
                              <div class="col-11 " style="word-wrap: break-word;">
                                 <h3 class="p-2">
-                                <a href="viewpost/`+post.id+`">`+removeTag(post.title)+`</a>
+                                <a href="`+location.origin+`/viewpost/`+post.id+`">`+removeTag(post.title)+`</a>
                                 </h3>
                                 <div class="tag mb-1">`;
                         result.tags[post.id].forEach(function (tag) {
                             outputSearch +=`<button class="btn btn-success mr-2">
-                                                        <a href="/tag/`+tag.id+`">
+                                                        <a href="`+location.origin+`/tag/`+tag.id+`">
                                                          `+ removeTag(tag.name) +`
                                                         </a>
                                                 </button>`;
@@ -192,12 +192,12 @@ $(document).ready(function () {
                                     `+ removeTag(post.content) +`
                                 </div>
                                 <div style="display: inline-block; float: left">
-                                    By <a href="">`+ removeTag(result.user[post.id].name) +`</a>  vào lúc `+ post.created_at +`
+                                    By <a href="`+location.origin+`/myPage/`+result.user[post.id].id+`">`+ removeTag(result.user[post.id].name) +`</a>  vào lúc `+ post.created_at +`
                                 </div>
                                 <div style="display: inline-block; float: right">
-                                    <a href="viewpost/`+post.id+`">`+post.comments.length+`</a> Bình Luận
+                                    <a href="`+location.origin+`/viewpost/`+post.id+`">`+post.comments.length+`</a> Bình Luận
                                     <||>
-                                    <a href="viewpost/`+post.id+`">0</a> Lượt thích
+                                    <a href="`+location.origin+`viewpost/`+post.id+`">`+post.likes.length+`</a> Lượt thích
                                 </div>
                             </div>
                         </div>
@@ -218,12 +218,11 @@ $(document).ready(function () {
     });
 
     axios.get(location.origin+'/ajax/getPopularTags').then(result => {
-
         $("#chuDeNoiBat").empty();
         result.data.tags.forEach(function (tag) {
             $("#chuDeNoiBat").append(`
                     <button class="btn-danger btn mb-1">
-                               <a href="/tag/`+tag.id+`">`+removeTag(tag.name)+`</a>
+                               <a href="`+location.origin+`/tag/`+tag.id+`">`+removeTag(tag.name)+`</a>
                     </button> `);
         });
     });

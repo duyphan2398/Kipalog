@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Like;
 use App\Models\Comment;
 use App\Events\CommentRealtime;
 use App\Http\Requests\NewCommentRequest;
 use App\Models\Post;
 use App\Models\Tag;
+use App\Models\User;
 use  Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -71,5 +73,67 @@ class AjaxController extends Controller
         return  response()->json([
             'tags' => $result
         ],200);
+    }
+
+    public function createLike(Post $post, Request $request){
+        $user = User::find($request->user_id);
+        if ( $row = $user->likedThisPost($post) ){
+            if ($row->delete()){
+                return response()->json([
+                    'status' => 'success'
+                ],200);
+            }
+        }
+        else{
+            $like = new Like();
+            $like->setUserIdAttribute($user->id);
+            $like->post_id = $post->id;
+            if ($like->save()){
+                return response()->json([
+                    'status' => 'success'
+                ],200);
+            }
+        }
+        return response()->json([
+            'status' => 'fail'
+        ],404);
+    }
+
+    public function changeStatePost(Post $post){
+        if ($post->user->id == Auth::id()){
+            if ($post->state == 'Private'){
+                $post->state = 'Public';
+                if ($post->save()){
+                    return response()->json([
+                        'status' => 'success'
+                    ],200);
+                }
+            }
+            else {
+                $post->state = 'Private';
+                if ($post->save()){
+                    return response()->json([
+                        'status' => 'success'
+                    ],200);
+                }
+            }
+        }
+        return response()->json([
+            'status' => 'fail'
+        ],404);
+    }
+
+    public function deletePost(Post $post)
+    {
+        if (Auth::id() == $post->user->id){
+            if ($post->delete()) {
+                return response()->json([
+                    'status' => 'success'
+                ], 200);
+            }
+        }
+        return response()->json([
+            'status' => 'fail'
+        ], 404);
     }
 }

@@ -38,11 +38,17 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="content">Enter your tags</label>
+            <label for="content">Enter your content</label>
             <textarea value=" {{old('content')}}"class="form-control" name="content" id="content" cols="30" rows="10"></textarea>
             <label for="content" class="error"></label>
         </div>
-
+        <div class="form-group">
+            <label for="state">State</label>
+            <select name="state" class="form-control" id="state">
+                <option>Public</option>
+                <option>Private</option>
+            </select>
+        </div>
         <div class="form-group">
             <input type="submit" name="submit" id="submit" class="btn btn-info" value="Submit" />
         </div>

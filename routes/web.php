@@ -17,6 +17,7 @@ Route::group(['middleware' => ['check.isnot.admin']], function (){
     Route::get('/', 'HomeController@index')->middleware('check.isnot.admin');
     Route::get('viewpost/{post}','PostController@viewPost');
     Route::get('tag/{tag}', 'PostController@viewTag');
+    Route::get('myPage/{user}', 'PostController@myPage');
 });
 
 
@@ -37,7 +38,7 @@ Route::group(['middleware' => ['check.login']], function ()
 Route::group(['middleware' => ['check.isnot.admin','auth']], function ()
 {
     Route::get('logout','LoginController@logout');
-    Route::get('myPosts', 'HomeController@myPost');
+    Route::get('myPosts', 'HomeController@myPosts');
     Route::get('newpost','PostController@index');
 });
 

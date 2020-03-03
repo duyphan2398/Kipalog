@@ -18,18 +18,18 @@ use Illuminate\Http\Request;
                         <button class="btn"><a href="{{route('login')}}">Login</a></button>
                     </li>
                     <li class="list-inline-item">
-                        <button class="btn"><a href="/register">Register</a></button>
+                        <button class="btn"><a href="{{ url('register') }}">Register</a></button>
                     </li>
                     <li>
-                        <button class="btn"><a href="/resetpassword">Forgot Password</a></button>
+                        <button class="btn"><a href="{{url('resetpassword')}}">Forgot Password</a></button>
                     </li>
                 @else
 
                     <li class="list-inline-item">
-                        <button class="btn"><a href="/newpost">Viết bài</a></button>
+                        <button class="btn"><a href="{{url('newpost')}}">Viết bài</a></button>
                     </li>
                     <li class="list-inline-item">
-                        <button class="btn"><a href="/myPosts">Kho log</a></button>
+                        <button class="btn"><a href="{{url('myPosts')}}">Kho log</a></button>
                     </li>
                     <li class="list-inline-item">
                         <img src="{{asset(\Illuminate\Support\Facades\Auth::user()->avatar)}}" alt="Avartar" style="vertical-align: middle;width: 50px;height: 50px;border-radius: 50%;">
@@ -39,9 +39,9 @@ use Illuminate\Http\Request;
                             <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">{{\Illuminate\Support\Facades\Auth::user()->name}}
                                 <span class="caret"></span></button>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Trang ca nhan</a></li>
+                                <li><a href="{{url('myPage/'.\Illuminate\Support\Facades\Auth::id())}}">Trang ca nhan</a></li>
                                 <li><a href="#">Cai dat</a></li>
-                                <li><a href="/logout">Dang xuat</a></li>
+                                <li><a href="{{url('logout')}}">Dang xuat</a></li>
                             </ul>
                         </div>
                     </li>

@@ -26,6 +26,7 @@ class AppServiceProvider extends ServiceProvider
             foreach ( $attributes as $attribute) {
                  $this->orWhere($attribute, 'LIKE', "%{$searchInput}%");
             }
+            $this->where('state', '<>', 'Private');
             return $this;
 
         });

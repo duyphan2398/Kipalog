@@ -22,10 +22,15 @@ Route::group(['middleware' => ['check.isnot.admin']], function () {
     Route::get('getPopularTags', 'AjaxController@getPopularTags');
     Route::get('getAllTags', 'AjaxController@getAllTags');
     Route::get('getAllTags', 'AjaxController@getAllTags');
+
+
 });
 
 Route::group(['middleware' => ['check.isnot.admin','auth']], function ()
 {
+    Route::get('deletePost/{post}', 'AjaxController@deletePost');
+    Route::get('like/{post}','AjaxController@createLike');
+    Route::get('changeState/{post}', 'AjaxController@changeStatePost');
     Route::post('post/create', 'PostController@create');
     Route::post('comment/create', 'AjaxController@createComment');
 });

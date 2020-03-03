@@ -3,6 +3,7 @@
 namespace App\Models;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use  Illuminate\Support\Facades\Hash;
 class User extends Authenticatable
 {
@@ -47,6 +48,16 @@ class User extends Authenticatable
     /*Insert link hình vào avatar của user*/
     public function setAvatarAttribute($link) {
         $this->attributes['avatar'] = $link;
+    }
+
+    public function likedThisPost(Post $post){
+        $row = Like::where('user_id', $this->id)->where('post_id', $post->id)->first();
+        if ($row){
+            /*liked*/
+            return $row;
+        }
+        /*Not like yet*/
+        return false;
     }
 
 

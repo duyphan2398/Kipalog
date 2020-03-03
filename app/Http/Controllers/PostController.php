@@ -74,5 +74,8 @@ class PostController extends Controller
         ]);
     }
 
-
+    public function myPage(User $user){
+        $posts = Post::where('user_id', $user->id)->get();
+        return view('user.wall_user.myPage')->with('posts', $posts);
+    }
 }
