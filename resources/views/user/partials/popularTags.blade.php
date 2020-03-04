@@ -14,23 +14,17 @@
             </div>
             <hr>
         </div>
-
         <div class="row mt-1">
             <h4><i>Chủ đề nổi bật</i></h4>
             <div id="chuDeNoiBat">
-
             </div>
         </div>
     </div>
-
 @else
-
     <div class="container-fluid">
         @if(isset($post))
         <div class="row">
-
             <div class="col-3">
-
                 <img src="{{asset($post->user->avatar)}}" alt="" style="height: 50px;  border-radius: 50%;width: 50px">
             </div>
             <div class="col-8">
@@ -47,7 +41,6 @@
         <div class="row mt-1">
             <h4><i>Chủ đề nổi bật</i></h4>
             <div id="chuDeNoiBat" >
-
             </div>
         </div>
     </div>

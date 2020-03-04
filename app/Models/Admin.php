@@ -14,7 +14,7 @@ class Admin extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name','username', 'email','avatar', 'password',
+        'name','username', 'email','password',
     ];
 
     /**
@@ -31,7 +31,4 @@ class Admin extends Authenticatable
      *
      * @var array
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
 }

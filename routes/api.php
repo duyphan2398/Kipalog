@@ -34,3 +34,9 @@ Route::group(['middleware' => ['check.isnot.admin','auth']], function ()
     Route::post('post/create', 'PostController@create');
     Route::post('comment/create', 'AjaxController@createComment');
 });
+
+
+Route::group(['middleware' => ['check.admin'], 'prefix' => 'admin'], function ()
+{
+    Route::get('getusers', 'Admin\ManageUserController@show');
+});

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
-
+use App\Models\Admin;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -23,16 +23,6 @@ Route::group(['middleware' => ['check.login']], function () {
 Route::group(['middleware' => ['check.admin']], function () {
     Route::get('dashboard','AdminController@index');
     Route::get('logout','LoginController@logout');
+    Route::get('users','ManageUserController@index');
 });
 
-
-
-/* Test Route: create admin*/
-/*Route::get('admin', function(){
-    $admin = new \App\Admin();
-    $admin->name = 'admin2';
-    $admin->email = 'duyphan@gmail.com';
-    $admin->password = \Illuminate\Support\Facades\Hash::make('22157896a');
-    $admin->avatar = 'images/default.png';
-    $admin->save();
-});*/

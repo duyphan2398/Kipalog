@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    <div class="container mb-4">
+    <div class="container mt-5 pl-5" style="margin-left: 300px">
         <div class="row">
             <div class="col">
                 <form  method="POST" action="{{route('postLogin')}}" class="w-75">
