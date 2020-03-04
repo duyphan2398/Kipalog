@@ -48,7 +48,7 @@ class HomeController extends Controller {
 
     /*Return the good posts when click the button "BÀI VIẾT HAY" */
     public function getGoodPosts(){
-        $posts = Post::where('state', '<>', 'Private')->oorderBy('created_at')->paginate(5);
+        $posts = Post::where('state', '<>', 'Private')->withCount('comments')->orderBy('comments_count','desc')->paginate(5);
         $user = [];
         $tags = [];
         $comments = [];

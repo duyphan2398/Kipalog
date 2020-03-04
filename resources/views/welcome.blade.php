@@ -51,9 +51,7 @@
             </div>
             <div class="col-3">
                 {{----------------------------------------------}}
-                @if(\Illuminate\Support\Facades\Auth::check())
-                    @include("user.partials.popularTags")
-                @endif
+                @include("user.partials.popularTags")
                 {{-------------------------------------}}
             </div>
         </div>

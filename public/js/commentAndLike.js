@@ -104,7 +104,7 @@ $(document).ready(function() {
                 </div>
                 </li>
                 <li class="list-inline-item">
-                    <img src="`+location.origin+'/'+comment.user.avatar +`" alt="avatar" style="height: 50px;  border-radius: 50%;width: 50px">
+                    <img src="`+location.origin+'/'+comment.user.avatar +`" alt="avatar" style="border: 2px solid red; height: 50px;  border-radius: 50%;width: 50px">
                     </li>
                     </ul>
                     </div>`;
@@ -115,7 +115,7 @@ $(document).ready(function() {
                     output = `<div>
                             <ul class="list-inline">
                                 <li class="list-inline-item">
-                                    <img src="`+location.origin+'/'+comment.user.avatar +`" alt="avatar" style="height: 50px;  border-radius: 50%;width: 50px">
+                                    <img src="`+location.origin+'/'+comment.user.avatar +`" alt="avatar" style="border: 2px solid red; height: 50px;  border-radius: 50%;width: 50px">
                                 </li>
                                 <li class=" list-inline-item" >
                                     <div class="container-fluid">

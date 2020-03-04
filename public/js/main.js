@@ -22,7 +22,7 @@ $(document).ready(function () {
                     result.post.data.forEach(function (post){
                         outputNewPosts += `<div class="row">
                             <div class="col-1 ">
-                                <img src="`+location.origin+`/`+ result.user[post.id].avatar +`"  style="height: 50px;  border-radius: 50%;width: 50px">
+                                <img src="`+location.origin+`/`+ result.user[post.id].avatar +`"  style="border: 2px solid red; height: 50px;  border-radius: 50%;width: 50px">
                             </div>
                             <div class="col-11 " style="word-wrap: break-word;">
                                 <h3 class="p-2" style="display: block">
@@ -30,11 +30,11 @@ $(document).ready(function () {
                                 </h3>
                                 <div class="tag mb-1">`;
                         result.tags[post.id].forEach(function (tag) {
-                            outputNewPosts += `<button class="btn btn-success mr-2">
-                                                        <a href="`+location.origin+`/tag/`+tag.id+`">
-                                                         `+ removeTag(tag.name) +`
-                                                        </a>
-                                                </button>`;
+                            outputNewPosts += `<a href="`+location.origin+`/tag/`+tag.id+`">
+                                                   <button class="btn btn-success mr-1">
+                                                      `+ removeTag(tag.name) +`
+                                                   </button>
+                                               </a>`;
                         });
                         outputNewPosts +=   `</div>
                                 <div class="content" style="overflow: hidden; height: 100px">
@@ -84,7 +84,7 @@ $(document).ready(function () {
                     result.post.data.forEach(function (post){
                         outputGoodPosts += `<div class="row">
                             <div class="col-1 ">
-                                <img src="`+location.origin+`/`+ result.user[post.id].avatar +`"  style="height: 50px;  border-radius: 50%;width: 50px">
+                                <img src="`+location.origin+`/`+ result.user[post.id].avatar +`"  style="border: 2px solid red; height: 50px;  border-radius: 50%;width: 50px">
                             </div>
                             <div class="col-11 " style="word-wrap: break-word;">
                                 <h3 class="p-2">
@@ -92,11 +92,11 @@ $(document).ready(function () {
                                 </h3>
                                 <div class="tag mb-1">`;
                         result.tags[post.id].forEach(function (tag) {
-                            outputGoodPosts +=`<button class="btn btn-success mr-2">
-                                                        <a href="`+location.origin+`/tag/`+tag.id+`">
+                            outputGoodPosts +=`<a href="`+location.origin+`/tag/`+tag.id+`">
+                                                    <button class="btn btn-success mr-1">
                                                             `+ removeTag(tag.name) +`
-                                                        </a>
-                                                </button>`;
+                                                    </button>
+                                                </a>`;
                         });
                         outputGoodPosts +=   `</div>
                                 <div class="content" style="overflow: hidden; height: 100px">
@@ -173,7 +173,7 @@ $(document).ready(function () {
                     result.searchPosts.forEach(function (post) {
                         outputSearch += `<div class="row">
                             <div class="col-1 ">
-                                <img src="`+location.origin+`/`+ result.user[post.id].avatar +`"  style="height: 50px;  border-radius: 50%;width: 50px">
+                                <img src="`+location.origin+`/`+ result.user[post.id].avatar +`"  style="border: 2px solid red;height: 50px;  border-radius: 50%;width: 50px">
                             </div>
                              <div class="col-11 " style="word-wrap: break-word;">
                                 <h3 class="p-2">
@@ -181,11 +181,11 @@ $(document).ready(function () {
                                 </h3>
                                 <div class="tag mb-1">`;
                         result.tags[post.id].forEach(function (tag) {
-                            outputSearch +=`<button class="btn btn-success mr-2">
-                                                        <a href="`+location.origin+`/tag/`+tag.id+`">
-                                                         `+ removeTag(tag.name) +`
-                                                        </a>
-                                                </button>`;
+                            outputSearch +=`<a href="`+location.origin+`/tag/`+tag.id+`">
+                                                  <button class="btn btn-success mr-1">
+                                                      `+ removeTag(tag.name) +`
+                                                  </button>
+                                            </a>`;
                         });
                         outputSearch +=   `</div>
                                 <div class="content" style="overflow: hidden; height: 100px">
@@ -221,9 +221,11 @@ $(document).ready(function () {
         $("#chuDeNoiBat").empty();
         result.data.tags.forEach(function (tag) {
             $("#chuDeNoiBat").append(`
-                    <button class="btn-danger btn mb-1">
-                               <a href="`+location.origin+`/tag/`+tag.id+`">`+removeTag(tag.name)+`</a>
-                    </button> `);
+                      <a href="`+location.origin+`/tag/`+tag.id+`">
+                          <button class="btn-danger btn mb-1">
+                            `+removeTag(tag.name)+`
+                          </button>
+                      </a> `);
         });
     });
 });

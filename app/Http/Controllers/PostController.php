@@ -75,7 +75,18 @@ class PostController extends Controller
     }
 
     public function myPage(User $user){
-        $posts = Post::where('user_id', $user->id)->get();
-        return view('user.wall_user.myPage')->with('posts', $posts);
+        $posts = Post::where('user_id', $user->id)->where('state','<>', 'Private')->get();
+        $countCmt = $posts->sum(function ($post){
+            return count($post->comments);
+        });
+        $countLike =$posts->sum(function ($post){
+            return count($post->likes);
+        });
+        return view('user.wall_user.myPage')->with([
+            'posts'=> $posts,
+            'countCmt' => $countCmt,
+            'countLike' => $countLike
+
+        ]);
     }
 }

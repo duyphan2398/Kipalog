@@ -5,38 +5,31 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <div class="col-7"style="height: 500px">
+            <div class="col-7"style="height: 350px">
                 <div class="container text-center">
                     <div class="">
                         <img  style="width:150px; height: 150px; border-radius: 50%" src="{{asset($posts->first()->user->avatar)}}" alt="">
                     </div>
+                    <div>
+                        <h1>{{$posts->first()->user->name}}</h1>
+                    </div>
                     <div class=" mt-1">
-                        <ul style="display: inline; font-size: 30px">
-                            <li style="display: inline" >
-                                <div>
-                                   <h4>Tổng lượt bình luận</h4>
-                                    20
-                                </div>
-                            </li>
-                            |
-                            <li style="display: inline">
-                                <div>
-                                   <h4>Tổng lượt like</h4>
-                                    20
-                                </div>
-                            </li>
+                        <ul class="list-inline">
+                            <li class="list-inline-item"><h4>{{$countCmt}} Lượt Bình Luận</h4></li>
+                            <li class="list-inline-item"><h1>|</h1></li>
+                            <li class="list-inline-item"><h4>{{$countLike}} Lượt Like</h4></li>
                         </ul>
                     </div>
                 </div>
             </div>
-            <div class="col-5 text-center" style=" height: 500px">
-                <h1 style="margin-top: 250px; font-size: 50px  ">
-                    20 Bài viết
+            <div class="col-5 text-center" style=" height: 200px">
+                <h1 style="margin-top: 100px; font-size: 50px  ">
+                    {{count($posts)}} Bài viết
                 </h1>
             </div>
         </div>
     </div>
-
+    <hr>
     <div class="container">
         @foreach( $posts as $post)
             <div class="row" id="post{{$post->id}}" style="padding: 20px; border-radius:10% ;border: 1px solid cornflowerblue">

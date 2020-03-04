@@ -16,6 +16,8 @@
     <script type="text/javascript" src="{{asset('js/main.js')}}"></script>
     {{--Axios--}}
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    {{--CSS--}}
+    <link rel="stylesheet" href="{{asset('css/style.css')}}">
     {{--Toastr--}}
     <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
@@ -58,68 +60,3 @@
 </body>
 </html>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-{{--
-
-@extends('user.layouts.layout')
-
-@section('script-link')
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tokenfield/0.12.0/css/bootstrap-tokenfield.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tokenfield/0.12.0/bootstrap-tokenfield.js"></script>
-    <script src="https://cdn.ckeditor.com/4.13.1/standard/ckeditor.js" ></script>
-    <script !src="{{asset('js/newPost.js')}}"></script>
-@endsection
-
-@section('title')
-    New Post
-@endsection
-
-
-@section('content')
-
-    <form class="m-5 " id="newPostForm" >
-        @csrf
-        <div class="form-group">
-            <label for="title">Enter Title: </label>
-            <input type="text" name="title" id="title" class="form-control" required/>
-        </div>
-        <div class="form-group">
-            <label for="tags">Enter Tags: </label>
-            <input type="text" name="tags" id="tags" class="form-control" required/>
-        </div>
-        <div class="form-group">
-            <label for="content">Enter Content: </label>
-            <textarea class="form-control" name="content" id="content" cols="30" rows="10" required></textarea>
-        </div>
-
-        <div class="form-group">
-            <input type="submit" name="submit" id="submitNewPost" class="btn btn-info" value="Create New Post" />
-        </div>
-    </form>
-    <script>
-        CKEDITOR.replace( 'content' );
-    </script>
-@endsection
-
---}}

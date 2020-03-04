@@ -42,7 +42,7 @@
                         @foreach( $posts as $post)
                             <div class="row" id="post{{$post->id}}">
                                 <div class="col-1 ">
-                                    <img src="{{asset($post->user->avatar)}}"  style="height: 50px;  border-radius: 50%;width: 50px">
+                                    <img src="{{asset($post->user->avatar)}}"  style="border:2px solid red; height: 50px;  border-radius: 50%;width: 50px">
                                 </div>
                                 <div class="col-11"  style="word-wrap: break-word;">
                                     <h3 class="p-2">
@@ -83,7 +83,7 @@
                                                 <img style="width: 20px; height: 20px" src="{{asset('images/public.png')}}" alt="">
                                             </button>
                                         @else
-                                            <button name="{{$post->id}}" class=" statestatePrivate btn-outline-info btn" style="display: none">
+                                            <button name="{{$post->id}}" class=" state statePrivate btn-outline-info btn" style="display: none">
                                                 <img  style="width: 20px; height: 20px"  src="{{asset('images/private.png')}}" alt="">
                                             </button>
                                             <button name="{{$post->id}}" class=" state statePublic btn-outline-info btn" style="display: inline-block">

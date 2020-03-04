@@ -8,8 +8,6 @@ use App\Models\User;
 use Illuminate\Support\Arr;
 $factory->define(Post::class, function (Faker $faker) {
     $state = ['Public', 'Private'];
-
-
     return [
         'title' => $faker->sentence(rand(5,20)),
         'content' => $faker->paragraph(rand(30,100)),
