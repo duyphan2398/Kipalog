@@ -62,8 +62,6 @@ $(document).ready(function() {
     });
 });
 
-$( window ).bind('load',function() {
+$(window).on('load', function () {
     $('#addMore').click();
 });
-
-

@@ -2,19 +2,21 @@
 
 namespace App\Models;
 use App\Traits\ParseCreatedAt;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\DB;
 use  Illuminate\Support\Facades\Hash;
 class User extends Authenticatable
 {
     use Notifiable;
     use ParseCreatedAt;
+    use SoftDeletes;
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
+    protected $dates = ['deleted_at'];
     protected $fillable = [
         'name','username', 'avatar', 'password','email'
     ];
@@ -25,7 +27,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token','email'
+        'password', 'remember_token'
     ];
 
     /**

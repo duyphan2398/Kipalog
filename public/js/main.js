@@ -19,10 +19,11 @@ $(document).ready(function () {
                 url: location.origin +'/ajax/getNewPosts?page='+currentPageNewPosts,
                 type: 'GET',
                 success: function (result) {
+                    console.log(result);
                     result.post.data.forEach(function (post){
                         outputNewPosts += `<div class="row">
                             <div class="col-1 ">
-                                <img src="`+location.origin+`/`+ result.user[post.id].avatar +`"  style="border: 2px solid red; height: 50px;  border-radius: 50%;width: 50px">
+                                <img src="`+location.origin+`/`+ post.user.avatar +`"  style="border: 2px solid red; height: 50px;  border-radius: 50%;width: 50px">
                             </div>
                             <div class="col-11 " style="word-wrap: break-word;">
                                 <h3 class="p-2" style="display: block">
@@ -230,6 +231,6 @@ $(document).ready(function () {
     });
 });
 
-$( window ).bind('load',function() {
+$(window).on('load', function () {
     $('#moreNewPosts').click();
 });

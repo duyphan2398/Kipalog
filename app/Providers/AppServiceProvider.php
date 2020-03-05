@@ -31,5 +31,10 @@ class AppServiceProvider extends ServiceProvider
 
         });
 
+        /*Builder::macro('myQuery', function (){
+            $this->orderBy('created_at','desc')->paginate(5);
+            return $this;
+        });*/
+
     }
 }

@@ -35,7 +35,7 @@
                     </div>
                     {{-----------------------------------------------}}
                     <div class="text-center mb-2"  id="ajax-loader" style="display: none">
-                        <img src="/images/ajax-loader.gif" alt="loading...">
+                        <img src="{{asset("images/ajax-loader.gif")}}" alt="loading...">
                     </div>
                     <div id="buttonMoreGoodPosts" class="text-center" style="display: none">
                         <button id= "moreGoodPosts"class="btn btn-primary w-75">

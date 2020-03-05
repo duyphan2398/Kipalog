@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>
         @yield('title')
     </title>
@@ -10,7 +11,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <!-- Jquery -->
-    <script type="text/javascript" src="/js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="{{asset('js/jquery-3.4.1.min.js')}}"></script>
     {{--Axios--}}
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     {{--Toastr--}}
@@ -25,7 +26,7 @@
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
         <div class="container">
             <div class=" float-left">
                 <ul class="list-inline">
@@ -58,12 +59,12 @@
 
 
 
-    <div class="container-fluid w-100">
+    <div class="container-fluid w-100" style="margin-bottom: 50px">
         <div class="row">
-            @if(action('Admin\LoginController@index') != Request::url())
-                @include('admin.partials.sidebar')
-            @endif
-            @yield('content')
+                @if(action('Admin\LoginController@index') != Request::url())
+                    @include('admin.partials.sidebar')
+                @endif
+                @yield('content')
         </div>
     </div>
 
@@ -101,9 +102,6 @@
         });
     </script>
     {{--Footer--}}
-    <hr class="mt-5">
-    <div class="mt-5">
-        <h1 class="text-center">THIS IS FOOTER</h1>
-    </div>
+
 </body>
 </html>

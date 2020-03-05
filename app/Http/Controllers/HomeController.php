@@ -18,7 +18,9 @@ class HomeController extends Controller {
 
     /*Return the new posts when click the button "BÀI VIẾT MỚI" (The Defaul Load in Homepage)*/
     public function getNewPosts(){
-        $posts = Post::where('state', '<>', 'Private')->orderBy('created_at','desc')->paginate(5);
+        $posts = Post::with('user')->whereHas('user', function ($user){
+            $user->where('deleted_at',null);
+        })->where('state', '<>', 'Private')->orderBy('created_at','desc')->paginate(5);
         $user = [];
         $tags = [];
         $comments = [];
@@ -48,7 +50,9 @@ class HomeController extends Controller {
 
     /*Return the good posts when click the button "BÀI VIẾT HAY" */
     public function getGoodPosts(){
-        $posts = Post::where('state', '<>', 'Private')->withCount('comments')->orderBy('comments_count','desc')->paginate(5);
+        $posts = Post::with('user')->whereHas('user', function ($user){
+            $user->where('deleted_at',null);
+        })->where('state', '<>', 'Private')->withCount('comments')->orderBy('comments_count','desc')->paginate(5);
         $user = [];
         $tags = [];
         $comments = [];
@@ -79,7 +83,9 @@ class HomeController extends Controller {
 
     public function search(Request $request){
         if ($request->searchInput) {
-            $searchPosts = Post::query()->whereLike(['title','content'], $request->searchInput)->where('state', '<>', 'Private')->get();
+            $searchPosts = Post::query()->whereLike(['title','content'], $request->searchInput)->with('user')->whereHas('user', function ($user){
+                $user->where('deleted_at',null);
+            })->where('state', '<>', 'Private')->get();
             $comments = [];
             $users = [];
             $tags =[];

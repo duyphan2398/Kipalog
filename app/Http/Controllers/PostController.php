@@ -68,6 +68,7 @@ class PostController extends Controller
 
     public function viewTag(Tag $tag){
         $posts = $tag->posts->sortByDesc("created_at");
+        /*When soft delete can not query*/
         return view('tag')->with([
             'posts' => $posts,
             'tag'  =>$tag
