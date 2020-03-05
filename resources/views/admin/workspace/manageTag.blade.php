@@ -24,7 +24,7 @@
         <div >
             <form id="newTagForm" class="form-inline">
                 @csrf
-                <input name="tag"  type="text" class="form-control" placeholder="Enter tag name" id="tag">
+                <input name="tag"  type="text" class="form-control" style="width: 500px" placeholder="Enter tag name" id="tag">
                 <button id="submit" type="submit" class="btn btn-primary">Create</button>
             </form>
         </div>

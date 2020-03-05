@@ -58,6 +58,9 @@ Route::group(['middleware' => ['check.admin'], 'prefix' => 'admin'], function ()
     Route::post('newtag','Admin\ManageTagController@create');
     Route::delete('deletetag','Admin\ManageTagController@delete');
 
-
+    /*Manage Category*/
+    Route::get('getcategories', 'Admin\ManageCategoryController@show');
+    Route::post('newcategory', 'Admin\ManageCategoryController@create');
+    Route::patch('updatecategory','Admin\ManageCategoryController@update');
 });
 
