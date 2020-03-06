@@ -61,12 +61,12 @@
                                         {{$post->content}}
                                     </div>
                                     <div>
-                                        By <a href="{{url("myPosts/".$post->user->id)}}">{{$post->user->name}}</a> vào lúc {{$post->created_at}}
+                                        By <a href="{{url("myPosts/".$post->user->id)}}">{{$post->user->name}}</a> when {{$post->created_at}}
                                     </div>
                                     <div class="row mt-2 ml-1 mb-2">
-                                        <a  id="numCmt" href=" {{url("viewpost/{$post->id}")}}">{{count($post->comments) }}</a> Bình Luận
+                                        <a  id="numCmt" href=" {{url("viewpost/{$post->id}")}}">{{count($post->comments) }}</a> Comments
                                         <||>
-                                        <a id="numLike" href="{{url("viewpost/{$post->id}")}}">{{count($post->likes) }} </a> Lượt thích
+                                        <a id="numLike" href="{{url("viewpost/{$post->id}")}}">{{count($post->likes) }} </a> Likes
                                     </div>
                                     <div style="float: left">
                                         <button name="{{$post->id}}" class="deletePost btn btn-danger">

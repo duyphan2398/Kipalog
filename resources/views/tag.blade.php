@@ -22,15 +22,15 @@
                     </div>
                     <div id= "addMore" class="text-center" style="display: none">
                         <button class="btn btn-primary w-75">
-                            Xem thêm
+                            See more
                         </button>
                     </div>
                 </div>
             </div>
             <div class="col-3">
-                @if(\Illuminate\Support\Facades\Auth::check())
-                    @include("user.partials.popularTags")
-                @endif
+                {{----------------------------------------------}}
+                @include("user.partials.popularTags")
+                {{-------------------------------------}}
             </div>
         </div>
     </div>

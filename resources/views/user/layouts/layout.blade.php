@@ -26,7 +26,10 @@
 </head>
 <body>
     @include('user.partials.header')
-    @yield('content')
+    <div class="content">
+        @yield('content')
+    </div>
+
     <script>
         toastr.options = {
             "closeButton": true,

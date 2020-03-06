@@ -28,5 +28,7 @@ Route::group(['middleware' => ['check.admin']], function () {
     Route::get('admins','AdminController@viewAdmin');
     Route::get('tags', 'ManageTagController@index');
     Route::get('category', 'ManageCategoryController@index');
+    Route::get('statistical', 'ManageStatisticalController@index');
 });
 
+Route::get('/test', 'ManageStatisticalController@show');

@@ -31,18 +31,18 @@ $(document).ready(function() {
                                 </h3>
                                 <div class="tag mb-1">`;
                 post.tags.forEach(function (tag) {
-                    output += `<button class="btn btn-success mr-2">
-                                   <a href="`+location.origin+`/tag/`+tag.id+`">
+                    output += `<a href="`+location.origin+`/tag/`+tag.id+`">
+                                   <button class="btn btn-success mr-2">
                                           `+ removeTag(tag.name) +`
-                                   </a>
-                               </button>`;
+                                          </button>
+                                   </a>`;
                 });
                 output +=   `</div>
                                 <div class="content" style="overflow: hidden; height: 100px">
                                     `+ removeTag(post.content) +`
                                 </div>
                                 <div>
-                                    By <a href="">`+ removeTag(post.user.name) +`</a>  vào lúc `+ post.created_at +`
+                                    By <a href="">`+ removeTag(post.user.name) +`</a>  when `+ post.created_at +`
                                 </div>
                             </div>
                         </div>

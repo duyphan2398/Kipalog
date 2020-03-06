@@ -42,12 +42,12 @@ $(document).ready(function () {
                                     `+  removeTag(post.content) +`
                                 </div>
                                 <div style="display: inline-block; float: left">
-                                    By <a href="`+location.origin+`/myPage/`+result .user[post.id].id+`">`+ removeTag(result .user[post.id].name) +`</a>  vào lúc `+ post.created_at +`
+                                    By <a href="`+location.origin+`/myPage/`+result .user[post.id].id+`">`+ removeTag(result .user[post.id].name) +`</a>  when `+ post.created_at +`
                                 </div>
                                 <div style="display: inline-block; float: right">
-                                    <a href="`+location.origin+`/viewpost/`+post.id+`">`+post.comments.length+`</a> Bình Luận
+                                    <a href="`+location.origin+`/viewpost/`+post.id+`">`+post.comments.length+`</a> Comments
                                     <||>
-                                    <a href="`+location.origin+`/viewpost/`+post.id+`">`+post.likes.length+`</a> Lượt thích
+                                    <a href="`+location.origin+`/viewpost/`+post.id+`">`+post.likes.length+`</a> Likes
                                 </div>
                             </div>
                         </div>
@@ -104,12 +104,12 @@ $(document).ready(function () {
                                     `+ removeTag(post.content) +`
                                 </div>
                                 <div style="display: inline-block; float: left">
-                                    By <a href="`+location.origin+`/myPage/`+result.user[post.id].id+`">`+ removeTag(result.user[post.id].name) +`</a>  vào lúc `+ post.created_at +`
+                                    By <a href="`+location.origin+`/myPage/`+result.user[post.id].id+`">`+ removeTag(result.user[post.id].name) +`</a>  when `+ post.created_at +`
                                 </div>
                                 <div style="display: inline-block; float: right">
-                                    <a href="`+location.origin+`/viewpost/`+post.id+`">`+post.comments.length+`</a> Bình Luận
+                                    <a href="`+location.origin+`/viewpost/`+post.id+`">`+post.comments.length+`</a> Comments
                                     <||>
-                                    <a href="`+location.origin+`/viewpost/`+post.id+`">0</a> Lượt thích
+                                    <a href="`+location.origin+`/viewpost/`+post.id+`">0</a> Likes
                                 </div>
                             </div>
                         </div>
@@ -193,12 +193,12 @@ $(document).ready(function () {
                                     `+ removeTag(post.content) +`
                                 </div>
                                 <div style="display: inline-block; float: left">
-                                    By <a href="`+location.origin+`/myPage/`+result.user[post.id].id+`">`+ removeTag(result.user[post.id].name) +`</a>  vào lúc `+ post.created_at +`
+                                    By <a href="`+location.origin+`/myPage/`+result.user[post.id].id+`">`+ removeTag(result.user[post.id].name) +`</a>  when `+ post.created_at +`
                                 </div>
                                 <div style="display: inline-block; float: right">
-                                    <a href="`+location.origin+`/viewpost/`+post.id+`">`+post.comments.length+`</a> Bình Luận
+                                    <a href="`+location.origin+`/viewpost/`+post.id+`">`+post.comments.length+`</a> Comments
                                     <||>
-                                    <a href="`+location.origin+`viewpost/`+post.id+`">`+post.likes.length+`</a> Lượt thích
+                                    <a href="`+location.origin+`viewpost/`+post.id+`">`+post.likes.length+`</a> Likes
                                 </div>
                             </div>
                         </div>
@@ -207,9 +207,11 @@ $(document).ready(function () {
                     $('#listContent').append(outputSearch);
                 },
                 error: function() {
-                    $('#listContent')
-                        .append('<h1>  Can not Find  </h1>');
+                    /*$('#listContent')
+                        .append('<h1>  Could not Find  </h1>');*/
+                    alert('Could Not Find');
                     $('#ajax-loader').removeAttr("style").hide();
+
                 }
             })
         ).then(function () {
@@ -218,15 +220,29 @@ $(document).ready(function () {
 
     });
 
-    axios.get(location.origin+'/ajax/getPopularTags').then(result => {
-        $("#chuDeNoiBat").empty();
+    axios.get(location.origin+'/ajax/getPopularTagsCategories').then(result => {
+        $("#popularTag").empty();
+        $("#categories").empty();
+        console.log(result);
         result.data.tags.forEach(function (tag) {
-            $("#chuDeNoiBat").append(`
+            $("#popularTag").append(`
                       <a href="`+location.origin+`/tag/`+tag.id+`">
-                          <button class="btn-danger btn mb-1">
+                          <button class="btn-danger btn mb-1">#
                             `+removeTag(tag.name)+`
                           </button>
                       </a> `);
+        });
+
+        result.data.categories.forEach(function (category) {
+            $("#categories").append(`
+                       <li class="list-group-item">
+                            <a href="`+location.origin+`/tag/`+category.id+`">
+                                <button class="categorybtn btn btn-outline-primary">
+                                    `+removeTag(category.name)+`
+                                </button>
+                            </a>
+                        </li>
+            `);
         });
     });
 });

@@ -41,7 +41,7 @@
             </div>
             <div id="loadMore" class="text-center" style="display: none">
                 <button id= "moreNewPosts"class="btn btn-primary w-50">
-                    Xem thêm
+                    See more
                 </button>
             </div>
         </div>

@@ -15,7 +15,7 @@ $(document).ready(function() {
     });
 
     $(".deletePost").click(function () {
-        if (confirm("Are you sure?")) {
+        if (confirm("Are you sure ?")) {
             post_id = this.name;
             axios
                 .get(location.origin +'/ajax/deletePost/'+ post_id)

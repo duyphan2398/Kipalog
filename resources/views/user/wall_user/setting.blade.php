@@ -59,17 +59,4 @@
             </div>
         </div>
     </div>
-    <script>
-        $(document).ready(function() {
-            /*$("#settingForm").submit(function (e) {
-                e.preventDefault();
-                let avatar = $("#avatar").val();
-                let name = $("#name").val();
-                let password = $("#password").val();
-                let passwordConfirm = $("#passwordConfirm").val();
-
-                if (name || avatar)
-            })*/
-        });
-    </script>
 @endsection

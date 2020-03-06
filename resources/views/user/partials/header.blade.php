@@ -37,9 +37,9 @@
                             <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">{{\Illuminate\Support\Facades\Auth::user()->name}}
                                 <span class="caret"></span></button>
                             <ul class="dropdown-menu">
-                                <li><a href="{{url('myPage/'.\Illuminate\Support\Facades\Auth::id())}}">Trang ca nhan</a></li>
-                                <li><a href="{{url('setting')}}">Cai dat</a></li>
-                                <li><a href="{{url('logout')}}">Dang xuat</a></li>
+                                <li><a href="{{url('myPage/'.\Illuminate\Support\Facades\Auth::id())}}">My Wall</a></li>
+                                <li><a href="{{url('setting')}}">Seeting</a></li>
+                                <li><a href="{{url('logout')}}">Logout</a></li>
                             </ul>
                         </div>
                     </li>

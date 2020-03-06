@@ -21,7 +21,7 @@ Route::group(['middleware' => ['check.isnot.admin']], function () {
     Route::get('search', 'HomeController@search');
     Route::get('getCommentsByPost/{post}', 'AjaxController@getCommentsByPost');
     Route::get('getPostsByTag/{tag}', 'AjaxController@getPostsByTag');
-    Route::get('getPopularTags', 'AjaxController@getPopularTags');
+    Route::get('getPopularTagsCategories', 'AjaxController@getPopularTagsCategories');
     Route::get('getAllTags', 'AjaxController@getAllTags');
     Route::get('getAllTags', 'AjaxController@getAllTags');
 });

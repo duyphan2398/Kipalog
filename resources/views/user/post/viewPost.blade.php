@@ -55,7 +55,7 @@
                     </div>
                     <div class="row mt-2">
                         <div>
-                            <p>*By <a href="{{url('myPage/'.$post->user->id)}}">{{ $post->user->name}}</a> ( {{$post->created_at}} )</p>
+                            <p>*By <a href="{{url('myPage/'.$post->user->id)}}">{{ $post->user->name}}</a> when {{$post->created_at}} </p>
                         </div>
                     </div>
 
@@ -77,14 +77,14 @@
 
                     </div>
                     <div class="row mt-3">
-                        <a  id="numCmt" href=" {{url("viewpost/{$post->id}")}}">{{count($post->comments) }}</a> Bình Luận
+                        <a  id="numCmt" href=" {{url("viewpost/{$post->id}")}}">{{count($post->comments)." "}}</a> Comments
                         <||>
-                        <a id="numLike" href="{{url("viewpost/{$post->id}")}}">{{count($post->likes) }} </a> Lượt thích
+                        <a id="numLike" href="{{url("viewpost/{$post->id}")}}">{{count($post->likes)." "}} </a> Likes
                     </div>
                     <div class="row mt-3 mb-2">
                         <div class="container-fluid">
                             <div style="background-color: #0AA5DF;" class="row mb-4">
-                                <h4 class="m-2">Bình Luận</h4>
+                                <h4 class="m-2">Comment</h4>
                             </div>
                             @if(\Illuminate\Support\Facades\Auth::check())
                             <div class="row">
@@ -99,7 +99,7 @@
                                                  <textarea  cols="30" rows="5" style="width: 600px" placeholder="Enter your cmt " class="form-control mr-3"  type="text" name="comment" id="comment">   </textarea>
                                                   <label for="comment" class="error"></label>
                                             </div>
-                                            <button id="submitFormComment" class="form-control btn btn-success" type="submit"> Gửi </button>
+                                            <button id="submitFormComment" class="form-control btn btn-success" type="submit"> Send </button>
                                         </form>
                                     </li>
                                 </ul>
@@ -115,7 +115,7 @@
                     <div id="loadComment" class="text-center">
                         <img id="loadImage" style="display: none" src="{{asset('images/ajax-loader.gif')}}" alt="Loanding...">
                         <button id="loadButton" style="display: none"class="btn btn-dark w-100">
-                            Xem thêm
+                            See more
                         </button>
                     </div>
                 </div>

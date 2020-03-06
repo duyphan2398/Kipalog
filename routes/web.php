@@ -41,7 +41,8 @@ Route::group(['middleware' => ['check.isnot.admin','auth']], function ()
     Route::get('logout','LoginController@logout');
     Route::get('myPosts', 'HomeController@myPosts');
     Route::get('newpost','PostController@index');
-
 });
+
+
 
 

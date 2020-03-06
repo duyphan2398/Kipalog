@@ -50,7 +50,9 @@ class AjaxController extends Controller
     }
 
     public function getPostsByTag(Tag $tag){
-        $posts = $tag->posts()->orderByDesc('created_at')->paginate(3);
+        $posts = $tag->posts()->whereHas('user',function ($query){
+            $query->where('deleted_at', '=', null );
+        })->orderByDesc('created_at')->paginate(3);
         $users = [];
         $tags = [];
         foreach ($posts as $post) {
@@ -64,14 +66,16 @@ class AjaxController extends Controller
         ],200);
     }
 
-    public function getPopularTags(){
+    public function getPopularTagsCategories(){
         $tags = Tag::all();
         $tagsResult= $tags->sortByDesc(function ($tag) {
             return ($tag->posts()->count());
         })->take(4)->toArray();
         $result = array_values( $tagsResult);
+        $categories = Tag::where('is_category','=','1')->get();
         return  response()->json([
-            'tags' => $result
+            'tags' => $result,
+            'categories' => $categories
         ],200);
     }
 
