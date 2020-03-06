@@ -15,6 +15,9 @@ class ManageStatisticalController extends Controller {
         return view('admin.workspace.manageStatistical');
     }
 
+    public function getPostsByDate($date, $state){
+        return Post::whereDate('created_at', new Carbon($date))->whereState($state)->get()->count();
+    }
     public function  show(){
         $tags = Tag::all();
         $countListTag =[];
@@ -26,12 +29,11 @@ class ManageStatisticalController extends Controller {
         foreach (array_keys($countListTag) as $key){
             $countListTag[$key] =  round(($countListTag[$key]/$sum)*100, PHP_ROUND_HALF_DOWN);
         }
-        $newPublicPostsToday = Post::whereDate('created_at', Carbon::today())->whereState('Public')->get()->count();
-        $newPrivatePostsToday = Post::whereDate('created_at', Carbon::today())->whereState('Private')->get()->count();
-        $newPublicPostsYesterday = Post::whereDate('created_at', Carbon::yesterday())->whereState('Public')->get()->count();
-        $newPrivatePostsYesterday = Post::whereDate('created_at', Carbon::yesterday())->whereState('Private')->get()->count();
+        $newPublicPostsToday = $this->getPostsByDate('today','Public' );
+        $newPrivatePostsToday = $this->getPostsByDate('today','Private' );
+        $newPublicPostsYesterday = $this->getPostsByDate('yesterday','Public' );
+        $newPrivatePostsYesterday = $this->getPostsByDate('yesterday','Private' );
         return response()->json([
-            'listTags' => $tag,
             'countListTags' => $countListTag,
             'newPublicPostsToday'  => $newPublicPostsToday,
             'newPrivatePostsToday'=> $newPrivatePostsToday,
