@@ -17,8 +17,8 @@ Route::group(['middleware' => ['check.isnot.admin']], function (){
     Route::get('/', 'HomeController@index')->middleware('check.isnot.admin');
     Route::get('viewpost/{post}','PostController@viewPost');
     Route::get('tag/{tag}', 'PostController@viewTag');
+    Route::get('myPage/{user}', 'PostController@myPage');
 });
-
 
 /*Routes to authenticate user, If user are logged in, user cannot enter this routes*/
 Route::group(['middleware' => ['check.login']], function ()
@@ -36,10 +36,13 @@ Route::group(['middleware' => ['check.login']], function ()
 /*Routes for user being logged in, Admin can not access this routes*/
 Route::group(['middleware' => ['check.isnot.admin','auth']], function ()
 {
+    Route::get('setting', 'SettingController@index');
+    Route::post('setting','SettingController@update')->name('setting');
     Route::get('logout','LoginController@logout');
-    Route::get('myPosts', 'HomeController@myPost');
+    Route::get('myPosts', 'HomeController@myPosts');
     Route::get('newpost','PostController@index');
 });
+
 
 
 

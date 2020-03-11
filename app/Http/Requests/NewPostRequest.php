@@ -26,7 +26,8 @@ class NewPostRequest extends FormRequest
         return [
             'title' => 'required',
             'arrayTags' => 'required',
-            'content' => 'required'
+            'content' => 'required',
+            'state' => 'required'
         ];
     }
 }

@@ -24,7 +24,6 @@ class RegisterRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.alpha' => 'NAME MUST BE ENTIRELY ALPHABETIC CHARACTERS',
             'username.alpha_num' => 'USERNAME MUST BE ENTIRELY ALPHA-NUMERIC CHARACTERS',
             'username.unique' => 'USERNAME ALREADY EXISTS',
             'email.unique' => 'EMAIL ALREADY EXISTS',
@@ -36,8 +35,8 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|max:15|alpha|',
-            'username' => 'required|unique:users|alpha_num|max:15',
+            'name'     => 'required|max:30|regex:/^[\a-zA-Z\s\-]+$/u',
+            'username' => 'required|unique:users|alpha_num',
             'email' => 'required|unique:users|email',
             'password' => "required|min:6|regex:/^(?=.*[a-zA-Z])(?=.*\d).+$/",
             'passwordConfirm' => 'required|same:password'

@@ -18,7 +18,7 @@ class CheckLogin
     public function handle($request, Closure $next)
     {
         if (Auth::user()|| Auth::guard('admin')->user()) {
-            return redirect('/');
+            return redirect()->back();
         }
         return $next($request);
     }

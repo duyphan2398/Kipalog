@@ -11,7 +11,7 @@
                 <form  method="POST" action="/register" class="w-75">
                     @csrf
                     <div class="form-group">
-                        <label for="name">Full Name <small>(maximum 15 - include only letter)</small></label>
+                        <label for="name">Full Name <small>(maximum 30 characters)</small></label>
                         <input  value="{{old('name')}}"  name="name" type="text" class="form-control" id="name"  placeholder="" required>
                         <div class="text-danger mt-1">
                             @error('name')
@@ -20,7 +20,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="username">Username <small>(maximum 15 - include letters <b>or</b> numbers)</small></label>
+                        <label for="username">Username <small>(maximum 15 characters - include letters <b>or</b> numbers)</small></label>
                         <input value="{{old('username')}}" name="username" type="text" class="form-control" id="username"  placeholder="" required>
                         <div class="text-danger mt-1">
                             @error('username')

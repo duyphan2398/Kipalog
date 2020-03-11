@@ -31,7 +31,7 @@ $(document).ready(function() {
             rules: {
                 title: "required",
                 tags: "required",
-                content: "required"
+                content: "required",
             },
             messages: {
                 title: "Title Is Required",
@@ -42,6 +42,7 @@ $(document).ready(function() {
         if (validator.form()) {
             let title = $('#title').val();
             let thisTags = $('#tags').val();
+            let state = $('#state').val();
             let arrayTagsFillter = thisTags.split(",");
             let arrayTags = arrayTagsFillter.filter((element, indexOfElement) => {
                 return indexOfElement === arrayTagsFillter.indexOf(element);
@@ -53,7 +54,8 @@ $(document).ready(function() {
                 axios.post(location.origin +'/ajax/post/create', {
                     title,
                     arrayTags,
-                    content
+                    content,
+                    state
                 })
                     .then(function (response) {
                         if (confirm('Created Successfully! Do you want continue ? ')){

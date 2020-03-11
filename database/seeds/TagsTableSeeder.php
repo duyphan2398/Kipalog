@@ -14,7 +14,8 @@ class TagsTableSeeder extends Seeder
         $tagsName = ['PHP', 'LARAVEL', 'JAVASCRIPT', 'MATHLAB', 'PYTHON', 'CSS', 'HTML'];
         foreach ( $tagsName as $tagName){
             Tag::create([
-               'name' => $tagName
+               'name' => $tagName,
+                'is_category' => random_int(0,1)
             ]);
         }
     }

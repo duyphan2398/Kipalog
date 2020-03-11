@@ -17,7 +17,7 @@ class RegisterController extends Controller
         $user->password = request()->password;
         if ($user->save()){
             session()->flash("success", 'Register Successfully');
-            return redirect('/login');
+            return redirect('login');
         }
         session()->flash('error', "Register Fail");
         return redirect()->back();

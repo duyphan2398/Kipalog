@@ -26,9 +26,15 @@ class AppServiceProvider extends ServiceProvider
             foreach ( $attributes as $attribute) {
                  $this->orWhere($attribute, 'LIKE', "%{$searchInput}%");
             }
+            $this->where('state', '<>', 'Private');
             return $this;
 
         });
+
+        /*Builder::macro('myQuery', function (){
+            $this->orderBy('created_at','desc')->paginate(5);
+            return $this;
+        });*/
 
     }
 }
