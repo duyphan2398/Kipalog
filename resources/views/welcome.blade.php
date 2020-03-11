@@ -23,10 +23,10 @@
                     — Brian W. Kernighan
                 </p>
                 <button class="btn btn-dark" id="newPosts">
-                    Bài viết mới
+                    New Posts
                 </button>
                 <button class="btn btn-dark" id="goodPosts">
-                    Bài viết hay
+                    Good Posts
                 </button>
                 <hr>
                 <div id="tabContent" class="container-fluid">
@@ -35,25 +35,23 @@
                     </div>
                     {{-----------------------------------------------}}
                     <div class="text-center mb-2"  id="ajax-loader" style="display: none">
-                        <img src="/images/ajax-loader.gif" alt="loading...">
+                        <img src="{{asset("images/ajax-loader.gif")}}" alt="loading...">
                     </div>
                     <div id="buttonMoreGoodPosts" class="text-center" style="display: none">
                         <button id= "moreGoodPosts"class="btn btn-primary w-75">
-                            Xem thêm
+                            See more
                         </button>
                     </div>
                     <div id="buttonMoreNewPosts" class="text-center" style="display: block">
                         <button id= "moreNewPosts"class="btn btn-primary w-75">
-                            Xem thêm
+                            See more
                         </button>
                     </div>
                 </div>
             </div>
             <div class="col-3">
                 {{----------------------------------------------}}
-                @if(\Illuminate\Support\Facades\Auth::check())
-                    @include("user.partials.popularTags")
-                @endif
+                @include("user.partials.popularTags")
                 {{-------------------------------------}}
             </div>
         </div>

@@ -18,9 +18,11 @@ class LoginController extends Controller
     public function  login(LoginAdminRequest $request){
         $credentials = $request->only('email', 'password');
         if (Auth::guard('admin')->attempt($credentials)){
+            session()->flash("success", "Login Successfully ");
             return redirect('admin/dashboard');
         }
-        return redirect()->back()->withErrors('SAI THÔNG TIN ĐĂNG NHẬP');
+        session()->flash("error", "Wrong Username Or Password");
+        return redirect()->back();
     }
 
     public function logout(){
@@ -28,6 +30,7 @@ class LoginController extends Controller
         {
             Auth::guard('admin')->logout();
         }
+        session()->flash("success", "Logout Successfully ");
         return redirect('/');
     }
 }

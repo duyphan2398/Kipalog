@@ -5,7 +5,7 @@
 use App\Models\User;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
-
+use Illuminate\Support\Arr;
 /*
 |--------------------------------------------------------------------------
 | ModelS Factories
@@ -18,12 +18,14 @@ use Illuminate\Support\Str;
 */
 
 $factory->define(User::class, function (Faker $faker) {
+    $arr = [null, now()];
     return [
         'name' => $faker->name,
         'username' => $faker->userName,
         'email' => $faker->unique()->safeEmail,
         'avatar' => 'images/default.png',
         'email_verified_at' => now(),
+        'deleted_at' => Arr::random($arr),
         'password' => Str::random(8,'alphaNum'),
         'remember_token' => Str::random(10),
     ];

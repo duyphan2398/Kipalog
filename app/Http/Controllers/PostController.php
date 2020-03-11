@@ -68,11 +68,26 @@ class PostController extends Controller
 
     public function viewTag(Tag $tag){
         $posts = $tag->posts->sortByDesc("created_at");
+        /*When soft delete can not query*/
         return view('tag')->with([
             'posts' => $posts,
             'tag'  =>$tag
         ]);
     }
 
+    public function myPage(User $user){
+        $posts = Post::where('user_id', $user->id)->where('state','<>', 'Private')->get();
+        $countCmt = $posts->sum(function ($post){
+            return count($post->comments);
+        });
+        $countLike =$posts->sum(function ($post){
+            return count($post->likes);
+        });
+        return view('user.wall_user.myPage')->with([
+            'posts'=> $posts,
+            'countCmt' => $countCmt,
+            'countLike' => $countLike
 
+        ]);
+    }
 }

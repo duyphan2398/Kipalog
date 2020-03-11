@@ -14,7 +14,7 @@ class Post extends Model
     use StripTags;
     use ParseCreatedAt;
     protected $fillable = [
-        'title', 'content', 'user_id'
+        'title', 'content', 'user_id', 'state'
     ];
 
     public function getCreatedAtAttribute($created_at){
@@ -30,5 +30,7 @@ class Post extends Model
     public function comments(){
         return $this->hasMany(Comment::class);
     }
-
+    public function likes(){
+        return $this->hasMany(Like::class);
+    }
 }

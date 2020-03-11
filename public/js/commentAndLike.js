@@ -11,7 +11,6 @@ var pusher = new Pusher('5e1689f8ea39fd6cd5e6', {
 var channel = pusher.subscribe('cmt');
 
 $(document).ready(function() {
-
     channel.bind('cmt-event', function(data) {
         let comment = data.comment;
         if (comment.user_id != user_id){
@@ -105,7 +104,7 @@ $(document).ready(function() {
                 </div>
                 </li>
                 <li class="list-inline-item">
-                    <img src="`+location.origin+'/'+comment.user.avatar +`" alt="avatar" style="height: 50px;  border-radius: 50%;width: 50px">
+                    <img src="`+location.origin+'/'+comment.user.avatar +`" alt="avatar" style="border: 2px solid red; height: 50px;  border-radius: 50%;width: 50px">
                     </li>
                     </ul>
                     </div>`;
@@ -116,7 +115,7 @@ $(document).ready(function() {
                     output = `<div>
                             <ul class="list-inline">
                                 <li class="list-inline-item">
-                                    <img src="`+location.origin+'/'+comment.user.avatar +`" alt="avatar" style="height: 50px;  border-radius: 50%;width: 50px">
+                                    <img src="`+location.origin+'/'+comment.user.avatar +`" alt="avatar" style="border: 2px solid red; height: 50px;  border-radius: 50%;width: 50px">
                                 </li>
                                 <li class=" list-inline-item" >
                                     <div class="container-fluid">
@@ -177,7 +176,9 @@ $(document).ready(function() {
                     post_id
                 })
                     .then(function (response) {
-                        console.log(response);
+                        let numCmt = parseInt($('#numCmt').text());
+                        numCmt+=1;
+                        $('#numCmt').empty().append(numCmt);
                         return;
                     })
                     .catch(function (error) {
@@ -188,10 +189,33 @@ $(document).ready(function() {
             }
         }
     });
+
+    $(".like").click(function () {
+        let numLike = parseInt($('#numLike').text());
+        id = this.id;
+        if (id == 'liked'){
+            /*Change to like button  ... unlike*/
+            $("#liked").removeAttr("style").hide();
+            $("#like").show();
+            numLike-=1;
+            $('#numLike').empty().append(numLike);
+        }
+        else {
+            /*Change to liked */
+            $("#liked").show();
+            $("#like").removeAttr("style").hide();
+            numLike+=1;
+            $('#numLike').empty().append(numLike);
+        }
+        axios.get(location.origin +'/ajax/like/'+ post_id, {
+                params: {
+                    user_id: user_id
+                }
+        })
+    })
 });
 
-$( window ).bind('load',function() {
+
+$(window).on('load', function () {
     $('#loadButton').click();
 });
-
-

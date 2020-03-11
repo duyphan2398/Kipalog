@@ -1,9 +1,7 @@
-<?php
-use Illuminate\Support\Facades\Auth;
-?>
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>
         @yield('title')
     </title>
@@ -13,96 +11,99 @@ use Illuminate\Support\Facades\Auth;
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <!-- Jquery -->
-    <script type="text/javascript" src="/js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="{{asset('js/jquery-3.4.1.min.js')}}"></script>
+    {{--Axios--}}
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    {{--CSS--}}
+    <link rel="stylesheet" href="{{asset('css/style.css')}}">
+    {{--Toastr--}}
+    <link href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" rel="stylesheet">
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    {{-----------}}
+    @yield("script-link")
+    <style>
+        a {
+            text-decoration: none !important;
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark ">
         <div class="container">
             <div class=" float-left">
                 <ul class="list-inline">
                     <li class="list-inline-item">
-                        <a href="/" class="navbar-brand"><h3>Kipalog</h3></a>
+                        <a href="{{url('admin/dashboard')}}" class="navbar-brand"><h3>Kipalog</h3></a>
                     </li>
-                    @if(\Illuminate\Support\Facades\Auth::check())
-                        <li class="list-inline-item">
-                            <form class="form-inline">
-                                <input class="form-control " type="search" placeholder="Search" aria-label="Search">
-                            </form>
-                        </li>
-                    @endif
                 </ul>
             </div>
+
+            @if(\Illuminate\Support\Facades\Auth::guard('admin')->check())
             <div class="float-right mt-1">
                 <ul class="list-inline">
-                    @guest
-                        <li class="list-inline-item">
-                            <button class="btn"><a href="/admin/login">Login</a></button>
-                        </li>
-                        <li class="list-inline-item">
-                            <button class="btn"><a href="/register">Register</a></button>
-                        </li>
-                        <li>
-                            <button class="btn"><a href="/resetpassword">Forgot Password</a></button>
-                        </li>
-                    @else
-
-                        <li class="list-inline-item">
-                            <button class="btn"><a href="#">Viết bài</a></button>
-                        </li>
-                        <li class="list-inline-item">
-                            <button class="btn"><a href="#">Kho log</a></button>
-                        </li>
-                        <li class="list-inline-item">
-                            <img src="{{\Illuminate\Support\Facades\Auth::guard('admin')->user()->avatar}}" alt="Avartar" style="vertical-align: middle;width: 50px;height: 50px;border-radius: 50%;">
-                        </li>
-                        <li class="list-inline-item">
-                            <div class="dropdown">
-                                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">{{\Illuminate\Support\Facades\Auth::guard('admin')->user()->name}}
-                                    <span class="caret"></span></button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">Trang ca nhan</a></li>
-                                    <li><a href="#">Cai dat</a></li>
-                                    <li><a href="/admin/logout">Dang xuat</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                    @endguest
+                    <li class="list-inline-item">
+                        <div class="dropdown">
+                            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                                <span class="caret">
+                                    {{\Illuminate\Support\Facades\Auth::guard('admin')->user()->name}}
+                                </span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{url('admin/logout')}}">Logout</a></li>
+                            </ul>
+                        </div>
+                    </li>
                 </ul>
             </div>
+            @endif
         </div>
     </nav>
 
-    @yield('content')
 
-     @if( $errors->count() > 0)
-         <div class="container">
-             <div class="row">
-                 <div class="row w-100">
-                     <div class="alert alert-danger alert-dismissible fade show mb-4 mt-3 w-50" role="alert">
-                         @foreach($errors->messages() as $error)
-                             <strong>{{$error[0]}}</strong><br>
-                         @endforeach
-                         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                             <span aria-hidden="true">&times;</span>
-                         </button>
-                     </div>
-                 </div>
-             </div>
-         </div>
 
-     @endif
-    <hr>
-    <div>
-        <h1 class="text-center">THIS IS FOOTER</h1>
+    <div class="container-fluid w-100" style="margin-bottom: 50px">
+        <div class="row">
+                @if(action('Admin\LoginController@index') != Request::url())
+                    @include('admin.partials.sidebar')
+                @endif
+                @yield('content')
+        </div>
     </div>
 
 
-    <script !src="">
-        var status = "{{session()->has('status')}}";
-        var msg = "{{session('status')}}";
-        if ( status) {
-            alert(msg);
+
+
+    {{--Noice--}}
+    <script>
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
         }
+        $(document).ready(function () {
+            let flashSuccess = "{{session()->has('success')}}";
+            let flashError = "{{session()->has('error')}}";
+            if (flashSuccess) {
+                toastr.success("{{session('success')}}");
+            }
+            if (flashError) {
+                toastr.error("{{session('error')}}");
+            }
+        });
     </script>
+    {{--Footer--}}
+
 </body>
 </html>
