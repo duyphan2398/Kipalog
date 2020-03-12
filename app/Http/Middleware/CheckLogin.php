@@ -14,10 +14,10 @@ class CheckLogin
      * @param  \Closure  $next
      * @return mixed
      */
-    /*Nếu đăng nhập rồi thì KHÔNG cho qua*/
+    /*If logged in, will be back*/
     public function handle($request, Closure $next)
     {
-        if (Auth::user()|| Auth::guard('admin')->user()) {
+        if (Auth::user() || Auth::guard('admin')->user()) {
             return redirect()->back();
         }
         return $next($request);
