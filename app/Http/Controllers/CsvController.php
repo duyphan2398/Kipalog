@@ -5,7 +5,7 @@ use App\Models\User;
 use App\Services\CsvService;
 class CsvController extends Controller {
     public function import(){
-        $reader = new CsvService('csv/importUsers.xlsx');
+        $reader = new CsvService('csv/importUse.xlsx');
         $reader->importCsv();
     }
 

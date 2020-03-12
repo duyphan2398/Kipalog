@@ -40,7 +40,6 @@ class ImportCsvUsers extends Command
     public function handle()
     {
         $reader = new CsvService($this->option('path'));
-        ;
         if ($reader->importCsv()){
             $this->info('Done');
         }else{
