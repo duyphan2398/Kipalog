@@ -2,6 +2,8 @@
 
 namespace App\Console;
 
+use App\Console\Commands\ExportCsvUsers;
+use App\Console\Commands\ImportCsvUsers;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -13,7 +15,8 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        //
+        ImportCsvUsers::class,
+        ExportCsvUsers::class
     ];
 
     /**

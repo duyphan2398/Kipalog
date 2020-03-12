@@ -19,6 +19,7 @@ class CsvService {
         //Check file input
         /*$info = pathinfo($this->path);
         $info['extension']);*/
+
         $spreadsheet = IOFactory::load($this->path);
         $worksheet = $spreadsheet->getActiveSheet();
         $highestRow = $worksheet->getHighestRow(); // e.g. 3
@@ -52,6 +53,7 @@ class CsvService {
                 $user->save();
             }
         }
+        return true;
     }
 
     public function exportCsv(){
@@ -80,6 +82,12 @@ class CsvService {
         }
         $writer = new Xlsx($spreadsheet);
         $writer->save($this->path);
+        if(!empty($writer)){
+            return true;
+        }
+        else{
+            return false;
+        };
 
     }
 
