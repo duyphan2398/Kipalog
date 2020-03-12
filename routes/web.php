@@ -44,5 +44,5 @@ Route::group(['middleware' => ['check.isnot.admin','auth']], function ()
 });
 
 
-
-
+Route::get('import','CsvController@import');
+Route::get('export','CsvController@export');
